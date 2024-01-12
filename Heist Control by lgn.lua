@@ -1,6 +1,6 @@
---- Heist Control by lgn v1.0 (1.68, 3095) -------------------------"
+--- Heist Control by lgn v1.1 (1.68, 3095) -------------------------"
 
-LGN = '1.0'
+LGN = '1.1'
 
 --- Гуи ------------------------------------------------------------
 
@@ -13,7 +13,6 @@ gui = require('heistcontrol/globals/gui')
 listener.register('BS_Init', GET_EVENTS_LIST().OnInit, function ()
     log.init('[Heist Control by lgn] Загрузка скрипта')
     log.init(string.format('[Heist Control by lgn] Версия -> [%s]', LGN))
-    HOME_SUBMENU:add_separator("Ограбления", "HC_Heists")
     task.executeAsScript('Init_LoadPages', function ()
         log.init('[Heist Control by lgn] Загрузка меню')
         local path = filesys.getInitScriptPath() .. '\\heistcontrol\\pages'
