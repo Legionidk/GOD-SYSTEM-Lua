@@ -1,4 +1,4 @@
----------------------------------------------------------------------
+--- Необходимые функции ---------------------------------------------
 
 local function stats_set(stat, value)
     hash = string.smart_joaat(''..stat..'')
@@ -16,3 +16,8 @@ Dre:add_click_option('Пропустить побочные миссии', 'HC_D
     stats_set('MP'..player_index..'_FIXER_STORY_STRAND', -1) -- Скип миссий
     notify.success('Dr Dre', 'Миссия успешно открыта')
 end):setHint('Пропускает побочные миссии, открывая последнюю («Не шутите с доктором Дре»).')
+
+Dre:add_click_option('Выставить максимальную выплату (2.5кк)', 'HC_Dre_MaxPayout', function()
+    script_global:new(262145):at(32071):set_int64(2500000)
+    notify.success('Dr Dre', 'Выплата успешно установлена')
+end):setHint('Активировать после запуска миссии.')
