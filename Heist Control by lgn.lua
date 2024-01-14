@@ -1,6 +1,6 @@
---- Heist Control by lgn v1.1 (1.68, 3095) -------------------------"
+--- Heist Control by lgn v1.2 (1.68, 3095) -------------------------"
 
-LGN = '1.1'
+LGN = '1.2'
 
 --- Гуи ------------------------------------------------------------
 
@@ -23,5 +23,7 @@ listener.register('BS_Init', GET_EVENTS_LIST().OnInit, function ()
                 require('heistcontrol/pages/' .. line .. '/' .. 'init')
             end
         end
+        Configs.loadConfig()
+        HotkeyService.loadHotkeys()
     end)
 end)
