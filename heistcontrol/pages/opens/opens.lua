@@ -1,3 +1,5 @@
+--- Маски -----------------------------------------------------------
+
 Opens:add_click_option('ЫЫЫ А ГИДЕ ТТЫ ТАКИЕ МАСКИ ВЗЯЛ', 'HC_Opens_TDMasks', function ()
     script_global:new(262145):at(33177):set_int64(-1285035231)
     script_global:new(262145):at(33178):set_int64(-328409810)
@@ -27,6 +29,8 @@ Opens:add_click_option('ЫЫЫ А ГИДЕ ТТЫ ТАКИЕ МАСКИ ВЗЯЛ
     script_global:new(262145):at(33202):set_int64(-1792568167)
     notify.success('Stuff', 'Маски открыты')
 end):setHint('Открывает маски технодемонов.')
+
+--- Премиальные транспорт -------------------------------------------
 
 Opens:add_click_option('Получить премиальный транспорт', 'HC_Opens_TDMasks', function ()
     player_index = script_global:new(1574915):get_int64()
