@@ -6,9 +6,9 @@ local json = require("heistcontrol/modules/JSON")
 require("heistcontrol/system/events_listener")
 
 local config = {
-    width = 350.0,
-    height = 500.0,
-    optionHeight = 30.0,
+    width = 350,
+    height = 500,
+    optionHeight = 30,
     selectedOption = 1,
     maxOptions = 12,
     isInputBoxDisplayed = false,
@@ -709,7 +709,8 @@ function HotkeyService.loadHotkeys()
             end
         end
     end)
-    log.default("Хоткей управление", "Хоткеи перезагружены.")
+    notify.success('Heist Control by lgn', 'Хоткеи загружены')
+    log.default("Heist Control by lgn", "Хоткеи перезагружены.")
 end
 
 function HotkeyService.registerHotkey(key_n, optionHash_s)
@@ -724,8 +725,8 @@ function HotkeyService.registerHotkey(key_n, optionHash_s)
                 for key, hashes in pairs(out) do
                     for index, hash in ipairs(hashes) do
                         if optionHash_s == hash then
-                            table.remove(out[features.getVirtualKeyViaID(key)], index)
-                            log.default("Хоткей управление", "Хоткей успешно перезаписан.")
+                            table.remove(out[features.getVirtualKeyViaID(key_n)], index)
+                            log.default("Heist Control by lgn", "Хоткей успешно перезаписан")
                         end
                     end
                 end
@@ -743,7 +744,7 @@ function HotkeyService.registerHotkey(key_n, optionHash_s)
 
     HotkeyService.loadHotkeys()
 
-    notify.success("Хоткей управление", "Хоткей успешно установлен.")
+    notify.success("Хоткей управление", "Хоткей успешно установлен")
 end
 
 function HotkeyService.removeHotkey(optionHash_s)
@@ -767,7 +768,7 @@ function HotkeyService.removeHotkey(optionHash_s)
     file:close()
 
     HotkeyService.loadHotkeys()
-    notify.success("Хоткей управление", "Хоткей успешно удален.")
+    notify.success("Хоткей управление", "Хоткей успешно удален")
 end
 
 listener.register("DrawUI_Hotkeys", GET_EVENTS_LIST().OnKeyPressed, function (key, isDown)
@@ -798,8 +799,8 @@ listener.register("DrawUI_Hotkeys", GET_EVENTS_LIST().OnKeyPressed, function (ke
             if config.notifyOnHotkey then notify.default("Hotkeys", string.format("%s \'%s\' option.", strState, option:getName())) end
         else
             option:setValue(option.value)
-            log.default("Hotkey service", string.format("Executed \'%s\' option.", option:getName()))
-            if config.notifyOnHotkey then notify.default("Hotkeys", string.format("Executed \'%s\' option.", option:getName())) end
+            log.default("Heist Control by lgn", string.format("Использован хоткей: \'%s\'", option:getName()))
+            if config.notifyOnHotkey then notify.default("Hotkeys", string.format("Использован хоткей: \'%s\'", option:getName())) end
         end
     end
 end)
@@ -1194,8 +1195,8 @@ Configs.saveConfig = function ()
     if not file then return end
     file:write(json:encode_pretty(out))
     file:close()
-    log.success("Настройки", "Конфиг обновлен.")
-    notify.success("Настройки", "Конфиг обновлен.")
+    log.success("Heist Control by lgn", "Конфиг обновлен")
+    notify.success("Настройки", "Конфиг обновлен")
 end
 
 Configs.loadConfig = function ()
@@ -1211,11 +1212,12 @@ Configs.loadConfig = function ()
                     end
                 end
             end
-            log.success("Настройки", "Конфиг загружен.")
-            notify.success("Настройки", "Конфиг загружен.")
+            log.success("Heist Control by lgn", "Конфиг загружен")
+            notify.success("Настройки", "Конфиг загружен")
         end)
     else
-        log.warning("Настройки", "Конфиг не создан.")
+        log.warning("Heist Control by lgn", "Конфиг не создан")
+        notify.warning("Настройки", "Конфиг загружен")
     end
 end
 
@@ -1453,15 +1455,15 @@ local settings = Submenu.add_static_submenu("Настройки меню", "Main
             option:setHint("Num * - открыть меню.")
         end
     end)
-    settings:add_float_option("Ширина меню", "Main_Settings_Width", 0.0, 800.0, 5.0, function (val)
+    settings:add_float_option("Ширина меню", "Main_Settings_Width", 0.0, 800, 5, function (val)
         config.width = val
     end):setValue(config.width)
-    settings:add_float_option("Высота опций", "Main_Settings_Height", 5.0, 40.0, 1.0, function (val)
+    settings:add_float_option("Высота опций", "Main_Settings_Height", 5, 40, 1, function (val)
         config.optionHeight = val
     end):setValue(config.optionHeight)
-    settings:add_float_option("Высота шапки", "Main_Settings_headerHeight", 0.0, 120.0, 1.0, function (val)
+    settings:add_float_option("Высота шапки", "Main_Settings_headerHeight", 0, 120, 1, function (val)
         config.headerHeight = val
-    end):setValue(config.headerHeight + .0)
+    end):setValue(config.headerHeight)
     settings:add_num_option("Расположение меню [X]", "Main_Settings_OffsetX", 0.0, draw.get_window_width(), 10, function (val, option)
         config.offset_x = val
         option:setHint("По горизонтали.")
@@ -1477,9 +1479,6 @@ local settings = Submenu.add_static_submenu("Настройки меню", "Main
         config.maxOptions = val
         option:setHint("Кол-во отображаемых опций на странице меню.")
     end):setValue(config.maxOptions)
-    settings:add_float_option("Задержка меню", "Main_Settings_InputDelay", 0.0, 1.0, 0.05, function (val)
-        config.inputDelay = val
-    end):setValue(config.inputDelay)
     settings:add_bool_option("Звуки", "Main_Settings_PlayMenuSounds", function (state)
         config.isClickSoundEnabled = state
     end):setValue(false)

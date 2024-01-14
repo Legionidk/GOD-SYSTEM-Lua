@@ -1,3 +1,4 @@
+local json = require("heistcontrol/modules/JSON")
 local parse = {}
 
 parse.json = function (path_s, callback_f)
