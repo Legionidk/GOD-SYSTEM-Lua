@@ -6,16 +6,17 @@ local function stats_set(stat, value)
 end
 
 local function clear(val1, val2, val3, val4)
-    if val1 or val2 or val3 or val4 == 'PAINT' then
+    if val1 == 'PAINT' then
         stats_set('MP'..player_index..'_H4LOOT_PAINT', 0)
         stats_set('MP'..player_index..'_H4LOOT_PAINT_SCOPED', 0)
         stats_set('MP'..player_index..'_H4LOOT_PAINT_V', 0)
+    else
+        stats_set('MP'..player_index..'_H4LOOT_'..val1..'_C', 0)
+        stats_set('MP'..player_index..'_H4LOOT_'..val1..'_C_SCOPED', 0)
+        stats_set('MP'..player_index..'_H4LOOT_'..val1..'_I', -0)
+        stats_set('MP'..player_index..'_H4LOOT_'..val1..'_I_SCOPED', -0)
+        stats_set('MP'..player_index..'_H4LOOT_'..val1..'_V', 0)
     end
-    stats_set('MP'..player_index..'_H4LOOT_'..val1..'_C', 0)
-    stats_set('MP'..player_index..'_H4LOOT_'..val1..'_C_SCOPED', 0)
-    stats_set('MP'..player_index..'_H4LOOT_'..val1..'_I', -0)
-    stats_set('MP'..player_index..'_H4LOOT_'..val1..'_I_SCOPED', -0)
-    stats_set('MP'..player_index..'_H4LOOT_'..val1..'_V', 0)
     stats_set('MP'..player_index..'_H4LOOT_'..val2..'_C', 0)
     stats_set('MP'..player_index..'_H4LOOT_'..val2..'_C_SCOPED', 0)
     stats_set('MP'..player_index..'_H4LOOT_'..val2..'_I', 0)
@@ -31,7 +32,6 @@ local function clear(val1, val2, val3, val4)
     stats_set('MP'..player_index..'_H4LOOT_'..val4..'_I', 0)
     stats_set('MP'..player_index..'_H4LOOT_'..val4..'_I_SCOPED', 0)
     stats_set('MP'..player_index..'_H4LOOT_'..val4..'_V', 0)
-    log.init('[Heist Control by lgn] Эти ошибки ничего не значат\n')
 end
 
 --- Настройка ограбления --------------------------------------------
@@ -78,13 +78,13 @@ function (pos)
     notify.success('Cayo', 'Успешно выбрано: ' ..main_position[pos])
 end)
 
-CayoSettings:add_choose_option('Второстепенная цель', 'HC_CayoSettings_Second', false, {'Золото', 'Картины', 'Кокаин', 'Травка', 'Деньги'},
+CayoSettings:add_choose_option('Второстепенная цель', 'HC_CayoSettings_Second', false, {'Золото', 'Картины', 'Кокаин', 'Марихуана', 'Деньги'},
 function (pos)
     main_position = {
         [1] = 'Золото',
         [2] = 'Картины',
         [3] = 'Кокаин',
-        [4] = 'Травка',
+        [4] = 'Марихуана',
         [5] = 'Деньги'
     }
     player_index = script_global:new(1574915):get_int64()
@@ -101,21 +101,21 @@ function (pos)
         stats_set('MP'..player_index..'_H4LOOT_PAINT_SCOPED', -1)
         stats_set('MP'..player_index..'_H4LOOT_PAINT_V', 403500)
     elseif pos == 3 then
-        clear('GOLD', 'PAINT', 'WEED', 'CASH')
+        clear('PAINT', 'GOLD', 'WEED', 'CASH')
         stats_set('MP'..player_index..'_H4LOOT_COKE_C', -1)
         stats_set('MP'..player_index..'_H4LOOT_COKE_C_SCOPED', -1)
         stats_set('MP'..player_index..'_H4LOOT_COKE_I', -1)
         stats_set('MP'..player_index..'_H4LOOT_COKE_I_SCOPED', -1)
         stats_set('MP'..player_index..'_H4LOOT_COKE_V', 330350)
     elseif pos == 4 then
-        clear('GOLD', 'PAINT', 'COKE', 'CASH')
+        clear( 'PAINT', 'GOLD', 'COKE', 'CASH')
         stats_set('MP'..player_index..'_H4LOOT_WEED_C', -1)
         stats_set('MP'..player_index..'_H4LOOT_WEED_C_SCOPED', -1)
         stats_set('MP'..player_index..'_H4LOOT_WEED_I', -1)
         stats_set('MP'..player_index..'_H4LOOT_WEED_I_SCOPED', -1)
         stats_set('MP'..player_index..'_H4LOOT_WEED_V', 330350)
     elseif pos == 5 then
-        clear('GOLD', 'PAINT', 'COKE', 'WEED')
+        clear( 'PAINT', 'GOLD', 'COKE', 'WEED')
         stats_set('MP'..player_index..'_H4LOOT_CASH_C', -1)
         stats_set('MP'..player_index..'_H4LOOT_CASH_C_SCOPED', -1)
         stats_set('MP'..player_index..'_H4LOOT_CASH_I', -1)
