@@ -2,7 +2,7 @@
 Вспомогательная луа для Midnight GTA:O. Меню позаимствовано из [BoolyScript](https://midnight.im/threads/7220/), скрипты для блэкджека и покера взяты у [Silent Night](https://www.unknowncheats.me/forum/grand-theft-auto-v/604599-silent-night.html).
 
 # Установка
-Переместить содержимое архива в папку \lua (рядом с лоадером).
+Переместить содержимое архива в папку `\lua` (рядом с лоадером).
 
 # Функционал
 ### Ограбления
