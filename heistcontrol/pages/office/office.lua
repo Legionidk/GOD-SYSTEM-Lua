@@ -31,12 +31,12 @@ end):setHint('Активировать после начала миссии.')
 
 Office:add_click_option('Удалить кд покупки груза', 'HC_Office_CdReset', function ()
     script_global:new(262145):at(15756):set_int64(0)
-    notify.success('HC_Office', 'Кд сброшено')
+    notify.success('HC_Office', 'Кд удалено')
 end)
 
 --- Удалить кд продажи ----------------------------------------------
 
 Office:add_click_option('Удалить кд продажи груза', 'HC_Office_SellCdReset', function ()
     script_global:new(262145):at(15757):set_int64(0)
-    notify.success('HC_Office', 'Кд сброшено')
+    notify.success('HC_Office', 'Кд удалено')
 end)
