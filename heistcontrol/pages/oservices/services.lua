@@ -25,17 +25,3 @@ Services:add_click_option('Вызвать Косатку', 'HC_Stuff_Kosatka', f
     script_global:new(2738587):at(960):set_int64(1)
     notify.success('Stuff', 'Вызвано')
 end)
-
---- Кислотка --------------------------------------------------------
-
-Services:add_click_option('Вызвать кислотную лабораторию', 'HC_Stuff_AcidReq', function ()
-    script_global:new(2738587):at(944):set_int64(1)
-    notify.success('Stuff', 'Вызвано')
-end)
-
---- Мотоцикл кислотки -----------------------------------------------
-
-Services:add_click_option('Вызвать мотоцикл кислотной лаборатории', 'HC_Stuff_AcidMotoReq', function ()
-    script_global:new(2738587):at(994):set_int64(1)
-    notify.success('Stuff', 'Вызвано')
-end)
