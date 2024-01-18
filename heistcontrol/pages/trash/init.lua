@@ -1,5 +1,5 @@
 Trash = Submenu.add_static_submenu('Другое', 'HC_Stuff_Trash')
-HOME_SUBMENU:add_sub_option('Другое', 'HC_Stuff_Trash', Trash):setHint('Юзлесс хуета для прикола.')
+HOME_SUBMENU:add_sub_option('Другое', 'HC_Stuff_Trash', Trash)
 
 --- Вызвать хренча --------------------------------------------------
 
@@ -12,14 +12,13 @@ end)
 --- Премиальные транспорт -------------------------------------------
 
 Trash:add_click_option('Получить премиальный транспорт', 'HC_Stuff_TDMasks', function ()
-    player_index = script_global:new(1574915):get_int64()
-    stat1 = 'MP'..player_index..'_CARMEET_PV_CHLLGE_CMPLT'
-    stat2 = 'MP'..player_index..'_CARMEET_PV_CLMED'
+    stat1 = 'MP'..local_player()..'_CARMEET_PV_CHLLGE_CMPLT'
+    stat2 = 'MP'..local_player()..'_CARMEET_PV_CLMED'
     hash1 = string.smart_joaat(stat1)
     hash2 = string.smart_joaat(stat2)
     stats.set_bool(hash1, true)
     stats.set_bool(hash2, false)
-    notify.success('Stuff', 'Машина получена')
+    notify.success('Stuff', 'Транспорт получен')
 end):setHint('Транспорт за испытание в автоклубе ЛС.')
 
 --- Телепортироваться к оружейному фургону --------------------------
