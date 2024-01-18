@@ -1,72 +1,3 @@
---- Необходимые функции ---------------------------------------------
-
-local function stats_set(stat, value)
-    hash = string.smart_joaat(stat)
-    stats.set_u32(hash, value)
-end
-
--- автор скрипта SilentHy6
--- https://www.unknowncheats.me/forum/grand-theft-auto-v/604599-silent-night.html
-local function CasinoCardNameGetter(index)
-    if index == 0 then
-        return '...'
-    end
-    card_number = math.fmod(index, 13)
-    card_name = ''
-    card_suit = ''
-    if card_number == 1 then
-        card_name = 'A'
-    elseif card_number == 0 then
-        card_name = 'K'
-    elseif card_number == 12 then
-        card_name = 'Q'
-    elseif card_number == 11 then
-        card_name = 'J'
-    else
-        card_name = tostring(card_number)
-    end
-    if index >= 1 and index <= 13 then
-        card_suit = ' (Крести)'
-    elseif index >= 14 and index <= 26 then
-        card_suit = ' (Буби)'
-    elseif index >= 27 and index <= 39 then
-        card_suit = ' (Черви)'
-    elseif index >= 40 and index <= 52 then
-        card_suit = ' (Пики)'
-    end
-    return card_name .. card_suit
-end
-
--- автор скрипта SilentHy6
--- https://www.unknowncheats.me/forum/grand-theft-auto-v/604599-silent-night.html
-local function PokerCardsSetter(ID, current_table, card1, card2, card3)
-    script_local:new('three_card_poker', 114 + 168 + 1 + (current_table * 55) + 2 + 1 + (ID * 3)):set_int64(card1)
-    script_local:new('three_card_poker', 114 + 168 + 1 + (current_table * 55) + 2 + 2 + (ID * 3)):set_int64(card2)
-    script_local:new('three_card_poker', 114 + 168 + 1 + (current_table * 55) + 2 + 3 + (ID * 3)):set_int64(card3)
-    script_local:new('three_card_poker', 1036 + 799 + 1 + 1 + (current_table * 55) + 1 + (ID * 3)):set_int64(card1)
-    script_local:new('three_card_poker', 1036 + 799 + 1 + 1 + (current_table * 55) + 2 + (ID * 3)):set_int64(card2)
-    script_local:new('three_card_poker', 1036 + 799 + 1 + 1 + (current_table * 55) + 3 + (ID * 3)):set_int64(card3)
-end
-
--- автор скрипта SilentHy6
--- https://www.unknowncheats.me/forum/grand-theft-auto-v/604599-silent-night.html
-local function PlayerID()
-    return script_global:new(2672761):get_int64()
-end
-
--- автор скрипта SilentHy6
--- https://www.unknowncheats.me/forum/grand-theft-auto-v/604599-silent-night.html
-local function PokerDealersIDGetter(current_table)
-    players = 0
-    for i = 0, 31 do
-        players_table = script_local:new('three_card_poker', 747 + 1 + (i * 9) + 2):get_int64()
-        if i ~= PlayerID() and players_table == current_table then
-            players = players + 1
-        end
-        return players + 1
-    end
-end
-
 --- Блэкджек --------------------------------------------------------
 
 Casino = Submenu.add_static_submenu('Казино', 'HC_Casino')
@@ -145,7 +76,7 @@ Poker:add_click_option('Выдать стрит-флеш', 'HC_Poker_SF', functi
             notify.warning('Bj', 'Ошибка, попробуйте еще раз')
         end
     end
-end):setHint('Использовать перед ставкой / можно нажать Enter одновременно ставя ставку и активируя функцию.')
+end):setHint('Активировать перед ставкой.')
 
 --- Покер (дилер) ---------------------------------------------------
 
@@ -179,7 +110,7 @@ Poker:add_click_option('Обмануть дилера', 'HC_Poker_Trick', functi
     else
         notify.warning('Bj', 'Ошибка, попробуйте еще раз')
     end
-end):setHint('Выдает дилеру 2 (крести) / 4 (буби) / 6 (черви). Использовать перед ставкой / можно нажать Enter одновременно ставя ставку и активируя функцию.')
+end):setHint('Использовать перед ставкой.')
 
 --- Дроп из колеса --------------------------------------------------
 
@@ -215,7 +146,7 @@ end)
 
 --- Кд фишек --------------------------------------------------------
 
-Casino:add_click_option('Сброс кд покупки фишек', 'HC_Chips_ResetCd', function()
+Casino:add_click_option('Сбросить кд покупки фишек', 'HC_Chips_ResetCd', function()
     stats_set('MPPLY_CASINO_CHIPS_PUR_GD', 0)
     stats_set('MPPLY_CASINO_CHIPS_PURTIM', 0)
     notify.success('Stuff', 'Кд сброшено')
