@@ -1,10 +1,10 @@
 --- Луп ящиков -------------------------------------------------
 
 Office:add_looped_option('Афк фарм ящиков', 'HC_Office_Afk', 1, function ()
-    stat = 'MP'..local_player()..'_FIXERPSTAT_BOOL1'
+    stat = 'MP'..mp()..'_FIXERPSTAT_BOOL1'
     hash = string.smart_joaat(stat)
     for i = 12, 16 do
-        stats.set_masked_int(hash, 1, i, local_player())
+        stats.set_masked_int(hash, 1, i, mp())
     end
 end, function ()
     notify.success('HC_Office', 'Фарм выключен')
