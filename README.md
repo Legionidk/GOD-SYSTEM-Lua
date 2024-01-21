@@ -1,4 +1,4 @@
-# Heist-Control ![](https://img.shields.io/badge/1.3.2-7393B3)
+# Heist-Control ![](https://img.shields.io/badge/1.3.3-7393B3)
 ![](https://img.shields.io/badge/%D0%92%D0%B5%D1%80%D1%81%D0%B8%D1%8F_%D0%B8%D0%B3%D1%80%D1%8B-1.68-yellow) ![](https://img.shields.io/badge/%D0%A1%D0%B1%D0%BE%D1%80%D0%BA%D0%B0-3095-yellow)
 
 Вспомогательная луа для Midnight GTA:O. Меню позаимствовано из [BoolyScript](https://midnight.im/threads/7220/), некоторые скрипты взяты у [Silent Night](https://www.unknowncheats.me/forum/grand-theft-auto-v/604599-silent-night.html).
