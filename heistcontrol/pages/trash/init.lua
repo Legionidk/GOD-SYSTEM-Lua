@@ -12,8 +12,8 @@ end)
 --- Премиальные транспорт -------------------------------------------
 
 Trash:add_click_option('Получить премиальный транспорт', 'HC_Stuff_TDMasks', function ()
-    stat1 = 'MP'..local_player()..'_CARMEET_PV_CHLLGE_CMPLT'
-    stat2 = 'MP'..local_player()..'_CARMEET_PV_CLMED'
+    stat1 = 'MP'..mp()..'_CARMEET_PV_CHLLGE_CMPLT'
+    stat2 = 'MP'..mp()..'_CARMEET_PV_CLMED'
     hash1 = string.smart_joaat(stat1)
     hash2 = string.smart_joaat(stat2)
     stats.set_bool(hash1, true)
