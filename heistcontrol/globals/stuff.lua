@@ -48,6 +48,10 @@ function local_player()
     return player.index()
 end
 
+function mp()
+    return script_global:new(1574915):get_int64()
+end
+
 draw.crop_text = function (text_s, len_n)
     if len_n <= 0 then return "" end
     if string.len(text_s) == 0 then return "" end
@@ -70,31 +74,31 @@ end
 
 function clear(val1, val2, val3, val4)
     if val1 == 'PAINT' then
-        stats_set('MP'..local_player()..'_H4LOOT_PAINT', 0)
-        stats_set('MP'..local_player()..'_H4LOOT_PAINT_SCOPED', 0)
-        stats_set('MP'..local_player()..'_H4LOOT_PAINT_V', 0)
+        stats_set('MP'..mp()..'_H4LOOT_PAINT', 0)
+        stats_set('MP'..mp()..'_H4LOOT_PAINT_SCOPED', 0)
+        stats_set('MP'..mp()..'_H4LOOT_PAINT_V', 0)
     else
-        stats_set('MP'..local_player()..'_H4LOOT_'..val1..'_C', 0)
-        stats_set('MP'..local_player()..'_H4LOOT_'..val1..'_C_SCOPED', 0)
-        stats_set('MP'..local_player()..'_H4LOOT_'..val1..'_I', -0)
-        stats_set('MP'..local_player()..'_H4LOOT_'..val1..'_I_SCOPED', -0)
-        stats_set('MP'..local_player()..'_H4LOOT_'..val1..'_V', 0)
+        stats_set('MP'..mp()..'_H4LOOT_'..val1..'_C', 0)
+        stats_set('MP'..mp()..'_H4LOOT_'..val1..'_C_SCOPED', 0)
+        stats_set('MP'..mp()..'_H4LOOT_'..val1..'_I', -0)
+        stats_set('MP'..mp()..'_H4LOOT_'..val1..'_I_SCOPED', -0)
+        stats_set('MP'..mp()..'_H4LOOT_'..val1..'_V', 0)
     end
-    stats_set('MP'..local_player()..'_H4LOOT_'..val2..'_C', 0)
-    stats_set('MP'..local_player()..'_H4LOOT_'..val2..'_C_SCOPED', 0)
-    stats_set('MP'..local_player()..'_H4LOOT_'..val2..'_I', 0)
-    stats_set('MP'..local_player()..'_H4LOOT_'..val2..'_I_SCOPED', -0)
-    stats_set('MP'..local_player()..'_H4LOOT_'..val2..'_V', 0)
-    stats_set('MP'..local_player()..'_H4LOOT_'..val3..'_C', 0)
-    stats_set('MP'..local_player()..'_H4LOOT_'..val3..'_C_SCOPED', 0)
-    stats_set('MP'..local_player()..'_H4LOOT_'..val3..'_I', 0)
-    stats_set('MP'..local_player()..'_H4LOOT_'..val3..'_I_SCOPED', 0)
-    stats_set('MP'..local_player()..'_H4LOOT_'..val3..'_V', 0)
-    stats_set('MP'..local_player()..'_H4LOOT_'..val4..'_C', 0)
-    stats_set('MP'..local_player()..'_H4LOOT_'..val4..'_C_SCOPED', 0)
-    stats_set('MP'..local_player()..'_H4LOOT_'..val4..'_I', 0)
-    stats_set('MP'..local_player()..'_H4LOOT_'..val4..'_I_SCOPED', 0)
-    stats_set('MP'..local_player()..'_H4LOOT_'..val4..'_V', 0)
+    stats_set('MP'..mp()..'_H4LOOT_'..val2..'_C', 0)
+    stats_set('MP'..mp()..'_H4LOOT_'..val2..'_C_SCOPED', 0)
+    stats_set('MP'..mp()..'_H4LOOT_'..val2..'_I', 0)
+    stats_set('MP'..mp()..'_H4LOOT_'..val2..'_I_SCOPED', -0)
+    stats_set('MP'..mp()..'_H4LOOT_'..val2..'_V', 0)
+    stats_set('MP'..mp()..'_H4LOOT_'..val3..'_C', 0)
+    stats_set('MP'..mp()..'_H4LOOT_'..val3..'_C_SCOPED', 0)
+    stats_set('MP'..mp()..'_H4LOOT_'..val3..'_I', 0)
+    stats_set('MP'..mp()..'_H4LOOT_'..val3..'_I_SCOPED', 0)
+    stats_set('MP'..mp()..'_H4LOOT_'..val3..'_V', 0)
+    stats_set('MP'..mp()..'_H4LOOT_'..val4..'_C', 0)
+    stats_set('MP'..mp()..'_H4LOOT_'..val4..'_C_SCOPED', 0)
+    stats_set('MP'..mp()..'_H4LOOT_'..val4..'_I', 0)
+    stats_set('MP'..mp()..'_H4LOOT_'..val4..'_I_SCOPED', 0)
+    stats_set('MP'..mp()..'_H4LOOT_'..val4..'_V', 0)
 end
 
 -- автор скрипта SilentHy6
