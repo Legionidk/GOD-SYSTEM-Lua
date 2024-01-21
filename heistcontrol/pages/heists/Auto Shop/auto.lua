@@ -24,18 +24,18 @@ Auto:add_choose_option('Выбрать заказ', 'HC_Auto_MissionSelect', fal
         [7] = 6,
         [8] = 7
     }
-    stats_set('MP'..local_player()..'_TUNER_CURRENT', pos_val[pos])
+    stats_set('MP'..mp()..'_TUNER_CURRENT', pos_val[pos])
     notify.success('Auto', 'Успешно выбрано: ' ..pos_name[pos])
 end):setHint('Изменяет уже выбранный заказ на доске.')
 
 --- Скип подготовительных -------------------------------------------
 
 Auto:add_click_option('Выполнить подготовительные', 'HC_Auto_SkipPreps', function ()
-    hash = string.smart_joaat('MP'..local_player()..'_TUNER_CURRENT')
+    hash = string.smart_joaat('MP'..mp()..'_TUNER_CURRENT')
     if stats.get_u32(hash) == 1 then
-        stats_set('MP'..local_player()..'_TUNER_GEN_BS', 4351)
+        stats_set('MP'..mp()..'_TUNER_GEN_BS', 4351)
     else
-        stats_set('MP'..local_player()..'_TUNER_GEN_BS', 12543)
+        stats_set('MP'..mp()..'_TUNER_GEN_BS', 12543)
     end
     notify.success('Auto', 'Подготовительные выполнены')
 end)
