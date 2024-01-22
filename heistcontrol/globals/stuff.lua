@@ -44,10 +44,6 @@ Addreses = {
 
 GetSelectedPlayer = function () end
 
-function local_player()
-    return player.index()
-end
-
 function mp()
     return script_global:new(1574915):get_int64()
 end
@@ -146,17 +142,11 @@ end
 
 -- автор скрипта SilentHy6
 -- https://www.unknowncheats.me/forum/grand-theft-auto-v/604599-silent-night.html
-function PlayerID()
-    return script_global:new(2672761):get_int64()
-end
-
--- автор скрипта SilentHy6
--- https://www.unknowncheats.me/forum/grand-theft-auto-v/604599-silent-night.html
 function PokerDealersIDGetter(current_table)
     players = 0
     for i = 0, 31 do
         players_table = script_local:new('three_card_poker', 747 + 1 + (i * 9) + 2):get_int64()
-        if i ~= PlayerID() and players_table == current_table then
+        if i ~= player.index() and players_table == current_table then
             players = players + 1
         end
         return players + 1
