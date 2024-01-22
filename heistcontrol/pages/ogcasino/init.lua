@@ -9,7 +9,7 @@ Casino:add_sub_option('Блэкджек', 'HC_Bj', Bj)
 -- автор скрипта SilentHy6
 -- https://www.unknowncheats.me/forum/grand-theft-auto-v/604599-silent-night.html
 Bj:add_state_bar('Скрытая карта дилера', 'HC_Bj_DealerCard', function ()
-    current_table = script_local:new('blackjack', 1774 + 1 + (PlayerID() * 8) + 4):get_int64()
+    current_table = script_local:new('blackjack', 1774 + 1 + (player.index() * 8) + 4):get_int64()
     if current_table == 0 then
         card = script_local:new('blackjack', 114 + 846 + 1 + (current_table * 13) + 1):get_int64()
         return CasinoCardNameGetter(card)
@@ -23,7 +23,7 @@ end)
 -- автор скрипта SilentHy6
 -- https://www.unknowncheats.me/forum/grand-theft-auto-v/604599-silent-night.html
 Bj:add_click_option('Обмануть дилера', 'HC_Bj_Trick', function ()
-    current_table = script_local:new('blackjack', 1774 + 1 + (PlayerID() * 8) + 4):get_int64()
+    current_table = script_local:new('blackjack', 1774 + 1 + (player.index() * 8) + 4):get_int64()
     if current_table == 0 then
         script_local:new('blackjack', 114 + 846 + 1 + (current_table * 13) + 1):set_int64(11)
         script_local:new('blackjack', 114 + 846 + 1 + (current_table * 13) + 2):set_int64(12)
@@ -45,14 +45,14 @@ Poker:add_separator('Игрок', 'HC_Poker_SepPlayer')
 -- автор скрипта SilentHy6
 -- https://www.unknowncheats.me/forum/grand-theft-auto-v/604599-silent-night.html
 Poker:add_state_bar('Карты игрока', 'HC_Poker_PlayerCards', function ()
-    if PlayerID() ~= 0 then
+    if player.index() ~= 0 then
         return 'Не работает в открытой сессии'
     else
-        current_table = script_local:new('three_card_poker', 747 + 1 + (PlayerID() * 9) + 2):get_int64()
+        current_table = script_local:new('three_card_poker', 747 + 1 + (player.index() * 9) + 2):get_int64()
         if current_table == 0 then
-            card1 = script_local:new('three_card_poker', 114 + 168 + 1 + (current_table * 55) + 2 + 1 + (PlayerID() * 3)):get_int64()
-            card2 = script_local:new('three_card_poker', 114 + 168 + 1 + (current_table * 55) + 2 + 2 + (PlayerID() * 3)):get_int64()
-            card3 = script_local:new('three_card_poker', 114 + 168 + 1 + (current_table * 55) + 2 + 3 + (PlayerID() * 3)):get_int64()
+            card1 = script_local:new('three_card_poker', 114 + 168 + 1 + (current_table * 55) + 2 + 1 + (player.index() * 3)):get_int64()
+            card2 = script_local:new('three_card_poker', 114 + 168 + 1 + (current_table * 55) + 2 + 2 + (player.index() * 3)):get_int64()
+            card3 = script_local:new('three_card_poker', 114 + 168 + 1 + (current_table * 55) + 2 + 3 + (player.index() * 3)):get_int64()
             return CasinoCardNameGetter(card1)..' / '..CasinoCardNameGetter(card2)..' / '..CasinoCardNameGetter(card3)
         else
             return '... / ... / ...'
@@ -65,15 +65,15 @@ end)
 -- автор скрипта SilentHy6
 -- https://www.unknowncheats.me/forum/grand-theft-auto-v/604599-silent-night.html
 Poker:add_click_option('Выдать стрит-флеш', 'HC_Poker_SF', function ()
-    if PlayerID() ~= 0 then
-        notify.fatal('Bj', 'Ошибка, функция не работает в открытой сессии')
+    if player.index() ~= 0 then
+        notify.fatal('Poker', 'Ошибка, функция не работает в открытой сессии')
     else
-        current_table = script_local:new('three_card_poker', 747 + 1 + (PlayerID() * 9) + 2):get_int64()
+        current_table = script_local:new('three_card_poker', 747 + 1 + (player.index() * 9) + 2):get_int64()
         if current_table == 0 then
-            PokerCardsSetter(PlayerID(), current_table, 50, 51, 52)
+            PokerCardsSetter(player.index(), current_table, 50, 51, 52)
             notify.success('Poker', 'Стрит-флеш выдан')
         else
-            notify.warning('Bj', 'Ошибка, попробуйте еще раз')
+            notify.warning('Poker', 'Ошибка, попробуйте еще раз')
         end
     end
 end):setHint('Активировать перед ставкой.')
@@ -85,7 +85,7 @@ Poker:add_separator('Дилер', 'HC_Poker_SepDealer')
 -- автор скрипта SilentHy6
 -- https://www.unknowncheats.me/forum/grand-theft-auto-v/604599-silent-night.html
 Poker:add_state_bar('Карты дилера', 'HC_Poker_DealerCards', function ()
-    current_table = script_local:new('three_card_poker', 747 + 1 + (PlayerID() * 9) + 2):get_int64()
+    current_table = script_local:new('three_card_poker', 747 + 1 + (player.index() * 9) + 2):get_int64()
     if current_table == 0 then
         DealerID = PokerDealersIDGetter(current_table)
         card1 = script_local:new('three_card_poker', 114 + 168 + 1 + (current_table * 55) + 2 + 1 + (DealerID * 3)):get_int64()
@@ -102,13 +102,13 @@ end)
 -- автор скрипта SilentHy6
 -- https://www.unknowncheats.me/forum/grand-theft-auto-v/604599-silent-night.html
 Poker:add_click_option('Обмануть дилера', 'HC_Poker_Trick', function ()
-    current_table = script_local:new('three_card_poker', 747 + 1 + (PlayerID() * 9) + 2):get_int64()
+    current_table = script_local:new('three_card_poker', 747 + 1 + (player.index() * 9) + 2):get_int64()
     if current_table == 0 then
         DealerID = PokerDealersIDGetter(current_table)
         PokerCardsSetter(DealerID, current_table, 2, 17, 32)
         notify.success('Poker', 'Дилер обманут')
     else
-        notify.warning('Bj', 'Ошибка, попробуйте еще раз')
+        notify.warning('Poker', 'Ошибка, попробуйте еще раз')
     end
 end):setHint('Использовать перед ставкой.')
 
