@@ -31,7 +31,7 @@ Bj:add_click_option('Обмануть дилера', 'HC_Bj_Trick', function ()
         script_local:new('blackjack', 114 + 846 + 1 + (current_table * 13) + 12):set_int64(3)
         notify.success('Bj', 'Дилер обманут')
     else
-        notify.warning('Bj', 'Ошибка, попробуйте еще раз')
+        notify.fatal('Bj', 'Ошибка, попробуйте еще раз')
     end
 end):setHint('Меняет карты дилера на перебор.')
 
@@ -73,7 +73,7 @@ Poker:add_click_option('Выдать стрит-флеш', 'HC_Poker_SF', functi
             PokerCardsSetter(player.index(), current_table, 50, 51, 52)
             notify.success('Poker', 'Стрит-флеш выдан')
         else
-            notify.warning('Poker', 'Ошибка, попробуйте еще раз')
+            notify.fatal('Poker', 'Ошибка, попробуйте еще раз')
         end
     end
 end):setHint('Активировать перед ставкой.')
@@ -108,7 +108,7 @@ Poker:add_click_option('Обмануть дилера', 'HC_Poker_Trick', functi
         PokerCardsSetter(DealerID, current_table, 2, 17, 32)
         notify.success('Poker', 'Дилер обманут')
     else
-        notify.warning('Poker', 'Ошибка, попробуйте еще раз')
+        notify.fatal('Poker', 'Ошибка, попробуйте еще раз')
     end
 end):setHint('Использовать перед ставкой.')
 
