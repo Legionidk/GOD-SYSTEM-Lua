@@ -164,7 +164,7 @@ Cayo:add_click_option('Мгновенно завершить', 'HC_CayoInsta', f
         script_local:new('fm_mission_controller_2020', 48513 + 1765 + 1):set_int64(50)
         notify.success('Cayo', 'Ограбление завершено')
     else
-        notify.warning('Cayo', 'Ошибка, попробуйте еще раз')
+        notify.fatal('Cayo', 'Ошибка, попробуйте еще раз')
     end
 end)
 
