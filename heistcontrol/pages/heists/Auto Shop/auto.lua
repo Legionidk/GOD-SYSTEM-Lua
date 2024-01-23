@@ -57,6 +57,6 @@ Auto:add_click_option('Мгновенно завершить', 'HC_Auto_Insta', 
         script_local:new('fm_mission_controller_2020', 48513 + 1765 + 1):set_int64(101)
         notify.success('Auto', 'Заказ завершен')
     else
-        notify.warning('Auto', 'Ошибка, попробуйте еще раз')
+        notify.fatal('Auto', 'Ошибка, попробуйте еще раз')
     end
 end)
