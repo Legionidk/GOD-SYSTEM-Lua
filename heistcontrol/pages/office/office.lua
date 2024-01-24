@@ -1,18 +1,16 @@
 --- Офис ------------------------------------------------------------
 
 Office:add_state_bar('Ваш офис', 'HC_Office_Name', function ()
-    hash = string.smart_joaat('mp'..mp()..'_prop_office')
-    return Apartments[stats.get_u32(hash)].name
+    return Apartments[stats.get_u32(string.smart_joaat('mp'..mp()..'_prop_office'))].name
 end)
 
 --- Тп к офису ------------------------------------------------------
 
 Office:add_click_option('Телепортироваться к офису', 'HC_Office_Tp', function ()
-    hash = string.smart_joaat('mp'..mp()..'_prop_office')
-    if Apartments[stats.get_u32(hash)].name == 'Офис не найден' then
-        notify.fatal('HC_Office', Apartments[stats.get_u32(hash)].name)
+    if Apartments[stats.get_u32(string.smart_joaat('mp'..mp()..'_prop_office'))].name == 'Офис не найден' then
+        notify.fatal('HC_Office', Apartments[stats.get_u32(string.smart_joaat('mp'..mp()..'_prop_office'))].name)
     else
-        utils.teleport(Apartments[stats.get_u32(hash)].coords.x, Apartments[stats.get_u32(hash)].coords.y, Apartments[stats.get_u32(hash)].coords.z)
+        utils.teleport(Apartments[stats.get_u32(string.smart_joaat('mp'..mp()..'_prop_office'))].coords.x, Apartments[stats.get_u32(string.smart_joaat('mp'..mp()..'_prop_office'))].coords.y, Apartments[stats.get_u32(string.smart_joaat('mp'..mp()..'_prop_office'))].coords.z)
     end
 end)
 
@@ -21,26 +19,40 @@ end)
 WAREHOUSE = Submenu.add_static_submenu('Склады', 'HC_Office_WAREHOUSE')
 Office:add_sub_option('Склады', 'HC_Office_WAREHOUSE', WAREHOUSE)
 
---- Склады ------------------------------------------------------
-
-WAREHOUSE:add_state_bar('Досупно', 'HC_Office_Available', function ()
+WAREHOUSE:add_state_bar('Всего доступно', 'HC_Office_TAvailable', function ()
     total = 0
     for i = 0, 4 do
-        hash = string.smart_joaat('MP'..mp()..'_CONTOTALFORWHOUSE'..i)
-        total = total + stats.get_u32(hash)
+        total = total + stats.get_u32(string.smart_joaat('MP'..mp()..'_CONTOTALFORWHOUSE'..i))
     end
     total_owned = 0
     for j = 0, 4 do
-        hash = string.smart_joaat('MP'..mp()..'_PROP_WHOUSE_SLOT'..j)
-        total_owned = total_owned + Warehouse[stats.get_u32(hash)].capacity
+        total_owned = total_owned + Warehouse[stats.get_u32(string.smart_joaat('MP'..mp()..'_PROP_WHOUSE_SLOT'..j))].capacity
     end
     return total..' / '..total_owned
 end)
 
+--- Склады вкладки --------------------------------------------------
+
+for j = 0, 4 do
+    name = Warehouse[stats.get_u32(string.smart_joaat('MP'..mp()..'_PROP_WHOUSE_SLOT'..j))].name
+    WH = Submenu.add_static_submenu(name, 'HC_Office_WH'..j)
+    WAREHOUSE:add_sub_option(name, 'HC_Office_WH'..j, WH)
+
+    WH:add_state_bar('Доступно', 'HC_Office_WH'..j..'Available', function ()
+        return stats.get_u32(string.smart_joaat('MP'..mp()..'_CONTOTALFORWHOUSE'..j))..' / '..Warehouse[stats.get_u32(string.smart_joaat('MP'..mp()..'_PROP_WHOUSE_SLOT'..j))].capacity
+    end)
+    WH:add_click_option('Телепортироваться', 'HC_Office_WH'..j..'TP', function ()
+        utils.teleport(Warehouse[stats.get_u32(string.smart_joaat('MP'..mp()..'_PROP_WHOUSE_SLOT'..j))].coords.x, Warehouse[stats.get_u32(string.smart_joaat('MP'..mp()..'_PROP_WHOUSE_SLOT'..j))].coords.y, Warehouse[stats.get_u32(string.smart_joaat('MP'..mp()..'_PROP_WHOUSE_SLOT'..j))].coords.z)
+    end)
+end
+
+--- Афк фарм --------------------------------------------------------
+
+WAREHOUSE:add_separator('Функции', 'HC_Office_WAREHOUSE_Sep')
+
 WAREHOUSE:add_looped_option('Афк фарм ящиков', 'HC_Office_Afk', 1, function ()
-    hash = string.smart_joaat('MP'..mp()..'_FIXERPSTAT_BOOL1')
     for i = 12, 16 do
-        stats.set_masked_int(hash, 1, i, mp())
+        stats.set_masked_int(string.smart_joaat('MP'..mp()..'_FIXERPSTAT_BOOL1'), 1, i, mp())
     end
 end, function ()
     notify.success('HC_Office', 'Фарм выключен')
