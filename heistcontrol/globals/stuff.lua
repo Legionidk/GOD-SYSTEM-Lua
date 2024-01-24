@@ -59,7 +59,7 @@ Warehouse = {
     [5]  = {name = 'Изъятый гараж',         capacity = 16,      coords = {x = -424.828,  y = 185.825,    z = 80.775 }}, -- 'MP_WHOUSE_4',
     [6]  = {name = 'Газовая фабрика Xero',          capacity = 111,     coords = {x = -1042.482, y = -2023.516,  z = 13.1616}}, -- 'MP_WHOUSE_5',
     [7]  = {name = 'Derriere на Бэклот', capacity = 42,      coords = {x = -1268.119, y = -812.2741,  z = 17.1075}}, -- 'MP_WHOUSE_6',
-    [8]  = {name = 'Склад Bilgeco',         capacity = 111,     coords = {x = -873.65,   y = -2738.948,  z = 13.9438}}, -- 'MP_WHOUSE_7',
+    [8]  = {name = 'Склад Bilgeco',         capacity = 111,     coords = {x = -874,   y = -2736,  z = 13.9438}}, -- 'MP_WHOUSE_7',
     [9]  = {name = 'Пирс 400, хозяйственный блок', capacity = 16,      coords = {x = 274.5224,  y = -3015.413,  z = 5.6993 }}, -- 'MP_WHOUSE_8',
     [10] = {name = 'Склад GEE',             capacity = 42,      coords = {x = 1569.69,   y = -2129.792,  z = 78.3351}}, -- 'MP_WHOUSE_9',
     [11] = {name = 'Портовый склад №3',      capacity = 42,      coords = {x = -315.551,  y = -2698.654,  z = 7.5495 }}, -- 'MP_WHOUSE_10',
