@@ -4,8 +4,8 @@ Dre = Submenu.add_static_submenu('Агенство', 'HC_Agency')
 Heists:add_sub_option('Агенство', 'HC_Agency', Dre)
 
 Dre:add_click_option('Выполнить подготовительные', 'HC_Dre', function()
-    stats_set('MP'..mp()..'_FIXER_STORY_BS', 4092) -- Скип миссий
-    stats_set('MP'..mp()..'_FIXER_STORY_STRAND', -1) -- Скип миссий
+    stats.set_u32(string.smart_joaat('MP'..mp()..'_FIXER_STORY_BS'), 4092)
+    stats.set_u32(string.smart_joaat('MP'..mp()..'_FIXER_STORY_STRAND'), -1)
     notify.success('Dr Dre', 'Подготовительные выполнены')
 end)
 
