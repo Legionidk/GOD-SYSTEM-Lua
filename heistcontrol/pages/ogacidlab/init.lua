@@ -8,16 +8,14 @@ Acid:add_click_option('Пополнить сырье', 'HC_Acid_InstResupply', f
     notify.success('Acid', 'Сырье пополнено')
 end)
 
---- Кислотка --------------------------------------------------------
+--- Вызовы --------------------------------------------------------
 
-Acid:add_click_option('Вызвать кислотную лабораторию', 'HC_Stuff_AcidReq', function ()
-    script_global:new(2738587):at(944):set_int64(1)
-    notify.success('Stuff', 'Кислотная лаборатория вызвана')
-end)
-
---- Мотоцикл кислотки -----------------------------------------------
-
-Acid:add_click_option('Вызвать мотоцикл кислотной лаборатории', 'HC_Stuff_AcidMotoReq', function ()
-    script_global:new(2738587):at(994):set_int64(1)
-    notify.success('Stuff', 'Мотоцикл кислотной лаборатории вызван')
+Acid:add_choose_option('Вызвать', 'HC_Acid_Req', false, {'Кислотную лабораторию', 'Мотоцикл кислотной лаборатории'}, function (pos)
+    if pos == 1 then
+        script_global:new(2738587):at(944):set_int64(1)
+        notify.success('Stuff', 'Кислотная лаборатория вызвана')
+    else
+        script_global:new(2738587):at(994):set_int64(1)
+        notify.success('Stuff', 'Мотоцикл кислотной лаборатории вызван')
+    end
 end)
