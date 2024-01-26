@@ -87,10 +87,9 @@ Poker:add_separator('Дилер', 'HC_Poker_SepDealer')
 Poker:add_state_bar('Карты дилера', 'HC_Poker_DealerCards', function ()
     current_table = script_local:new('three_card_poker', 747 + 1 + (player.index() * 9) + 2):get_int64()
     if current_table == 0 then
-        DealerID = PokerDealersIDGetter(current_table)
-        card1 = script_local:new('three_card_poker', 114 + 168 + 1 + (current_table * 55) + 2 + 1 + (DealerID * 3)):get_int64()
-        card2 = script_local:new('three_card_poker', 114 + 168 + 1 + (current_table * 55) + 2 + 2 + (DealerID * 3)):get_int64()
-        card3 = script_local:new('three_card_poker', 114 + 168 + 1 + (current_table * 55) + 2 + 3 + (DealerID * 3)):get_int64()
+        card1 = script_local:new('three_card_poker', 114 + 168 + 1 + (current_table * 55) + 2 + 1 + (PokerDealersIDGetter(current_table) * 3)):get_int64()
+        card2 = script_local:new('three_card_poker', 114 + 168 + 1 + (current_table * 55) + 2 + 2 + (PokerDealersIDGetter(current_table) * 3)):get_int64()
+        card3 = script_local:new('three_card_poker', 114 + 168 + 1 + (current_table * 55) + 2 + 3 + (PokerDealersIDGetter(current_table) * 3)):get_int64()
         return CasinoCardNameGetter(card1)..' / '..CasinoCardNameGetter(card2)..' / '..CasinoCardNameGetter(card3)
     else
         return '... / ... / ...'
@@ -104,8 +103,7 @@ end)
 Poker:add_click_option('Обмануть дилера', 'HC_Poker_Trick', function ()
     current_table = script_local:new('three_card_poker', 747 + 1 + (player.index() * 9) + 2):get_int64()
     if current_table == 0 then
-        DealerID = PokerDealersIDGetter(current_table)
-        PokerCardsSetter(DealerID, current_table, 2, 17, 32)
+        PokerCardsSetter(PokerDealersIDGetter(current_table), current_table, 2, 17, 32)
         notify.success('Poker', 'Дилер обманут')
     else
         notify.fatal('Poker', 'Ошибка, попробуйте еще раз')
@@ -115,27 +113,9 @@ end):setHint('Использовать перед ставкой.')
 --- Дроп из колеса --------------------------------------------------
 
 Casino:add_choose_option('Выдать дроп из колеса', 'HC_LW', false, {'Машина', 'Тайный', 'Одежда', 'Фишки', 'Деньги', 'РП', 'Скидка'}, function(pos)
-    drop_name = {
-        [1] = 'Машина',
-        [2] = 'Тайный предмет',
-        [3] = 'Одежда',
-        [4] = 'Фишки',
-        [5] = 'Деньги',
-        [6] = 'РП',
-        [7] = 'Скидка'
-    }
-    drop_id = {
-        [1] = 18,
-        [2] = 11,
-        [3] = 16,
-        [4] = 15,
-        [5] = 19,
-        [6] = 17,
-        [7] = 4
-    }
-    script_local:new('casino_lucky_wheel', 278 + 14):set_int64(drop_id[pos])
+    script_local:new('casino_lucky_wheel', 278 + 14):set_int64(CasWheel_dropval[pos])
     script_local:new('casino_lucky_wheel', 278 + 45):set_int64(11)
-    notify.success('Stuff', 'Успешно выбрано: '..drop_name[pos])
+    notify.success('Stuff', 'Успешно выбрано: '..CasWheel_dropname[pos])
 end):setHint('Активировать будучи в казино.')
 
 --- Лимит фишек -----------------------------------------------------
@@ -147,7 +127,7 @@ end)
 --- Кд фишек --------------------------------------------------------
 
 Casino:add_click_option('Сбросить кд покупки фишек', 'HC_Chips_ResetCd', function()
-    stats_set('MPPLY_CASINO_CHIPS_PUR_GD', 0)
-    stats_set('MPPLY_CASINO_CHIPS_PURTIM', 0)
+    stats.set_u32(string.smart_joaat('MPPLY_CASINO_CHIPS_PUR_GD'), 0)
+    stats.set_u32(string.smart_joaat('MPPLY_CASINO_CHIPS_PURTIM'), 0)
     notify.success('Stuff', 'Кд сброшено')
 end)
