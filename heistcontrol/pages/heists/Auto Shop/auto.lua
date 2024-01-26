@@ -4,38 +4,17 @@ Auto = Submenu.add_static_submenu('Автомастерская', 'HC_Auto')
 Heists:add_sub_option('Автомастерская', 'HC_Auto', Auto)
 
 Auto:add_choose_option('Выбрать заказ', 'HC_Auto_MissionSelect', false, {'Федеральное хранилище', 'Дело "Супердоллары"', 'Налет на банк', 'Захват ЭБУ', 'Налет на тюрьму', 'Налет на ЦУР', 'Налет на "Пропащих"', 'Похищение данных'}, function (pos)
-    pos_name = {
-        [1] = 'Налет на федеральное хранилище',
-        [2] = 'Дело "Супердоллары"',
-        [3] = 'Налет на банк',
-        [4] = 'Захват ЭБУ',
-        [5] = 'Налет на тюрьму',
-        [6] = 'Налет на ЦУР',
-        [7] = 'Налет на "Пропащих"',
-        [8] = 'Похищение данных'
-    }
-    pos_val = {
-        [1] = 0,
-        [2] = 1,
-        [3] = 2,
-        [4] = 3,
-        [5] = 4,
-        [6] = 5,
-        [7] = 6,
-        [8] = 7
-    }
-    stats_set('MP'..mp()..'_TUNER_CURRENT', pos_val[pos])
-    notify.success('Auto', 'Успешно выбрано: ' ..pos_name[pos])
+    stats.set_u32(string.smart_joaat('MP'..mp()..'_TUNER_CURRENT'), Auto_val[pos])
+    notify.success('Auto', 'Успешно выбрано: ' ..Auto_name[pos])
 end):setHint('Изменяет уже выбранный заказ на доске.')
 
 --- Скип подготовительных -------------------------------------------
 
 Auto:add_click_option('Выполнить подготовительные', 'HC_Auto_SkipPreps', function ()
-    hash = string.smart_joaat('MP'..mp()..'_TUNER_CURRENT')
-    if stats.get_u32(hash) == 1 then
-        stats_set('MP'..mp()..'_TUNER_GEN_BS', 4351)
+    if stats.get_u32(string.smart_joaat('MP'..mp()..'_TUNER_CURRENT')) == 1 then
+        stats.set_u32(string.smart_joaat('MP'..mp()..'_TUNER_GEN_BS'), 4351)
     else
-        stats_set('MP'..mp()..'_TUNER_GEN_BS', 12543)
+        stats.set_u32(string.smart_joaat('MP'..mp()..'_TUNER_GEN_BS'), 12543)
     end
     notify.success('Auto', 'Подготовительные выполнены')
 end)
