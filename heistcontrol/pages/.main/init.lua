@@ -1,0 +1,6 @@
+require('heistcontrol/pages/heists/heists.lua')
+require('heistcontrol/pages/office.lua')
+require('heistcontrol/pages/casino.lua')
+require('heistcontrol/pages/mc.lua')
+require('heistcontrol/pages/acid.lua')
+require('heistcontrol/pages/trash.lua')
