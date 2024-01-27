@@ -1828,9 +1828,9 @@ listener.register("DrawUI_render", GET_EVENTS_LIST().OnFrame, function ()
             material = materials.toggleOff
             if data.value then material = materials.toggleOn end
         elseif data.type == OPTIONS.NUM then
-            symbol = features.format("<{} of {}>", data.value, data.maxValue)
+            symbol = features.format("<{} из {}>", data.value, data.maxValue)
         elseif data.type == OPTIONS.FLOAT then
-            symbol = features.format("<{} of {}>", data.value, data.maxValue)
+            symbol = features.format("<{} из {}>", data.value, data.maxValue)
         elseif data.type == OPTIONS.CHOOSE then
             symbol = #data.table > 0 and features.format("<{} ({}/{})>", data.table[data.value], math.floor(data.value), #data.table) or "None"
         elseif data.type == OPTIONS.SUB then
