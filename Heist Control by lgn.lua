@@ -1,6 +1,6 @@
---- Heist Control by lgn v1.6 (1.68, 3095) -------------------------"
+--- Heist Control by lgn v1.7 (1.68, 3095) -------------------------"
 
-LGN = '1.6'
+LGN = '1.7'
 
 --- Гуи ------------------------------------------------------------
 
@@ -14,12 +14,10 @@ listener.register('BS_Init', GET_EVENTS_LIST().OnInit, function ()
     log.init('[Heist Control by lgn] Загрузка скрипта')
     log.init(string.format('[Heist Control by lgn] Версия -> [%s]', LGN))
     task.executeAsScript('Init_LoadPages', function ()
-        log.init('[Heist Control by lgn] Загрузка меню')
         local path = filesys.getInitScriptPath() .. '\\heistcontrol\\pages'
         path = path:gsub('\\\\lua', '\\lua')
         for line in io.popen('dir \"' .. path .. '\" /a /b', 'r'):lines() do
             if filesys.doesFileExist(path .. '\\' .. line .. '\\' .. 'init.lua') then
-                log.init(string.format('[Heist Control by lgn] Инициализация страницы \'%s\'', line))
                 require('heistcontrol/pages/' .. line .. '/' .. 'init')
             end
         end
