@@ -710,7 +710,27 @@ function HotkeyService.loadHotkeys()
         end
     end)
     notify.success('Heist Control by lgn', 'Хоткеи загружены')
-    log.default("Heist Control by lgn", "Хоткеи перезагружены.")
+    log.default("Heist Control by lgn", "Хоткеи перезагружены")
+end
+
+function HotkeyService.loadSilentHotkeys()
+    HotkeyService.runtimeHotkeys = {}
+    if not filesys.doesFileExist(paths.files.hotkeys) then return end
+    parse.json(paths.files.hotkeys, function (content)
+        for _, option in ipairs(options) do
+            option.hotkey = nil
+            for key, hashes in pairs(content) do
+                for _, hash in ipairs(hashes) do
+                    if hash == option.hash then
+                        if not HotkeyService.runtimeHotkeys[key] then HotkeyService.runtimeHotkeys[key] = {} end
+                        table.insert(HotkeyService.runtimeHotkeys[key], option)
+                        option.hotkey = key
+                    end
+                end
+            end
+        end
+    end)
+    log.success("Heist Control by lgn", "Хоткеи загружены")
 end
 
 function HotkeyService.registerHotkey(key_n, optionHash_s)
@@ -1217,7 +1237,28 @@ Configs.loadConfig = function ()
         end)
     else
         log.warning("Heist Control by lgn", "Конфиг не создан")
-        notify.warning("Настройки", "Конфиг загружен")
+        notify.warning("Настройки", "Конфиг не создан")
+    end
+end
+
+Configs.loadSilentConfig = function ()
+    if fs.doesFileExist(paths.files.config) then
+        parse.json(paths.files.config, function (config)
+            for _, option in ipairs(options) do
+                if not option.configIgnore then
+                    local value = config[option.hash]
+                    if value ~= nil then
+                        if (value ~= option:getValue()) then
+                            option:setValue(value, not option.execOnSelection)
+                        end
+                    end
+                end
+            end
+            log.success('Heist Control by lgn', 'Конфиг загружен')
+        end)
+    else
+        log.warning('Heist Control by lgn', 'Конфиг не создан')
+        notify.warning('Настройки', 'Конфиг не создан')
     end
 end
 
