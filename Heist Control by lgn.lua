@@ -1,6 +1,6 @@
---- Heist Control by lgn v1.8 (1.68, 3095) --------------------------
+--- Heist Control by lgn v1.9 (1.68, 3095) --------------------------
 
-LGN = '1.8'
+LGN = '1.9'
 
 --- Гуи -------------------------------------------------------------
 
@@ -21,7 +21,17 @@ listener.register('BS_Init', GET_EVENTS_LIST().OnInit, function ()
                 require('heistcontrol/pages/' .. line .. '/' .. 'init')
             end
         end
-        
+
+        if os.date('%H') == '4' or os.date('%H') == '5' or os.date('%H') == '6' or os.date('%H') == '7' or os.date('%H') == '8' or os.date('%H') == '9' or os.date('%H') == '10' or os.date('%H') == '11' then
+            notify.success('test', 'Доброе утро, '..social.get_username())
+        elseif os.date('%H') == '12' or os.date('%H') == '13' or os.date('%H') == '14' or os.date('%H') == '15' or os.date('%H') == '16' or os.date('%H') == '17' then
+            notify.success('test', 'Добрый день, '..social.get_username())
+        elseif os.date('%H') == '18' or os.date('%H') == '19' or os.date('%H') == '20' or os.date('%H') == '21' or os.date('%H') == '22' or os.date('%H') == '23' then
+            notify.success('test', 'Добрый вечер, '..social.get_username())
+        else
+            notify.success('test', 'Доброй ночи, '..social.get_username())
+        end
+
         if os.date('%m/%d') == '12/31' then
             notify.important('Holidays', 'С Новым Годом!')
         elseif os.date('%m/%d') == '01/01' then
@@ -52,15 +62,6 @@ listener.register('BS_Init', GET_EVENTS_LIST().OnInit, function ()
             notify.important('Holidays', 'С Днем народного единства!')
         end
 
-        if os.date('%H') == '4' or os.date('%H') == '5' or os.date('%H') == '6' or os.date('%H') == '7' or os.date('%H') == '8' or os.date('%H') == '9' or os.date('%H') == '10' or os.date('%H') == '11' then
-            notify.success('test', 'Доброе утро, '..social.get_username())
-        elseif os.date('%H') == '12' or os.date('%H') == '13' or os.date('%H') == '14' or os.date('%H') == '15' or os.date('%H') == '16' or os.date('%H') == '17' then
-            notify.success('test', 'Добрый день, '..social.get_username())
-        elseif os.date('%H') == '18' or os.date('%H') == '19' or os.date('%H') == '20' or os.date('%H') == '21' or os.date('%H') == '22' or os.date('%H') == '23' then
-            notify.success('test', 'Добрый вечер, '..social.get_username())
-        else
-            notify.success('test', 'Доброй ночи, '..social.get_username())
-        end
         Configs.loadSilentConfig()
         HotkeyService.loadSilentHotkeys()
     end)
