@@ -3,5 +3,6 @@ HOME_SUBMENU:add_sub_option('Бизнесы', 'HC_Bus', Bus)
 
 require('heistcontrol/pages/bus/office/office.lua')
 require('heistcontrol/pages/bus/bunker/bunker.lua')
+require('heistcontrol/pages/bus/hangar/hangar.lua')
 require('heistcontrol/pages/bus/mc/mc.lua')
 require('heistcontrol/pages/bus/acid/acid.lua')
