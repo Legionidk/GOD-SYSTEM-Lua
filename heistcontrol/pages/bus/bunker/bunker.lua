@@ -7,36 +7,48 @@ Bunker:add_state_bar('Ваш бункер', 'HC_Bunker_Name', function ()
     return Bunkers_name[stats.get_u32(string.smart_joaat('MP'..mp()..'_FACTORYSLOT5'))].name
 end)
 
-Bunker:add_click_option('Телепортировться к бункеру', 'HC_Bunker_TP', function ()
+--- Сырье / товар / разработка --------------------------------------
+
+choice, choice_name = 0, 'Сырье'
+
+Bunker:add_choose_option('Отображать', 'HC_Bunker_StateBar_Choice', true, {'Сырье', 'Товар', 'Разработку'}, function (pos)
+    if pos == 1 then
+        choice = 0
+    elseif pos == 2 then
+        choice = 1
+    else
+        choice = 2
+    end
+end)
+
+Bunker:add_state_bar('', 'HC_Bunker_StateBar', function ()
+    if choice == 0 then
+        return stats.get_u32(string.smart_joaat('MP'..mp()..'_MATTOTALFORFACTORY5'))..' / 100'
+    elseif choice == 1 then
+        return stats.get_u32(string.smart_joaat('MP'..mp()..'_PRODTOTALFORFACTORY5'))..' / 100'
+    else
+        return stats.get_u32(string.smart_joaat('MP'..mp()..'_RESEARCHTOTALFORFACTORY5'))..' / 100'
+    end
+end)
+
+--- Функции ---------------------------------------------------------
+
+Bunker:add_click_option('Телепортироваться к бункеру', 'HC_Bunker_TP', function ()
     utils.teleport(Bunkers_name[stats.get_u32(string.smart_joaat('MP'..mp()..'_FACTORYSLOT5'))].coords.x,
                     Bunkers_name[stats.get_u32(string.smart_joaat('MP'..mp()..'_FACTORYSLOT5'))].coords.y,
                     Bunkers_name[stats.get_u32(string.smart_joaat('MP'..mp()..'_FACTORYSLOT5'))].coords.z)
 end)
 
---- Сырье -------------------------------------------------------------
-
-Mat = Submenu.add_static_submenu('Сырье', 'HC_Bunker_Mat')
-Bunker:add_sub_option('Сырье', 'HC_Bunker_Mat', Mat)
-
-Mat:add_state_bar('Сырье', 'HC_Bunker_Mat', function ()
-    return stats.get_u32(string.smart_joaat('MP'..mp()..'_MATTOTALFORFACTORY5'))..' / 101'
+Bunker:add_click_option('Пополнить сырье', 'HC_Bunker_Restock', function ()
+    if stats.get_u32(string.smart_joaat('MP'..mp()..'_MATTOTALFORFACTORY5')) == 100 then
+        notify.fatal('HC_Bunker', 'У вас уже есть сырье!')
+    else
+        script_global:new(2707225):set_int64(121)
+        notify.success('HC_Bunker', 'Сырье пополнено')
+    end
 end)
 
-Mat:add_click_option('Пополнить сырье', 'HC_Bunker_Restock', function ()
-    script_global:new(2707225):set_int64(121)
-    notify.success('HC_Bunker', 'Сырье пополнено')
-end)
-
---- Товар -----------------------------------------------------------
-
-Prod = Submenu.add_static_submenu('Товар', 'HC_Bunker_Prod')
-Bunker:add_sub_option('Товар', 'HC_Bunker_Prod', Prod)
-
-Prod:add_state_bar('Товар', 'HC_Bunker_Prod', function ()
-    return stats.get_u32(string.smart_joaat('MP'..mp()..'_PRODTOTALFORFACTORY5'))..' / 100'
-end)
-
-Prod:add_click_option('Моментально завершить продажу', 'HC_Bunker_InstaSell', function ()
+Bunker:add_click_option('Моментально завершить продажу', 'HC_Bunker_InstaSell', function ()
     if script.exists('gb_gunrunning') then
         script_local:new('gb_gunrunning', 1209):set_int64(15)
         script_local:new('gb_gunrunning', 1209 + 774):set_int64(0)
@@ -44,12 +56,3 @@ Prod:add_click_option('Моментально завершить продажу'
         notify.fatal('HC_Bunker', 'Ошибка, попробуйте еще раз')
     end
 end):setHint('После нажатия игра скажет что миссия провалена, но деньги и продажу засчитают.')
-
---- Разработка -------------------------------------------------------
-
-Research = Submenu.add_static_submenu('Разработка', 'HC_Bunker_Research')
-Bunker:add_sub_option('Разработка', 'HC_Bunker_Research', Research)
-
-Research:add_state_bar('Разработка', 'HC_Bunker_Research', function ()
-    return stats.get_u32(string.smart_joaat('MP'..mp()..'_RESEARCHTOTALFORFACTORY5'))..' / 100'
-end)
