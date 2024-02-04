@@ -112,10 +112,14 @@ end):setHint('Использовать перед ставкой.')
 
 --- Дроп из колеса --------------------------------------------------
 
-Casino:add_choose_option('Выдать дроп из колеса', 'HC_LW', false, {'Машина', 'Тайный', 'Одежда', 'Фишки', 'Деньги', 'РП', 'Скидка'}, function(pos)
-    script_local:new('casino_lucky_wheel', 278 + 14):set_int64(CasWheel_dropval[pos])
-    script_local:new('casino_lucky_wheel', 278 + 45):set_int64(11)
-    notify.success('Stuff', 'Успешно выбрано: '..CasWheel_dropname[pos])
+Casino:add_choose_option('Выдать дроп из колеса', 'HC_LW', false, LuckyWheel_name, function(pos)
+    if script.exists('casino_lucky_wheel') then
+        script_local:new('casino_lucky_wheel', 278 + 14):set_int64(LuckyWheel_id[pos])
+        script_local:new('casino_lucky_wheel', 278 + 45):set_int64(11)
+        notify.success('Stuff', 'Успешно выбрано: '..LuckyWheel_name[pos])
+    else
+        notify.fatal('HC_LW', 'Ошибка, попробуйте еще раз')
+    end
 end):setHint('Активировать будучи в казино.')
 
 --- Лимит фишек -----------------------------------------------------
