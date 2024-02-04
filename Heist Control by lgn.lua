@@ -1,6 +1,6 @@
---- Heist Control by lgn v1.9 (1.68, 3095) --------------------------
+--- Heist Control by lgn v2.0 (1.68, 3095) --------------------------
 
-LGN = '1.9'
+LGN = '2.0'
 
 --- Гуи -------------------------------------------------------------
 
@@ -32,9 +32,7 @@ listener.register('BS_Init', GET_EVENTS_LIST().OnInit, function ()
             notify.success('test', 'Доброй ночи, '..social.get_username())
         end
 
-        if os.date('%m/%d') == '12/31' then
-            notify.important('Holidays', 'С Новым Годом!')
-        elseif os.date('%m/%d') == '01/01' then
+        if os.date('%m/%d') == '12/31' or os.date('%m/%d') == '01/01' then
             notify.important('Holidays', 'С Новым Годом!')
         elseif os.date('%m/%d') == '01/07' then
             notify.important('Holidays', 'С Рождеством!')
