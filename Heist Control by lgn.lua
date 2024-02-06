@@ -1,8 +1,8 @@
---- Heist Control by lgn v2.0 (1.68, 3095) --------------------------
+--- Heist Control by lgn v2.0.1 (1.68, 3095) --------------------------
 
-LGN = '2.0'
+LGN = '2.0.1'
 
---- Гуи -------------------------------------------------------------
+--- Инициализация -------------------------------------------------------------
 
 require('heistcontrol/system/on_tick.lua')
 require('heistcontrol/util/DrawUI.lua')
@@ -21,6 +21,18 @@ listener.register('BS_Init', GET_EVENTS_LIST().OnInit, function ()
                 require('heistcontrol/pages/' .. line .. '/' .. 'init')
             end
         end
+
+        Configs.loadSilentConfig()
+        HotkeyService.loadSilentHotkeys()
+
+        http.get('https://raw.githubusercontent.com/Legionidk/Heist-Control/main/README.md', function (code, header, content)
+            if string.sub(content, 50, 61) ~= LGN..'-7393B3' then
+                notify.warning('[Heist Control by lgn]', 'Обнаружена новая версия!')
+                console.log(14, '[Heist Control by lgn] Обнаружена новая версия!\n')
+            else
+                log.init('[Heist Control by lgn] Установлена последняя версия')
+            end
+        end)
 
         if os.date('%H') == '4' or os.date('%H') == '5' or os.date('%H') == '6' or os.date('%H') == '7' or os.date('%H') == '8' or os.date('%H') == '9' or os.date('%H') == '10' or os.date('%H') == '11' then
             notify.success('test', 'Доброе утро, '..social.get_username())
@@ -59,8 +71,5 @@ listener.register('BS_Init', GET_EVENTS_LIST().OnInit, function ()
         elseif os.date('%m/%d') == '11/04' then
             notify.important('Holidays', 'С Днем народного единства!')
         end
-
-        Configs.loadSilentConfig()
-        HotkeyService.loadSilentHotkeys()
     end)
 end)
