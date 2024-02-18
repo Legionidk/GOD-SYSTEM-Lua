@@ -1,13 +1,14 @@
 Trash = Submenu.add_static_submenu('Другое', 'HC_Stuff_Trash')
 HOME_SUBMENU:add_sub_option('Другое', 'HC_Stuff_Trash', Trash)
 
---- Вызвать хренча --------------------------------------------------
+--- Удаленный транспорт ---------------------------------------------
 
-Trash:add_click_option('Вызвать Хренча', 'HC_Stuff_Trash_Gooch', function ()
-    script_global:new(2698947):at(3 + 1):set_int64(171)
-    script_global:new(2698947):at(2):set_int64(6)
-    notify.success('Stuff', 'Хренч вызван')
-end)
+Trash:add_click_option('Разблокировать удаленный транспорт', 'HC_Stuff_ResDelVeh', function ()
+    for i = 1, 197 do
+        script_global:new(262145):at(Removed_veh[i]):set_int64(1)
+    end
+    notify.success('Stuff', 'Транспорт разблокирован')
+end):setHint('Разблокирует 197 штук ранее удленного из магазинов транспорта.')
 
 --- Премиальные транспорт -------------------------------------------
 
@@ -20,9 +21,16 @@ end):setHint('Транспорт за испытание в автоклубе �
 --- Телепортироваться к оружейному фургону --------------------------
 
 Trash:add_click_option('Телепортироваться к оружейному фургону', 'HC_Stuff_GV', function ()
-    location = script_global:new(2652572 + 2650 + 1):get_int64()
     utils.teleport(Gunvan_coords[script_global:new(2652572 + 2650 + 1):get_int64()][1],
                     Gunvan_coords[script_global:new(2652572 + 2650 + 1):get_int64()][2],
                     Gunvan_coords[script_global:new(2652572 + 2650 + 1):get_int64()][3])
     notify.success('Stuff', 'Телепортирован')
+end)
+
+--- Вызвать хренча --------------------------------------------------
+
+Trash:add_click_option('Вызвать Хренча', 'HC_Stuff_Trash_Gooch', function ()
+    script_global:new(2698947):at(3 + 1):set_int64(171)
+    script_global:new(2698947):at(2):set_int64(6)
+    notify.success('Stuff', 'Хренч вызван')
 end)
