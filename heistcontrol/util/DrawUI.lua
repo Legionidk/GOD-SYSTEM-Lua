@@ -66,7 +66,7 @@ DrawUI.dbg = {
 local arrowsControls = {
     open = 119,
     down = 40,
-    up = 38, 
+    up = 38,
     left = 37,
     right = 39,
     enter = 13,
@@ -791,39 +791,39 @@ function HotkeyService.removeHotkey(optionHash_s)
     notify.success("Хоткей управление", "Хоткей успешно удален")
 end
 
-listener.register("DrawUI_Hotkeys", GET_EVENTS_LIST().OnKeyPressed, function (key, isDown)
-    if not isDown then return end
-    if config.isOpened then
-        if key == gui.virualKeys.F11 then        
-            local submenu = config.path[#config.path]
-            local option = submenu.options[submenu.selectedOption]
-            if not option.hotkey then
-                InputService:displayInputBox(nil, "hotkey", function (key_s)
-                    HotkeyService.registerHotkey(gui.virualKeys[key_s], option.hash)
-                end)
-            else
-                HotkeyService.removeHotkey(option.hash)
-            end
-        end
-    end
-    if Stuff.isTextChatActive and config.ignoreHotkeysWhenChatting then return end
-    if menu.is_input_active() then return end
-    if config.isInputBoxDisplayed then return end
-    local keyName = features.getVirtualKeyViaID(key)
-    if not HotkeyService.runtimeHotkeys[keyName] then return end
-    for _, option in ipairs(HotkeyService.runtimeHotkeys[keyName]) do
-        if option.type == OPTIONS.BOOL then
-            option:setValue(not option.value)
-            local strState = option:getValue() and "Enabled" or "Disabled"
-            log.default("Hotkey service", string.format("%s \'%s\' option.", strState, option:getName()))
-            if config.notifyOnHotkey then notify.default("Hotkeys", string.format("%s \'%s\' option.", strState, option:getName())) end
-        else
-            option:setValue(option.value)
-            log.default("Heist Control by lgn", string.format("Использован хоткей: \'%s\'", option:getName()))
-            if config.notifyOnHotkey then notify.default("Hotkeys", string.format("Использован хоткей: \'%s\'", option:getName())) end
-        end
-    end
-end)
+-- listener.register("DrawUI_Hotkeys", GET_EVENTS_LIST().OnKeyPressed, function (key, isDown)
+--     if not isDown then return end
+--     if config.isOpened then
+--         if key == gui.virualKeys.F11 then        
+--             local submenu = config.path[#config.path]
+--             local option = submenu.options[submenu.selectedOption]
+--             if not option.hotkey then
+--                 InputService:displayInputBox(nil, "hotkey", function (key_s)
+--                     HotkeyService.registerHotkey(gui.virualKeys[key_s], option.hash)
+--                 end)
+--             else
+--                 HotkeyService.removeHotkey(option.hash)
+--             end
+--         end
+--     end
+--     if Stuff.isTextChatActive and config.ignoreHotkeysWhenChatting then return end
+--     if menu.is_input_active() then return end
+--     if config.isInputBoxDisplayed then return end
+--     local keyName = features.getVirtualKeyViaID(key)
+--     if not HotkeyService.runtimeHotkeys[keyName] then return end
+--     for _, option in ipairs(HotkeyService.runtimeHotkeys[keyName]) do
+--         if option.type == OPTIONS.BOOL then
+--             option:setValue(not option.value)
+--             local strState = option:getValue() and "Enabled" or "Disabled"
+--             log.default("Hotkey service", string.format("%s \'%s\' option.", strState, option:getName()))
+--             if config.notifyOnHotkey then notify.default("Hotkeys", string.format("%s \'%s\' option.", strState, option:getName())) end
+--         else
+--             option:setValue(option.value)
+--             log.default("Heist Control by lgn", string.format("Использован хоткей: \'%s\'", option:getName()))
+--             if config.notifyOnHotkey then notify.default("Hotkeys", string.format("Использован хоткей: \'%s\'", option:getName())) end
+--         end
+--     end
+-- end)
 
 function Submenu.add_static_submenu(name_s, hash_s)
     local submenu = setmetatable({}, Submenu)
@@ -2000,12 +2000,12 @@ listener.register("DrawUI_render", GET_EVENTS_LIST().OnFrame, function ()
             {key = features.getVirtualKeyViaID(controls.open), note = "Показать/Скрыть меню"},
         }
         local option = submenu.options[submenu.selectedOption] or {}
-        if option.hotkey then
-            table.insert(keys, {key = option.hotkey, note = "Хоткей"})
-            table.insert(keys, {key = "F11", note = "Удалить хоткей"})
-        elseif option.isHotkeyable then
-            table.insert(keys, {key = "F11", note = "Установить хоткей"})
-        end
+        -- if option.hotkey then
+        --     table.insert(keys, {key = option.hotkey, note = "Хоткей"})
+        --     table.insert(keys, {key = "F11", note = "Удалить хоткей"})
+        -- elseif option.isHotkeyable then
+        --     table.insert(keys, {key = "F11", note = "Установить хоткей"})
+        -- end
         if option.onDelete then
             table.insert(keys, {key = "Del", note = "Удалить"})
         end
