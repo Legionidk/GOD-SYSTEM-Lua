@@ -1,6 +1,7 @@
---- Heist Control by lgn v2.1 (1.68, 3095) --------------------------
+--- Heist Control by lgn v2.1.1 (1.68, 3095) --------------------------
 
-LGN = '2.1'
+LGN = '2.1.1'
+GTA = '1.68'
 
 --- Инициализация -------------------------------------------------------------
 
@@ -26,19 +27,23 @@ listener.register('BS_Init', GET_EVENTS_LIST().OnInit, function ()
         HotkeyService.loadSilentHotkeys()
 
         http.get('https://raw.githubusercontent.com/Legionidk/Heist-Control/main/README.md', function (code, header, content)
-            if string.len(LGN) >= 3 then
-                if string.sub(content, 50, 54) ~= LGN then
-                    notify.warning('[Heist Control by lgn]', 'Обнаружена новая версия!')
-                    console.log(14, '[Heist Control by lgn] Обнаружена новая версия!\n')
-                else
-                    log.init('[Heist Control by lgn] Установлена последняя версия')
-                end
+            if native.invoke(4, 0xFCA9373EF340AC0A) ~= GTA then
+                notify.warning('[Heist Control by lgn]', 'Луа не обновлена под эту версию игры!')
             else
-                if string.sub(content, 50, 52) ~= LGN then
-                    notify.warning('[Heist Control by lgn]', 'Обнаружена новая версия!')
-                    console.log(14, '[Heist Control by lgn] Обнаружена новая версия!\n')
+                if string.len(LGN) >= 4 then
+                    if string.sub(content, 50, 54) ~= LGN then
+                        notify.warning('[Heist Control by lgn]', 'Обнаружена новая версия!')
+                        console.log(14, '[Heist Control by lgn] Обнаружена новая версия!\n')
+                    else
+                        log.init('[Heist Control by lgn] Установлена последняя версия')
+                    end
                 else
-                    log.init('[Heist Control by lgn] Установлена последняя версия')
+                    if string.sub(content, 50, 52) ~= LGN then
+                        notify.warning('[Heist Control by lgn]', 'Обнаружена новая версия!')
+                        console.log(14, '[Heist Control by lgn] Обнаружена новая версия!\n')
+                    else
+                        log.init('[Heist Control by lgn] Установлена последняя версия')
+                    end
                 end
             end
         end)
