@@ -29,6 +29,7 @@ listener.register('BS_Init', GET_EVENTS_LIST().OnInit, function ()
         http.get('https://raw.githubusercontent.com/Legionidk/Heist-Control/main/README.md', function (code, header, content)
             if native.invoke(4, 0xFCA9373EF340AC0A) ~= GTA then
                 notify.warning('[Heist Control by lgn]', 'Луа не обновлена под эту версию игры!')
+                console.log(14, '[Heist Control by lgn] Луа не обновлена под эту версию игры!\n')
             else
                 if string.len(LGN) >= 4 then
                     if string.sub(content, 50, 54) ~= LGN then
