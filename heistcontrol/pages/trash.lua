@@ -1,6 +1,14 @@
 Trash = Submenu.add_static_submenu('Другое', 'HC_Stuff_Trash')
 HOME_SUBMENU:add_sub_option('Другое', 'HC_Stuff_Trash', Trash)
 
+--- Аддоны ----------------------------------------------------------
+
+Trash:add_choose_option('Спавн аддона', 'HC_Addons_Spawn', false, Checked_addons, function (pos)
+    entity.spawn_veh(string.smart_joaat(Checked_addons[pos]))
+    table.insert(Spawned_addons, 1, string.smart_joaat(Checked_addons[pos]))
+    notify.success('test', 'Попытка спавна: '..Checked_addons[pos])
+end):setHint('Если при нажатии ничего не происходит - вы спавните не машину/название модели отличается от названия папки.')
+
 --- Удаленный транспорт ---------------------------------------------
 
 Trash:add_click_option('Разблокировать удаленный транспорт', 'HC_Stuff_ResDelVeh', function ()
