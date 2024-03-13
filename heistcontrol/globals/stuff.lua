@@ -26,7 +26,27 @@ a2i = tonumber
 i2s = tostring
 rnd = math.random
 
+--- Скрипты для аддонов ---------------------------------------------
+
+function addon_checker()
+    local path = fs.get_dir_game()..'\\mods\\update\\x64\\dlcpacks'
+    path = path:gsub('\\\\lua', '\\lua')
+    justnumber = 1
+    for line in io.popen('dir \"' .. path .. '\" /a /b', 'r'):lines() do
+        table.insert(Checked_addons, 1, line)
+    end
+    log.success('Heist Control by lgn', 'Подгружено аддонов: '..#Checked_addons)
+end
+
 --- Разные данные ---------------------------------------------------
+
+Checked_addons = {
+
+}
+
+Spawned_addons = {
+    
+}
 
 Removed_veh = {
     [1] =  23096,
@@ -38,7 +58,7 @@ Removed_veh = {
     [7] = 35606,
     [8] = 35612,
     [9] = 17686,
-    [10] =  17702,
+    [10] = 17702,
     [11] = 35668,
     [12] = 35492,
     [13] = 35494,
