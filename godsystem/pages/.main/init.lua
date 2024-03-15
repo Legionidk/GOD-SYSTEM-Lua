@@ -1,0 +1,5 @@
+require('godsystem/pages/heists/heists.lua')
+require('godsystem/pages/bus/bus.lua')
+require('godsystem/pages/casino.lua')
+require('godsystem/pages/addons.lua')
+require('godsystem/pages/trash.lua')
