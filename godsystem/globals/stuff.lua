@@ -29,11 +29,18 @@ rnd = math.random
 --- Скрипты для аддонов ---------------------------------------------
 
 function addon_checker()
-    local path = fs.get_dir_game()..'\\mods\\update\\x64\\dlcpacks'
-    path = path:gsub('\\\\lua', '\\lua')
-    justnumber = 1
-    for line in io.popen('dir \"' .. path .. '\" /a /b', 'r'):lines() do
-        table.insert(Checked_addons, 1, line)
+    for line in io.popen('dir \"'..fs.get_dir_game()..'\\mods\\update\\x64\\dlcpacks'..'\" /a /b', 'r'):lines() do
+        table.insert(Checked_addons, line)
+    end
+    for line in io.popen('dir \"'..fs.get_dir_game()..'\\update\\x64\\dlcpacks'..'\" /a /b', 'r'):lines() do
+        table.insert(Game_addons, line)
+    end
+    for c = 1, #Game_addons do
+        for v = 1, #Checked_addons do
+            if Game_addons[c] == Checked_addons[v] then
+                table.remove(Checked_addons, v)
+            end
+        end
     end
     log.success('GOD SYSTEM', 'Подгружено аддонов: '..#Checked_addons)
 end
@@ -44,8 +51,12 @@ Checked_addons = {
 
 }
 
+Game_addons = {
+
+}
+
 Spawned_addons = {
-    
+
 }
 
 Removed_veh = {
