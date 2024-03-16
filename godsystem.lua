@@ -1,6 +1,6 @@
 --- /godmode --------------------------
 
-LGN = '2.3'
+LGN = '2.3.1'
 GTA = '1.68'
 
 --- Инициализация -------------------------------------------------------------
@@ -23,24 +23,24 @@ if native.is_invoker_ready() then
                     require('godsystem/pages/' .. line .. '/' .. 'init')
                 end
             end
-            
+
             addon_checker()
             Configs.loadSilentConfig()
 
-            http.get('https://raw.githubusercontent.com/Legionidk/Heist-Control/main/README.md', function (code, header, content)
+            http.get('https://raw.githubusercontent.com/Legionidk/GOD-SYSTEM-Lua/main/README.md', function (code, header, content)
                 if native.invoke(4, 0xFCA9373EF340AC0A) ~= GTA then
                     notify.warning('[GOD SYSTEM]', 'Луа не обновлена под эту версию игры!')
                     console.log(14, '[GOD SYSTEM] Луа не обновлена под эту версию игры!\n')
                 else
                     if string.len(LGN) >= 4 then
-                        if string.sub(content, 50, 54) ~= LGN then
+                        if string.sub(content, 51, 55) ~= LGN then
                             notify.warning('[GOD SYSTEM]', 'Обнаружена новая версия!')
                             console.log(14, '[GOD SYSTEM] Обнаружена новая версия!\n')
                         else
                             log.init('[GOD SYSTEM] Установлена последняя версия')
                         end
                     else
-                        if string.sub(content, 50, 52) ~= LGN then
+                        if string.sub(content, 51, 53) ~= LGN then
                             notify.warning('[GOD SYSTEM]', 'Обнаружена новая версия!')
                             console.log(14, '[GOD SYSTEM] Обнаружена новая версия!\n')
                         else
