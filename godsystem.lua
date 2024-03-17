@@ -1,6 +1,6 @@
 --- /godmode --------------------------
 
-LGN = '2.3.1'
+LGN = '2.4'
 GTA = '1.68'
 
 --- Инициализация -------------------------------------------------------------
@@ -24,31 +24,7 @@ if native.is_invoker_ready() then
                 end
             end
 
-            addon_checker()
             Configs.loadSilentConfig()
-
-            http.get('https://raw.githubusercontent.com/Legionidk/GOD-SYSTEM-Lua/main/README.md', function (code, header, content)
-                if native.invoke(4, 0xFCA9373EF340AC0A) ~= GTA then
-                    notify.warning('[GOD SYSTEM]', 'Луа не обновлена под эту версию игры!')
-                    console.log(14, '[GOD SYSTEM] Луа не обновлена под эту версию игры!\n')
-                else
-                    if string.len(LGN) >= 4 then
-                        if string.sub(content, 51, 55) ~= LGN then
-                            notify.warning('[GOD SYSTEM]', 'Обнаружена новая версия!')
-                            console.log(14, '[GOD SYSTEM] Обнаружена новая версия!\n')
-                        else
-                            log.init('[GOD SYSTEM] Установлена последняя версия')
-                        end
-                    else
-                        if string.sub(content, 51, 53) ~= LGN then
-                            notify.warning('[GOD SYSTEM]', 'Обнаружена новая версия!')
-                            console.log(14, '[GOD SYSTEM] Обнаружена новая версия!\n')
-                        else
-                            log.init('[GOD SYSTEM] Установлена последняя версия')
-                        end
-                    end
-                end
-            end)
 
             if os.date('%H') == '4' or os.date('%H') == '5' or os.date('%H') == '6' or os.date('%H') == '7' or os.date('%H') == '8' or os.date('%H') == '9' or os.date('%H') == '10' or os.date('%H') == '11' then
                 notify.success('test', 'Доброе утро, '..social.get_username())
@@ -87,9 +63,38 @@ if native.is_invoker_ready() then
             elseif os.date('%m/%d') == '11/04' then
                 notify.important('Holidays', 'С Днем народного единства!')
             end
+
+            if fs.directory_exists(fs.get_dir_game()..'\\mods\\update\\x64\\dlcpacks') then
+                addon_checker()
+            else
+                table.insert(Checked_addons, 'папка не найдена')
+            end
+
+            http.get('https://raw.githubusercontent.com/Legionidk/GOD-SYSTEM-Lua/main/README.md', function (code, header, content)
+                if native.invoke(4, 0xFCA9373EF340AC0A) ~= GTA then
+                    notify.warning('[GOD SYSTEM]', 'Луа не обновлена под эту версию игры!')
+                    console.log(14, '[GOD SYSTEM] Луа не обновлена под эту версию игры!\n')
+                else
+                    if string.len(LGN) >= 4 then
+                        if string.sub(content, 51, 55) ~= LGN then
+                            notify.warning('[GOD SYSTEM]', 'Обнаружена новая версия!')
+                            console.log(14, '[GOD SYSTEM] Обнаружена новая версия!\n')
+                        else
+                            log.init('[GOD SYSTEM] Установлена последняя версия')
+                        end
+                    else
+                        if string.sub(content, 51, 53) ~= LGN then
+                            notify.warning('[GOD SYSTEM]', 'Обнаружена новая версия!')
+                            console.log(14, '[GOD SYSTEM] Обнаружена новая версия!\n')
+                        else
+                            log.init('[GOD SYSTEM] Установлена последняя версия')
+                        end
+                    end
+                end
+            end)
         end)
     end)
 else
-    utils.notify('GOD SYSTEM', 'Инвокер не готов, закрытие луа...', 28, 0)
+    utils.notify('GOD SYSTEM', 'Инвокер не готов, скрытие луа во избежании краша', 28, 0)
     utils.stop_script()
 end
