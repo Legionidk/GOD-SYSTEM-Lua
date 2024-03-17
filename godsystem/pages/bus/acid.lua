@@ -6,10 +6,10 @@ Bus:add_sub_option('Кислотная лаборатория', 'HC_AcidLab', Ac
 Acid:add_choose_option('Вызвать', 'HC_Acid_Req', false, {'Кислотную лабораторию', 'Мотоцикл кислотной лаборатории'}, function (pos)
     if pos == 1 then
         script_global:new(2738587):at(944):set_int64(1)
-        notify.success('Stuff', 'Кислотная лаборатория вызвана')
+        notify.success('Stuff', 'Успешно')
     else
         script_global:new(2738587):at(994):set_int64(1)
-        notify.success('Stuff', 'Мотоцикл кислотной лаборатории вызван')
+        notify.success('Stuff', 'Успешно')
     end
 end)
 
@@ -17,5 +17,5 @@ end)
 
 Acid:add_click_option('Пополнить сырье', 'HC_Acid_InstResupply', function ()
     script_global:new(1662873):at(7):set_int64(1)
-    notify.success('Acid', 'Сырье пополнено')
+    notify.success('Acid', 'Успешно')
 end)

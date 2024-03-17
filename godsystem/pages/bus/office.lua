@@ -11,7 +11,7 @@ end)
 
 Office:add_click_option('Телепортироваться к офису', 'HC_Office_Tp', function ()
     if Apartments[stats.get_u32(string.smart_joaat('MP'..mp()..'_PROP_OFFICE'))].name == 'Офис не найден' then
-        notify.fatal('HC_Office', Apartments[stats.get_u32(string.smart_joaat('MP'..mp()..'_PROP_OFFICE'))].name)
+        notify.warning('HC_Office', Apartments[stats.get_u32(string.smart_joaat('MP'..mp()..'_PROP_OFFICE'))].name)
     else
         utils.teleport(Apartments[stats.get_u32(string.smart_joaat('MP'..mp()..'_PROP_OFFICE'))].coords.x,
                         Apartments[stats.get_u32(string.smart_joaat('MP'..mp()..'_PROP_OFFICE'))].coords.y,
@@ -41,14 +41,14 @@ end)
 for j = 0, 4 do
     name = Warehouse[stats.get_u32(string.smart_joaat('MP'..mp()..'_PROP_WHOUSE_SLOT'..j))].name
     WH = Submenu.add_static_submenu(name, 'HC_Office_WH'..j)
-    WAREHOUSE:add_sub_option(name, 'HC_Office_WH'..j, WH):setHint('Если название склада "Склад не найден", перезагрузи луа.')
+    WAREHOUSE:add_sub_option(name, 'HC_Office_WH'..j, WH):setHint('Если название склада не найдено, необходимо перезагрузить луа.')
 
     WH:add_state_bar('Доступно', 'HC_Office_WH'..j..'Available', function ()
         return stats.get_u32(string.smart_joaat('MP'..mp()..'_CONTOTALFORWHOUSE'..j))..' / '..Warehouse[stats.get_u32(string.smart_joaat('MP'..mp()..'_PROP_WHOUSE_SLOT'..j))].capacity
     end)
     WH:add_click_option('Телепортироваться к складу', 'HC_Office_WH'..j..'TP', function ()
         if Warehouse[stats.get_u32(string.smart_joaat('MP'..mp()..'_PROP_WHOUSE_SLOT'..j))].name == 'Склад не найден' then
-            notify.fatal('HC_Office', Warehouse[stats.get_u32(string.smart_joaat('MP'..mp()..'_PROP_WHOUSE_SLOT'..j))].name)
+            notify.warning('HC_Office', Warehouse[stats.get_u32(string.smart_joaat('MP'..mp()..'_PROP_WHOUSE_SLOT'..j))].name)
         else
             utils.teleport(Warehouse[stats.get_u32(string.smart_joaat('MP'..mp()..'_PROP_WHOUSE_SLOT'..j))].coords.x, 
                             Warehouse[stats.get_u32(string.smart_joaat('MP'..mp()..'_PROP_WHOUSE_SLOT'..j))].coords.y, 
@@ -77,16 +77,16 @@ WAREHOUSE:add_choose_option('Моментально завершить', 'HC_Off
             script_local:new('gb_contraband_buy', 601 + 5):set_int64(1)
             script_local:new('gb_contraband_buy', 601 + 191):set_int64(6)
             script_local:new('gb_contraband_buy', 601 + 192):set_int64(4)
-            notify.success('HC_Office', 'Покупка завершена')
+            notify.success('HC_Office', 'Успешно')
         else
-            notify.fatal('HC_Office', 'Ошибка, попробуйте еще раз')
+            notify.fatal('HC_Office', 'Ошибка: миссия не запущена')
         end
     else
         if script.exists('gb_contraband_sell') then
             script_local:new('gb_contraband_sell', 543 + 1):set_int64(99999)
-            notify.success('HC_Office', 'Продажа завершена')
+            notify.success('HC_Office', 'Успешно')
         else
-            notify.fatal('HC_Office', 'Ошибка, попробуйте еще раз')
+            notify.warning('HC_Office', 'Ошибка: миссия не запущена')
         end
     end
 end)
@@ -96,9 +96,9 @@ end)
 WAREHOUSE:add_choose_option('Удалить кд', 'HC_Office_Cd', false, {'Покупки', 'Продажи'}, function (pos)
     if pos == 1 then
         script_global:new(262145):at(15756):set_int64(0)
-        notify.success('HC_Office', 'Кд удалено')
+        notify.success('HC_Office', 'Успешно')
     else
         script_global:new(262145):at(15757):set_int64(0)
-        notify.success('HC_Office', 'Кд удалено')
+        notify.success('HC_Office', 'Успешно')
     end
 end)

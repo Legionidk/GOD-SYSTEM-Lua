@@ -27,10 +27,10 @@ Mat:add_click_option('Пополнить сырье', 'HC_Bunker_Restock', funct
     or stats.get_u32(string.smart_joaat('MP'..mp()..'_MATTOTALFORFACTORY5')) == 101
     or stats.get_u32(string.smart_joaat('MP'..mp()..'_MATTOTALFORFACTORY5')) == 102
     or stats.get_u32(string.smart_joaat('MP'..mp()..'_MATTOTALFORFACTORY5')) == 103 then
-        notify.fatal('HC_Bunker', 'У вас уже есть сырье!')
+        notify.warning('HC_Bunker', 'Ошибка: ваш бункер уже полон сырьем')
     else
         script_global:new(2707225):set_int64(121)
-        notify.success('HC_Bunker', 'Сырье пополнено')
+        notify.success('HC_Bunker', 'Успешно')
     end
 end)
 
@@ -47,10 +47,11 @@ Prod:add_click_option('Моментально завершить продажу'
     if script.exists('gb_gunrunning') then
         script_local:new('gb_gunrunning', 1209):set_int64(15)
         script_local:new('gb_gunrunning', 1209 + 774):set_int64(0)
+        notify.success('HC_Office', 'Успешно')
     else
-        notify.fatal('HC_Bunker', 'Ошибка, попробуйте еще раз')
+        notify.warning('HC_Bunker', 'Ошибка: миссия не запущена')
     end
-end):setHint('После нажатия игра скажет что миссия провалена, но деньги и продажу засчитают.')
+end):setHint('После активации игра может сказать что миссия провалена, но деньги и продажу засчитают.')
 
 --- Разработка ------------------------------------------------------
 
