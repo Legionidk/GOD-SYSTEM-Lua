@@ -43,6 +43,7 @@ function addon_checker()
         end
     end
     log.success('GOD SYSTEM', 'Подгружено аддонов: '..#Checked_addons)
+    notify.success('GOD SYSTEM', 'Подгружено аддонов: '..#Checked_addons)
 end
 
 --- Разные данные ---------------------------------------------------
