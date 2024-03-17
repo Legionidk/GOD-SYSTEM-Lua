@@ -9,13 +9,13 @@ Cayo:add_sub_option('Настройка ограбления', 'HC_CayoSettings'
 CayoSettings:add_choose_option('Сложность', 'HC_CayoSettings_Difficulty', false, CayoDiff_name,
 function (pos)
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H4_PROGRESS'), CayoDiff_val[pos])
-    notify.success('Cayo', 'Успешно выбрано: ' ..CayoDiff_name[pos])
+    notify.success('Cayo', 'Успешно')
 end)
 
 CayoSettings:add_choose_option('Главная цель', 'HC_CayoSettings_Main', false, CayoMain_name,
 function (pos)
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H4CNF_TARGET'), CayoMain_val[pos])
-    notify.success('Cayo', 'Успешно выбрано: ' ..CayoMain_name[pos])
+    notify.success('Cayo', 'Успешно')
 end)
 
 CayoSettings:add_choose_option('Второстепенная цель', 'HC_CayoSettings_Second', false, CayoSec_name,
@@ -54,13 +54,13 @@ function (pos)
         stats.set_u32(string.smart_joaat('MP'..mp()..'_H4LOOT_CASH_I_SCOPED'), -1)
         stats.set_u32(string.smart_joaat('MP'..mp()..'_H4LOOT_CASH_V'), 330350)
     end
-    notify.success('Cayo', 'Успешно выбрано: ' ..CayoSec_name[pos])
+    notify.success('Cayo', 'Успешно')
 end)
 
 CayoSettings:add_choose_option('Оружие', 'HC_CayoSettings_Guns', false, CayoGuns_name,
 function (pos)
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H4CNF_WEAPONS'), CayoGuns_val[pos])
-    notify.success('Cayo', 'Успешно выбрано: ' ..CayoGuns_name[pos])
+    notify.success('Cayo', 'Успешно')
 end)
 
 CayoSettings:add_click_option('Выполнить подготовительные', 'HC_CayoSettings_Preps', function()
@@ -70,14 +70,14 @@ CayoSettings:add_click_option('Выполнить подготовительны
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H4CNF_WEP_DISRP'), 3)
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H4CNF_HEL_DISRP'), 3)
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H4CNF_GRAPPEL'), -1)
-    notify.success('Cayo', 'Подготовительные выполнены')
+    notify.success('Cayo', 'Успешно')
 end)
 
 CayoSettings:add_click_option('Открыть все выходы', 'HC_CayoSettings_Exits', function()
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H4CNF_BS_GEN'), -1)
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H4CNF_BS_ENTR'), 63)
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H4CNF_APPROACH'), -1)
-    notify.success('Cayo', 'Выходы открыты')
+    notify.success('Cayo', 'Успешно')
 end)
 
 --- Быстрая настройка ограбления ------------------------------------
@@ -102,7 +102,7 @@ Cayo:add_click_option('Быстрая настройка ограбления', 
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H4CNF_BS_GEN'), -1)
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H4CNF_BS_ENTR'), 63)
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H4CNF_APPROACH'), -1)
-    notify.success('Cayo', 'Ограбление настроено')
+    notify.success('Cayo', 'Успешно')
 end):setHint('Автоматически выставляет высокий уровень сложности, статую пантеры и золото.')
 
 --- Удалить долю ----------------------------------------------------
@@ -110,7 +110,7 @@ end):setHint('Автоматически выставляет высокий у�
 Cayo:add_click_option('Удалить долю Павла и команды', 'HC_CayoCut', function()
     script_global:new(262145):at(30268):set_int64(0)
     script_global:new(262145):at(30269):set_int64(0)
-    notify.success('Cayo', 'Доли удалены')
+    notify.success('Cayo', 'Успешно')
 end):setHint('Активировать после начала ограбления.')
 
 --- Мгновенный скип -------------------------------------------------
@@ -119,9 +119,9 @@ Cayo:add_click_option('Мгновенно завершить', 'HC_CayoInsta', f
     if script.exists('fm_mission_controller_2020') then
         script_local:new('fm_mission_controller_2020', 48513):set_int64(9)
         script_local:new('fm_mission_controller_2020', 48513 + 1765 + 1):set_int64(50)
-        notify.success('Cayo', 'Ограбление завершено')
+        notify.success('Cayo', 'Успешно')
     else
-        notify.fatal('Cayo', 'Ошибка, попробуйте еще раз')
+        notify.warning('Cayo', 'Ошибка: миссия не запущена')
     end
 end)
 
@@ -135,5 +135,5 @@ Cayo:add_choose_option('Сбросить кд ограбления', 'HC_CayoCd'
     end
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H4_COOLDOWN'), 0)
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H4_COOLDOWN_HARD'), 0)
-    notify.success('Cayo', 'Кд сброшено, перезайдите в онлайн')
+    notify.success('Cayo', 'Успешно')
 end):setHint('После активации необходимо перезайти в онлайн.')

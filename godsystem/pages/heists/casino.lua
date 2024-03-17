@@ -9,12 +9,12 @@ Casino:add_sub_option('Настройка ограбления', 'HC_CasinoSetti
 CasinoSettings:add_choose_option('Подход', 'HC_CasinoSettings_Approach', false, CasApproach_name, function (pos)
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H3_LAST_APPROACH'), CasApproach_val[pos])
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H3OPT_APPROACH'), pos)
-    notify.success('Casino', 'Успешно выбрано: ' ..CasApproach_name[pos])
+    notify.success('Casino', 'Успешно')
 end)
 
 CasinoSettings:add_choose_option('Главная цель', 'HC_CasinoSettings_Main', false, CasMain_name, function (pos)
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H3OPT_TARGET'), CasMain_val[pos])
-    notify.success('Casino', 'Успешно выбрано: ' ..CasMain_name[pos])
+    notify.success('Casino', 'Успешно')
 end)
 
 CasinoSettings:add_choose_option('Стрелок', 'HC_CasinoSettings_Gunman', false, CasGunman_name, function (pos)
@@ -23,7 +23,7 @@ CasinoSettings:add_choose_option('Стрелок', 'HC_CasinoSettings_Gunman', f
     else
         stats.set_u32(string.smart_joaat('MP'..mp()..'_H3OPT_CREWWEAP'), pos)
     end
-    notify.success('Casino', 'Успешно выбрано: ' ..CasGunman_name[pos])
+    notify.success('Casino', 'Успешно')
 end)
 
 CasinoSettings:add_choose_option('Водитель', 'HC_CasinoSettings_Driver', false, CasDriver_name, function (pos)
@@ -32,7 +32,7 @@ CasinoSettings:add_choose_option('Водитель', 'HC_CasinoSettings_Driver',
     else
         stats.set_u32(string.smart_joaat('MP'..mp()..'_H3OPT_CREWDRIVER'), pos)
     end
-    notify.success('Casino', 'Успешно выбрано: ' ..CasDriver_name[pos])
+    notify.success('Casino', 'Успешно')
 end)
 
 CasinoSettings:add_choose_option('Хакер', 'HC_CasinoSettings_Hacker', false, CasHacker_name, function (pos)
@@ -41,7 +41,7 @@ CasinoSettings:add_choose_option('Хакер', 'HC_CasinoSettings_Hacker', false
     else
         stats.set_u32(string.smart_joaat('MP'..mp()..'_H3OPT_CREWHACKER'), pos)
     end
-    notify.success('Casino', 'Успешно выбрано: ' ..CasHacker_name[pos])
+    notify.success('Casino', 'Успешно')
 end)
 
 CasinoSettings:add_click_option('Выполнить подготовительные', 'HC_CasinoSettings_SkipPreps', function ()
@@ -51,13 +51,13 @@ CasinoSettings:add_click_option('Выполнить подготовительн
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H3OPT_WEAPS'), 0)
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H3OPT_BITSET0'), -1)
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H3OPT_BITSET1'), -1)
-    notify.success('Casino', 'Подготовительные выполнены')
+    notify.success('Casino', 'Успешно')
 end)
 
 CasinoSettings:add_click_option('Открыть все входы', 'HC_CasinoSettings_OpenPoi', function ()
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H3OPT_POI'), -1)
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H3OPT_ACCESSPOINTS'), -1)
-    notify.success('Casino', 'Входы открыты')
+    notify.success('Casino', 'Успешно')
 end)
 
 --- Быстрая настройка ограбления ------------------------------------
@@ -77,7 +77,7 @@ Casino:add_click_option('Быстрая настройка ограбления'
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H3OPT_BITSET1'), -1) -- Подготовительные
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H3OPT_POI'), -1) -- Входы
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H3OPT_ACCESSPOINTS'), -1) -- Входы
-    notify.success('Casino', 'Ограбление настроено')
+    notify.success('Casino', 'Успешно')
 end):setHint('Автоматически выставляет обман, алмазы и самых низких по доле подельников.')
 
 --- Ресет ограбы ----------------------------------------------------
@@ -98,5 +98,5 @@ Casino:add_click_option('Сбросить ограбление', 'HC_CasinoSetti
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H3OPT_BITSET1'), 0)
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H3OPT_POI'), 0)
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H3OPT_ACCESSPOINTS'), 0)
-    notify.success('Casino', 'Ограбление сброшено')
+    notify.success('Casino', 'Успешно')
 end)
