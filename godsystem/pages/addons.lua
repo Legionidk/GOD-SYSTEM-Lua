@@ -1,15 +1,19 @@
 Addons = Submenu.add_static_submenu('Спавнер', 'HC_Addons')
-HOME_SUBMENU:add_sub_option('Спавнер', 'HC_Addons', Addons):setHint('Спавнер машин.')
+HOME_SUBMENU:add_sub_option('Спавнер', 'HC_Addons', Addons)
 
 --- Спавн -----------------------------------------------------------
 
 Addons:add_choose_option('Спавн из папки "mods"', 'HC_Addons_Spawn', false, Checked_addons, function (pos)
-    notify.success('test', 'Попытка спавна: '..Checked_addons[pos])
-    entity.spawn_veh(string.smart_joaat(Checked_addons[pos]), function (entity)
-        table.insert(Spawned_addons, 1, entity)
-        notify.success('test', 'Успешный спавн')
-    end)
-end):setHint('Спавн модовой машины из папки "mods".')
+    if Checked_addons[pos] == 'папка не найдена' then
+        notify.warning('test', 'Ошибка: папка "mods" не найдена')
+    else
+        notify.success('test', 'Попытка спавна: '..Checked_addons[pos])
+        entity.spawn_veh(string.smart_joaat(Checked_addons[pos]), function (entity)
+            table.insert(Spawned_addons, 1, entity)
+            notify.success('test', 'Успешный спавн')
+        end)
+    end
+end)
 
 --- Спавн по названию -----------------------------------------------
 

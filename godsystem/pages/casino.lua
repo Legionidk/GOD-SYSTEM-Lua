@@ -29,9 +29,9 @@ Bj:add_click_option('Обмануть дилера', 'HC_Bj_Trick', function ()
         script_local:new('blackjack', 114 + 846 + 1 + (current_table * 13) + 2):set_int64(12)
         script_local:new('blackjack', 114 + 846 + 1 + (current_table * 13) + 3):set_int64(13)
         script_local:new('blackjack', 114 + 846 + 1 + (current_table * 13) + 12):set_int64(3)
-        notify.success('Bj', 'Дилер обманут')
+        notify.success('Bj', 'Успешно')
     else
-        notify.fatal('Bj', 'Ошибка, попробуйте еще раз')
+        notify.fatal('Bj', 'Неизвестная ошибка')
     end
 end):setHint('Меняет карты дилера на перебор.')
 
@@ -66,14 +66,14 @@ end)
 -- https://www.unknowncheats.me/forum/grand-theft-auto-v/604599-silent-night.html
 Poker:add_click_option('Выдать стрит-флеш', 'HC_Poker_SF', function ()
     if player.index() ~= 0 then
-        notify.fatal('Poker', 'Ошибка, функция не работает в открытой сессии')
+        notify.fatal('Poker', 'Ошибка: функция не работает в открытой сессии')
     else
         current_table = script_local:new('three_card_poker', 747 + 1 + (player.index() * 9) + 2):get_int64()
         if current_table == 0 then
             PokerCardsSetter(player.index(), current_table, 50, 51, 52)
-            notify.success('Poker', 'Стрит-флеш выдан')
+            notify.success('Poker', 'Успешно')
         else
-            notify.fatal('Poker', 'Ошибка, попробуйте еще раз')
+            notify.fatal('Poker', 'Неизвестная ошибка')
         end
     end
 end):setHint('Активировать перед ставкой.')
@@ -104,11 +104,31 @@ Poker:add_click_option('Обмануть дилера', 'HC_Poker_Trick', functi
     current_table = script_local:new('three_card_poker', 747 + 1 + (player.index() * 9) + 2):get_int64()
     if current_table == 0 then
         PokerCardsSetter(PokerDealersIDGetter(current_table), current_table, 2, 17, 32)
-        notify.success('Poker', 'Дилер обманут')
+        notify.success('Poker', 'Успешно')
     else
-        notify.fatal('Poker', 'Ошибка, попробуйте еще раз')
+        notify.fatal('Poker', 'Неизвестная ошибка')
     end
-end):setHint('Использовать перед ставкой.')
+end):setHint('Активировать перед ставкой.')
+
+--- Слоты -----------------------------------------------------------
+
+Casino:add_choose_option('Слоты', 'HC_Casino_Slots_Win', false, {'Выиграть', 'Проиграть'}, function (pos)
+    if script.exists('casino_slots') then
+        if pos == 1 then
+            for i = 3, 196 do
+                script_local:new('casino_slots', 1346 + i):set_int64(6)
+            end
+            notify.success('text', 'Успешно')
+        else
+            for i = 3, 196 do
+                script_local:new('casino_slots', 1346 + i):set_int64(0)
+            end
+            notify.success('text', 'Успешно')
+        end
+    else
+        notify.warning('text', 'Ошибка: вы не за слотами')
+    end
+end)
 
 --- Дроп из колеса --------------------------------------------------
 
@@ -116,9 +136,9 @@ Casino:add_choose_option('Выдать дроп из колеса', 'HC_LW', fal
     if script.exists('casino_lucky_wheel') then
         script_local:new('casino_lucky_wheel', 278 + 14):set_int64(LuckyWheel_id[pos])
         script_local:new('casino_lucky_wheel', 278 + 45):set_int64(11)
-        notify.success('Stuff', 'Успешно выбрано: '..LuckyWheel_name[pos])
+        notify.success('Stuff', 'Успешно')
     else
-        notify.fatal('HC_LW', 'Ошибка, попробуйте еще раз')
+        notify.warning('HC_LW', 'Ошибка: вы не в казино')
     end
 end):setHint('Активировать будучи в казино.')
 
@@ -133,5 +153,5 @@ end)
 Casino:add_click_option('Сбросить кд покупки фишек', 'HC_Chips_ResetCd', function()
     stats.set_u32(string.smart_joaat('MPPLY_CASINO_CHIPS_PUR_GD'), 0)
     stats.set_u32(string.smart_joaat('MPPLY_CASINO_CHIPS_PURTIM'), 0)
-    notify.success('Stuff', 'Кд сброшено')
+    notify.success('Stuff', 'Успешно')
 end)
