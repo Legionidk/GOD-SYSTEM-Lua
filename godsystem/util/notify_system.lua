@@ -98,22 +98,22 @@ log = {
 notify = {
     default = function (page_s, text_s, ...)
         -- NotifyService:notify(page_s, features.format(text_s, table.unpack({...})), 0, 180, 255)
-        NotifyService:notify2(features.format(text_s, table.unpack({...})), 17, 18, 21, gui.drawUI_icons.info)
+        NotifyService:notify2(features.format(text_s, table.unpack({...})), 22, 24, 28, gui.drawUI_icons.info)
     end,
     success = function (page_s, text_s, ...)
         -- NotifyService:notify2(features.format(text_s, table.unpack({...})), 0, 204, 153)
-        NotifyService:notify2(features.format(text_s, table.unpack({...})), 17, 18, 21, gui.drawUI_icons.success)
+        NotifyService:notify2(features.format(text_s, table.unpack({...})), 22, 24, 28, gui.drawUI_icons.success)
     end,
     warning = function (page_s, text_s, ...)
         -- NotifyService:notify(page_s, features.format(text_s, table.unpack({...})), 255, 204, 51)
-        NotifyService:notify2(features.format(text_s, table.unpack({...})), 17, 18, 21, gui.drawUI_icons.warning)
+        NotifyService:notify2(features.format(text_s, table.unpack({...})), 22, 24, 28, gui.drawUI_icons.warning)
     end,
     important = function (page_s, text_s, ...)
         -- NotifyService:notify(page_s, features.format(text_s, table.unpack({...})), 51, 102, 204)
-        NotifyService:notify2(features.format(text_s, table.unpack({...})), 17, 18, 21, gui.drawUI_icons.warning)
+        NotifyService:notify2(features.format(text_s, table.unpack({...})), 22, 24, 28, gui.drawUI_icons.warning)
     end,
     fatal = function (page_s, text_s, ...)
         -- NotifyService:notify(page_s, features.format(text_s, table.unpack({...})), 255, 0, 51)
-        NotifyService:notify2(features.format(text_s, table.unpack({...})), 17, 18, 21, gui.drawUI_icons.error)
+        NotifyService:notify2(features.format(text_s, table.unpack({...})), 22, 24, 28, gui.drawUI_icons.error)
     end,
 }

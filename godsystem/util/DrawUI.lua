@@ -76,7 +76,7 @@ local arrowsControls = {
 local numpadControls = {
     open = 106,
     down = 98,
-    up = 104, 
+    up = 104,
     left = 100,
     right = 102,
     enter = 101,
@@ -226,7 +226,7 @@ Submenu = {
     prevOption = 1,
     --for dynamic submenus
     getter = function ()
-        
+
     end,
     getSubmenus = function ()
         return submenus
@@ -272,7 +272,7 @@ function NotifyService:notify(title_s, text_s, r, g, b)
     title_s, text_s = tostring(title_s), tostring(text_s)
     if not title_s then
         return(log.error("NotifyService", string.format("Wrong title value type | Received '%s'; expected 'string'/'num'.", type(title_s))))
-    elseif not text_s then 
+    elseif not text_s then
         return(log.error("NotifyService", string.format("Wrong text value type | Received '%s'; expected 'string'/'num'.", type(text_s))))
     end
     local notifyHash = "Notify_Render_" .. os.clock() .. math.random(1337)
@@ -365,7 +365,7 @@ end
 
 function NotifyService:notify2(text_s, r, g, b, iconID_n)
     text_s = tostring(text_s)
-    if not text_s then 
+    if not text_s then
         return(log.error("NotifyService", string.format("Wrong text value type | Received '%s'; expected 'string'/'num'.", type(text_s))))
     end
     local texture = nil
@@ -493,7 +493,7 @@ function InputService:displayInputBox(name_s, type_s, callback_f)
             rightDown = {
                 x = corners.background.rightDown.x - 30,
                 y = corners.background.rightDown.y - settings.height/2 + settings.textAreaHeight/2,
-            }       
+            }
         }
         corners.title = {
             leftUpper = {
@@ -526,7 +526,7 @@ function InputService:displayInputBox(name_s, type_s, callback_f)
                 y = corners.textArea.rightDown.y + (corners.background.rightDown.y - corners.textArea.rightDown.y)/2 + settings.buttonHeight/2,
             }
         }
-    listener.register("DrawUI_InputBox", GET_EVENTS_LIST().OnFrame, function ()  
+    listener.register("DrawUI_InputBox", GET_EVENTS_LIST().OnFrame, function ()
         utils.get_mouse_pos(mousePos)
         local isFocusedOn = {
             button1 = features.isPositionInArea(corners.button1.leftUpper, corners.button1.rightDown, mousePos),
@@ -565,12 +565,12 @@ function InputService:displayInputBox(name_s, type_s, callback_f)
             else
                 renderedText = "Start typing..."
                 textColor = {0, 150, 150, 150, 255}
-            end 
+            end
             if os.clock() - settings.cursorTime >= 0.5 then
                 settings.cursorAlphaTarget = settings.cursorAlphaTarget == 255 and 0 or 255
                 settings.cursorTime = os.clock()
             end
-            if settings.cursorCurAlpha < settings.cursorAlphaTarget then 
+            if settings.cursorCurAlpha < settings.cursorAlphaTarget then
                 settings.cursorCurAlpha = math.min(255, settings.cursorCurAlpha + 20)
             elseif settings.cursorCurAlpha > settings.cursorAlphaTarget then
                 settings.cursorCurAlpha = math.max(0, settings.cursorCurAlpha - 20)
@@ -590,7 +590,7 @@ function InputService:displayInputBox(name_s, type_s, callback_f)
             else
                 renderedText = "Waiting for a key..."
                 draw.set_color(0, 150, 150, 150, 255)
-            end 
+            end
         end
         draw.set_color(table.unpack(textColor))
         draw.text(
@@ -769,7 +769,7 @@ end
 
 function HotkeyService.removeHotkey(optionHash_s)
     local hotkeys = {}
-    if filesys.doesFileExist(paths.files.hotkeys) then 
+    if filesys.doesFileExist(paths.files.hotkeys) then
         parse.json(paths.files.hotkeys, function (content)
             for key, hashes in pairs(content) do
                 for _, hash in ipairs(hashes) do
@@ -794,7 +794,7 @@ end
 -- listener.register("DrawUI_Hotkeys", GET_EVENTS_LIST().OnKeyPressed, function (key, isDown)
 --     if not isDown then return end
 --     if config.isOpened then
---         if key == gui.virualKeys.F11 then        
+--         if key == gui.virualKeys.F11 then
 --             local submenu = config.path[#config.path]
 --             local option = submenu.options[submenu.selectedOption]
 --             if not option.hotkey then
@@ -1303,7 +1303,7 @@ local function onControl(key, isDown, ignoreControlsState)
         end
         if key == controls.up then -- UP
             local submenu = config.path[#config.path]
-            
+
             submenu.selectedOption = submenu.selectedOption - 1
             playClickSound()
         end
@@ -1459,13 +1459,13 @@ HOME_SUBMENU = Submenu.add_main_submenu("Главная", "home_sub")
 
 local settings = Submenu.add_static_submenu("Настройки меню", "Main_Settings") do
     HOME_SUBMENU:add_sub_option("Настройки меню", "Main_Settings", settings)
-    -- settings:add_choose_option("Localization", "Main_Settings_localization", false, {"English", "Russian", "Chinese", "Custom"}, function (pos, option) 
+    -- settings:add_choose_option("Localization", "Main_Settings_localization", false, {"English", "Russian", "Chinese", "Custom"}, function (pos, option)
     --     if pos == 1 then
     --         config.localization = nil
     --     elseif pos == 2 then
     --         config.localization = Localizations.russian
     --     elseif pos == 3 then
-    --         config.localization = Localizations.chinese        
+    --         config.localization = Localizations.chinese
     --     elseif pos == 4 then
     --         config.localization = Localizations.custom
     --     end
@@ -1531,12 +1531,12 @@ local settings = Submenu.add_static_submenu("Настройки меню", "Main
     settings:add_bool_option("Показывать управление", "Main_Settings_KeysPanel", function (state)
         config.drawKeysPanel = state
     end):setValue(true)
-    settings:add_bool_option("Игнорировать хоткеи в чате", "Main_Settings_IgnoreHotkeysWhenChatting", function (state)
-        config.ignoreHotkeysWhenChatting = state
-    end):setValue(config.ignoreHotkeysWhenChatting)
-    settings:add_bool_option("Уведомления для хоткеев", "Main_Settings_NotifyOnHotkey", function (state)
-        config.notifyOnHotkey = state
-    end):setValue(config.notifyOnHotkey)
+    -- settings:add_bool_option("Игнорировать хоткеи в чате", "Main_Settings_IgnoreHotkeysWhenChatting", function (state)
+    --     config.ignoreHotkeysWhenChatting = state
+    -- end):setValue(config.ignoreHotkeysWhenChatting)
+    -- settings:add_bool_option("Уведомления для хоткеев", "Main_Settings_NotifyOnHotkey", function (state)
+    --     config.notifyOnHotkey = state
+    -- end):setValue(config.notifyOnHotkey)
     settings:add_choose_option("Расположение уведомлений [X]", "Main_Settings_NotifyAlignRight", true, {"Справа", "Слева"}, function (pos, option)
         config.notify2AlignRight = pos == 1
         option:setHint("По горизонтали.")
@@ -1566,7 +1566,7 @@ end
 
 local function getClickableOption(submenu, selectedOption)
     if #submenu.options < 2 then return 1 end
-    if selectedOption < 1 then 
+    if selectedOption < 1 then
         return getClickableOption(submenu, #submenu.options)
     end
     if selectedOption > #submenu.options then
@@ -1613,27 +1613,27 @@ listener.register("DrawUI_render", GET_EVENTS_LIST().OnFrame, function ()
 
     local bg = {}
     bg.lu = {
-        x = config.offset_x, 
+        x = config.offset_x,
         y = config.offset_y
     }
     bg.rd = {
-        x = bg.lu.x + config.width, 
+        x = bg.lu.x + config.width,
         y = bg.lu.y + math.min(#submenu.options, config.maxOptions)*config.optionHeight
     }
     draw.set_color(0, 22, 24, 28, 255) -- BACKGROUND
     draw.rect_filled(
-        bg.lu.x, 
-        bg.lu.y, 
-        bg.rd.x, 
+        bg.lu.x,
+        bg.lu.y,
+        bg.rd.x,
         bg.rd.y)
         -- draw.texture(
         --     materials.bg,
-        --     bg.lu.x, 
+        --     bg.lu.x,
         --     bg.lu.y - config.optionHeight,
         --     config.width,
         --     bg.rd.y - bg.lu.y + config.optionHeight
         -- )
-    
+
     draw.set_color(0, 40, 45, 51, 255) -- SUBMENU NAME BG
     draw.rect_filled(
         bg.lu.x,
@@ -1641,7 +1641,7 @@ listener.register("DrawUI_render", GET_EVENTS_LIST().OnFrame, function ()
         bg.rd.x,
         bg.lu.y
     )
-    
+
     local pos = string.format("%i/%i", submenu.selectedOption, #submenu.options)
     draw.set_color(0, 255, 255, 255, 255) -- OPTIONS x/y
     draw.text(
@@ -1679,7 +1679,7 @@ listener.register("DrawUI_render", GET_EVENTS_LIST().OnFrame, function ()
         (bg.lu.y - config.optionHeight - (bg.lu.y - config.optionHeight - bg.lu.y)/2) - draw.get_text_size_y(path)/2,
         path
     )
-    
+
     draw.texture( -- HEADER
     materials.header,
     bg.lu.x,
@@ -1699,8 +1699,8 @@ listener.register("DrawUI_render", GET_EVENTS_LIST().OnFrame, function ()
 
     draw.texture( -- FOOTER ARROWS
         materials.footerArrows,
-        bg.lu.x + config.width/2 - config.footerArrowsSize/2 - 2, 
-        bg.rd.y + config.optionHeight/2 - config.footerArrowsSize/2, 
+        bg.lu.x + config.width/2 - config.footerArrowsSize/2 - 2,
+        bg.rd.y + config.optionHeight/2 - config.footerArrowsSize/2,
         config.footerArrowsSize + 2,
         config.footerArrowsSize
     )
@@ -1711,10 +1711,10 @@ listener.register("DrawUI_render", GET_EVENTS_LIST().OnFrame, function ()
         bg.rd.y + config.optionHeight/2 - draw.get_text_size_y(LGN)/2,
         LGN
     )
-    
+
     if submenu.options[submenu.selectedOption] then
         local data = submenu.options[submenu.selectedOption]
-        
+
         local scrollerEnd = {}
         scrollerEnd.leftUpper = {
             x = bg.lu.x,
@@ -1724,9 +1724,9 @@ listener.register("DrawUI_render", GET_EVENTS_LIST().OnFrame, function ()
             x = bg.rd.x,
             y = scrollerEnd.leftUpper.y + config.optionHeight
         }
-        
+
         if not submenu.scrollerPos then submenu.scrollerPos = scrollerEnd end
-        
+
         if config.enabelSmoothScroller then
             local scrollerSpeed = 180 * utils.get_frame_rate()
             if submenu.scrollerPos.leftUpper.y < scrollerEnd.leftUpper.y then -- CREDITS TO 1tsPxel
@@ -1751,10 +1751,10 @@ listener.register("DrawUI_render", GET_EVENTS_LIST().OnFrame, function ()
             local hint = features.split_text_into_lines(tostring(submenu.options[submenu.selectedOption].hint), config.width - 20)
             if hint ~= "" then
                 local y = bg.rd.y + config.optionHeight + 10
-                draw.set_color(0, 34, 41, 47, 255)
+                draw.set_color(0, 22, 24, 28, 255)
                 draw.rect_filled(
                     bg.lu.x,
-                    y, 
+                    y,
                     bg.rd.x,
                     y + 5 + draw.get_text_size_y(hint) + 5
                 )
@@ -1803,7 +1803,7 @@ listener.register("DrawUI_render", GET_EVENTS_LIST().OnFrame, function ()
             x = sliderBox.rightDown.x - sliderItemPadding,
             y = sliderItemEnd.leftUpper.y + sliderHeight
         }
-        
+
         if not submenu.sliderPos then submenu.sliderPos = sliderItemEnd end
 
         local sliderPosSpeed = 180 * utils.get_frame_rate()
@@ -1817,7 +1817,7 @@ listener.register("DrawUI_render", GET_EVENTS_LIST().OnFrame, function ()
         if sliderHeight > 0.0 then
             draw.set_color(0, 22, 24, 28, 255)
             draw.set_rounding(16)
-            
+
             draw.rect_filled( -- SLIDER BOX
                 sliderBox.leftUpper.x,
                 sliderBox.leftUpper.y,
@@ -1839,11 +1839,11 @@ listener.register("DrawUI_render", GET_EVENTS_LIST().OnFrame, function ()
             draw.set_rounding(0)
         end
     end
-    
+
     local optionID = 0
     local firstOption = math.max(0, submenu.selectedOption - config.maxOptions) + 1
     local lastOption = firstOption + math.min(config.maxOptions, #submenu.options) - 1
-    
+
 
     for i = firstOption, lastOption do -- RENDERING OPTIONS NAMES
         optionID = optionID + 1
@@ -1855,7 +1855,7 @@ listener.register("DrawUI_render", GET_EVENTS_LIST().OnFrame, function ()
             y = bg.lu.y + config.optionHeight*(optionID - 1),
         }
         textEnd.rightDown = {
-            x = bg.rd.x, 
+            x = bg.rd.x,
             y = textEnd.leftUpper.y + config.optionHeight,
         }
 
@@ -1902,7 +1902,7 @@ listener.register("DrawUI_render", GET_EVENTS_LIST().OnFrame, function ()
         --     draw.set_rounding(3)
         --     draw.set_color(0, 83, 180, 223, 255)
         --     draw.rect_filled(
-        --         textEnd.leftUpper.x + textLeftPagging,   
+        --         textEnd.leftUpper.x + textLeftPagging,
         --         textEnd.leftUpper.y + config.optionHeight/2 - textSize.y/2,
         --         textEnd.leftUpper.x + textLeftPagging + textSize.x + 4*2,
         --         textEnd.leftUpper.y + config.optionHeight/2 + textSize.y/2
@@ -1955,7 +1955,7 @@ listener.register("DrawUI_render", GET_EVENTS_LIST().OnFrame, function ()
         end
 
         local offset = 5.0
-        for _, t in ipairs(data.tags or {}) do                      
+        for _, t in ipairs(data.tags or {}) do
             draw.set_color(0, t[2], t[3], t[4], 255)
             draw.text(
                 lu.x + 10 + draw.get_text_size_x(name) + offset,
@@ -2023,7 +2023,7 @@ listener.register("DrawUI_render", GET_EVENTS_LIST().OnFrame, function ()
             for _, key_t in ipairs(keys) do
                 boxCoords.leftUpper.x = boxCoords.leftUpper.x - 10 - draw.get_text_size_x(key_t.key) - 10 - draw.get_text_size_x(key_t.note)
             end
-            draw.set_color(0, 17, 18, 21, 255)
+            draw.set_color(0, 22, 24, 28, 255)
             draw.set_rounding(5)
             draw.rect_filled(
                 boxCoords.leftUpper.x,
