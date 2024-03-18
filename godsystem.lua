@@ -95,6 +95,6 @@ if native.is_invoker_ready() then
         end)
     end)
 else
-    utils.notify('GOD SYSTEM', 'Инвокер не готов, скрытие луа во избежании краша', 28, 0)
+    utils.notify('GOD SYSTEM', 'Инвокер не готов, скрытие луа во избежание краша', 28, 0)
     utils.stop_script()
 end
