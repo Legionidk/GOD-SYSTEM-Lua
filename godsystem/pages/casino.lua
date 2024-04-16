@@ -1,7 +1,7 @@
 --- Блэкджек --------------------------------------------------------
 
 Casino = Submenu.add_static_submenu('Казино', 'HC_Casino')
-HOME_SUBMENU:add_sub_option('Казино', 'HC_Casino', Casino)
+HOME_SUBMENU:add_sub_option('Казино', 'HC_Casino', Casino):setTags({{"[РИСК]", 252, 43, 85}})
 
 Bj = Submenu.add_static_submenu('Блэкджек', 'HC_Bj')
 Casino:add_sub_option('Блэкджек', 'HC_Bj', Bj)
@@ -109,26 +109,6 @@ Poker:add_click_option('Обмануть дилера', 'HC_Poker_Trick', functi
         notify.fatal('Poker', 'Неизвестная ошибка')
     end
 end):setHint('Активировать перед ставкой.')
-
---- Слоты -----------------------------------------------------------
-
-Casino:add_choose_option('Слоты', 'HC_Casino_Slots_Win', false, {'Выиграть', 'Проиграть'}, function (pos)
-    if script.exists('casino_slots') then
-        if pos == 1 then
-            for i = 3, 196 do
-                script_local:new('casino_slots', 1346 + i):set_int64(6)
-            end
-            notify.success('text', 'Успешно')
-        else
-            for i = 3, 196 do
-                script_local:new('casino_slots', 1346 + i):set_int64(0)
-            end
-            notify.success('text', 'Успешно')
-        end
-    else
-        notify.warning('text', 'Ошибка: вы не за слотами')
-    end
-end)
 
 --- Дроп из колеса --------------------------------------------------
 

@@ -25,11 +25,3 @@ Trash:add_click_option('Телепортироваться к оружейном
                     Gunvan_coords[script_global:new(2652572 + 2650 + 1):get_int64()][2],
                     Gunvan_coords[script_global:new(2652572 + 2650 + 1):get_int64()][3])
 end)
-
---- Вызвать хренча --------------------------------------------------
-
-Trash:add_click_option('Вызвать Хренча', 'HC_Stuff_Trash_Gooch', function ()
-    script_global:new(2698947):at(3 + 1):set_int64(171)
-    script_global:new(2698947):at(2):set_int64(6)
-    notify.success('Stuff', 'Успешно')
-end)
