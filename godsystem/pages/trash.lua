@@ -1,6 +1,27 @@
 Trash = Submenu.add_static_submenu('Другое', 'HC_Stuff_Trash')
 HOME_SUBMENU:add_sub_option('Другое', 'HC_Stuff_Trash', Trash)
 
+--- 1кк -------------------------------------------------------------
+
+Trash:add_looped_option('Накрутка по 1кк/5с', 'HC_Stuff_Loop', 5, function ()
+    script_global:new(4537212):at(1):set_long(2147483646)
+	script_global:new(4537212):at(7):set_long(2147483647)
+	script_global:new(4537212):at(6):set_long(0)
+	script_global:new(4537212):at(5):set_long(0)
+	script_global:new(4537212):at(3):set_long(0x615762F1)
+	script_global:new(4537212):at(2):set_long(1000000)
+	script_global:new(4537212):set_long(2)
+end, function ()
+    script_global:new(4537212):at(1):set_long(2147483647)
+	script_global:new(4537212):at(7):set_long(2147483647)
+	script_global:new(4537212):at(6):set_long(0)
+	script_global:new(4537212):at(5):set_long(0)
+	script_global:new(4537212):at(3):set_long(0)
+	script_global:new(4537212):at(2):set_long(0)
+	script_global:new(4537212):set_long(16)
+    notify.success('HC_Stuff_Loop', 'Накрутка выключена')
+end)
+
 --- Удаленный транспорт ---------------------------------------------
 
 Trash:add_click_option('Разблокировать удаленный транспорт', 'HC_Stuff_ResDelVeh', function ()
