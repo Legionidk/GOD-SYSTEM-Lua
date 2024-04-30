@@ -1,112 +1,113 @@
-# GOD SYSTEM Lua ![](https://img.shields.io/badge/2.5-7393B3)
-![](https://img.shields.io/badge/%D0%92%D0%B5%D1%80%D1%81%D0%B8%D1%8F_%D0%B8%D0%B3%D1%80%D1%8B-1.68-yellow) ![](https://img.shields.io/badge/%D0%A1%D0%B1%D0%BE%D1%80%D0%BA%D0%B0-3179-yellow)
+# GOD SYSTEM Lua ![](https://img.shields.io/badge/2.6-7393B3)
+![](https://img.shields.io/badge/Game_version-1.68-yellow) ![](https://img.shields.io/badge/Game_build-3179-yellow)
 
-Вспомогательная луа для Midnight GTA:O. Меню позаимствовано из [BoolyScript](https://midnight.im/threads/7220/), некоторые скрипты взяты у [Silent Night](https://www.unknowncheats.me/forum/grand-theft-auto-v/604599-silent-night.html).
+Lua for Midnight GTA:O. The menu is borrowed from [BoolyScript](https://midnight.im/threads/7220/), some scripts are taken from [Silent Night](https://www.unknowncheats.me/forum/grand-theft-auto-v/ 604599-silent-night.html).
 
 # Установка
-Переместить содержимое архива в папку `\lua` (рядом с лоадером).
+Move files from archive to `\lua` folder.
 
-# Функционал
-### Ограбления
-- Кайо-Перико
-  - Настройка ограбления
-    - Сложность
-    - Главная цель
-    - Второстепенная цель
-    - Оружие
-    - Выполнить все подготовительные задания
-  - Быстрая настройка ограбления
-  - Удалить долю Павла и команды
-  - Мгновенно завершить
-  - Сбросить кд ограбления
-- Казино
-  - Настройка ограбления
-    - Подход
-    - Главная цель
-    - Стрелок 
-    - Водитель
-    - Хакер
-    - Выполнить подготовительные
-    - Открыть все входы
-  - Быстрая настройка ограбления
-  - Сбросить ограбление
-- Судный день 
-  - Выбрать акт
-  - Выполнить подготовительные
-  - Сбросить сценарий
-- Автомастерская
-  - Выбрать заказ
-  - Выполнить подготовительные
-  - Установить максимальную выплату (2кк)
-  - Мгновенно завершить
-- Утиль. цех
-  - Удалить стоимость подготовки
-  - Подготовительные 
-- Агенство
-  - Выполнить подготовительные
-  - Установить максимальную выплату (2.5кк)
-### Бизнесы
-- Офис
-  - Ваш офис
-  - Телепортироваться к офису
-  - Склады
-    - Всего доступно (показывает общую вместимость всех ваших складов)
-    - Склад #1
-      - Доступно (показывает вместимость склада)
-      - Телепортироваться к складу
-    - Склад #2
-      - Доступно (показывает вместимость склада)
-      - Телепортироваться к складу
-    - Склад #3
-      - Доступно (показывает вместимость склада)
-      - Телепортироваться к складу
-    - Склад #4
-      - Доступно (показывает вместимость склада)
-      - Телепортироваться к складу
-    - Склад #5
-      - Доступно (показывает вместимость склада)
-      - Телепортироваться к складу
-    - Афк фарм ящиков
-    - Моментально завершить (покупку/продажу)
-    - Удалить кд (покупки/продажи)
-- Бункер
-  - Ваш бункер
-  - Телепортироваться к бункеру
-  - Сырье
-    - Сырье (отображение вашего сырья)
-    - Пополнить сырье
-  - Товар
-    - Товар (отображение вашего товара)
-    - Моментально завершить продажу
-  - Разработка
-    - Разработка (отображение вашей разработки)
-- Ангар
-  - Афк фарм ящиков
-  - Моментально завершить продажу
-- Мотоклуб
-  - Пополнить сырье
-  - Пополнить все сырье
-- Кислотная лаборатория
-  - Пополнить сырье
-  - Вызвать (кислотную лабораторию/мотоцикл кислотной лаборатории)
-### Казино
-- Блэкджек
-  - Скрытая карта дилера
-  - Обмануть дилера
-- Покер
-  - Карты игрока
-  - Выдать стрит-флеш
-  - Карты дилера
-  - Обмануть дилера
-- Выдать дроп из колеса
-- Лимит покупки фишек
-- Сбросить кд покупки фишек
-### Спавнер
-- Спавн из папки 'mods'
-- Спавн по названию
-- Удалить весь заспавненный транспор
-### Другое
-- Накрутка по 1кк/5с
-- Разблокировать удаленный транспорт
-- Получить премиальный транспорт
-- Телепортироваться к оружейному фургону
+# Functions
+### Heist control
+- Cayo-Perico
+  - Heist settings
+    - Difficulty
+    - Target
+    - Island and compound
+    - Guns
+    - Complete preps
+  - Fast preset
+  - Remove cuts of Pavel and team
+  - Instant finish
+  - Reset cooldown
+- Casino
+  - Heist settings
+    - Approach
+    - Target
+    - Gunman
+    - Driver
+    - Hacker
+    - Complete preps
+  - Fast preset
+  - Reset heist
+- Doomsday
+  - Choose act
+  - Preps
+- Auto shop
+  - Choose contract
+  - Complete preps
+  - Max payout (2m)
+  - Instant finish
+- Salvage
+  - Free setup
+  - Preps
+- Agency
+  - Complete preps
+  - Max payout (2.5m)
+### Businesses
+- Office
+  - Your office
+  - TP to office
+  - Warehouses
+    - Total crates
+    - Warehouse #1
+      - Crates
+      - TP to warehouse
+    - Warehouse #2
+      - Crates
+      - TP to warehouse
+    - Warehouse #3
+      - Crates
+      - TP to warehouse
+    - Warehouse #4
+      - Crates
+      - TP to warehouse
+    - Warehouse #5
+      - Crates
+      - TP to warehouse
+    - Crates loop
+    - Instant (Sell/Buy)
+    - Delete cooldown (For sell/For buy)
+- Bunker
+  - Your bunker
+  - TP to bunker
+  - Supplies
+    - Supplies
+    - Get supplies
+  - Stock
+    - Stock
+    - Instant sell
+  - Research
+    - Research
+- Hangar
+  - Cargo loop
+  - Instant sell
+- Clubhouse
+  - Get supplies
+  - Get all supplies
+- Acid lab
+  - Request
+  - Get supplies
+### Casino
+- Blackjack
+  - Dealer card
+  - Trick The Dealer
+- Poker
+  - Player cards
+  - Give straight flush
+  - Dealer cards
+  - Trick The Dealer
+- Give prize from lucky wheel
+- Chips purchase limit
+- Reset chips purchase limit
+### Money loops
+- OP loop ($1m/1s)
+- Ships loop (5k/3s)
+- Death loop ($50k/1s)
+### Mods
+- Spawn from 'mods' folder
+- Spawn by name
+- Delete all spawned vehicles
+### Other
+- Unlock all removed vehicles
+- Unlock LS Car Meet podium prize
+- TP to gun van
