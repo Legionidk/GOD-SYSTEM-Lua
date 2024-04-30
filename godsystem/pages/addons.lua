@@ -1,37 +1,37 @@
-Addons = Submenu.add_static_submenu('Спавнер', 'HC_Addons')
-HOME_SUBMENU:add_sub_option('Спавнер', 'HC_Addons', Addons)
+Addons = Submenu.add_static_submenu('Mods', 'HC_Addons')
+HOME_SUBMENU:add_sub_option('Mods', 'HC_Addons', Addons)
 
 --- Спавн -----------------------------------------------------------
 
-Addons:add_choose_option('Спавн из папки "mods"', 'HC_Addons_Spawn', false, Checked_addons, function (pos)
-    if Checked_addons[pos] == 'папка не найдена' then
-        notify.warning('test', 'Ошибка: папка "mods" не найдена')
+Addons:add_choose_option('Spawn from "mods" folder', 'HC_Addons_Spawn', false, Checked_addons, function (pos)
+    if Checked_addons[pos] == 'folder not found' then
+        notify.warning('test', 'Error: "mods" folde not found')
     else
-        notify.success('test', 'Попытка спавна: '..Checked_addons[pos])
+        notify.success('test', 'Trying spawn: '..Checked_addons[pos])
         entity.spawn_veh(string.smart_joaat(Checked_addons[pos]), function (entity)
             table.insert(Spawned_addons, 1, entity)
-            notify.success('test', 'Успешный спавн')
+            notify.success('test', 'Spawned')
         end)
     end
 end)
 
 --- Спавн по названию -----------------------------------------------
 
-Addons:add_text_input('Спавн по названию', 'HC_Addons_SpawnOnName', function (name)
-    notify.success('test', 'Попытка спавна: '..name)
+Addons:add_text_input('Spawn by name', 'HC_Addons_SpawnByName', function (name)
+    notify.success('test', 'Trying spawn: '..name)
     entity.spawn_veh(string.smart_joaat(name), function (entity)
         table.insert(Spawned_addons, 1, entity)
-        notify.success('test', 'Успешный спавн')
+        notify.success('test', 'Spawned')
     end)
 end)
 
 --- Удаление --------------------------------------------------------
 
-Addons:add_click_option('Удалить весь заспавненный транспорт', 'HC_Addons_DelAll', function ()
+Addons:add_click_option('Delete all spawned vehicles', 'HC_Addons_DelAll', function ()
     for c = 1, #Spawned_addons do
         entity.delete(Spawned_addons[c])
     end
-    notify.success('test', 'Успешно удалено: '..#Spawned_addons)
+    notify.success('test', 'Successfully deleted: '..#Spawned_addons)
     for c = 1, #Spawned_addons do
         Spawned_addons[c] = nil
     end
