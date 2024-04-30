@@ -84,16 +84,15 @@ end
 
 
 function OnInit()
-    local startTime = os.clock()
-    log.init("                                                             ")
-    log.init("             **             **            **        **       ")
-    log.init("            **          **     **        **        **        ")
-    log.init("           **          **      **       ** **     **         ")
-    log.init("          **          **               **   **   **          ")
-    log.init("         **           **  ******      **     ** **           ")
-    log.init("        *******       **    **       **        **            ")
-    log.init("       *******          **          **        **             ")
-    log.init("                                                             ")
+    log.init("                                                                             ")
+    log.init("             **             **            **        **                       ")
+    log.init("            **          **     **        **        **                        ")
+    log.init("           **          **      **       ** **     **                         ")
+    log.init("          **          **               **   **   **                          ")
+    log.init("         **           **  ******      **     ** **                           ")
+    log.init("        *******       **    **       **        **                            ")
+    log.init("       *******          **          **        **   Made in Russia            ")
+    log.init("                                                                             ")
 
     local event = onEventFunctions[eApiEvents.OnInit]
     for _, t in ipairs(event) do
@@ -107,20 +106,21 @@ function OnInit()
             if out == false then listener.remove(hash_s, eApiEvents.OnInit) end
         end
     end
-    log.init(string.format("[GOD SYSTEM] Инициализация завершена за %s секунд", tostring(os.clock() - startTime):sub(0, 3)))
     -- notify.success("heistcontrol", "Script has been loaded successfully.")
 end
 
 function OnKeyPressed(key, isDown)
-    local event = onEventFunctions[eApiEvents.OnKeyPressed]
-    for _, t in ipairs(event) do
-        local hash_s, callback_f = t["hash"], t["callback"]
-        if not callback_f then 
-            log.error("EVENTS_LISTENER", string.format("Invalid callback in registered listener with hash: %s.", hash_s))
-            listener.remove(hash_s, eApiEvents.OnKeyPressed)
-        else 
-            local out = callback_f(key,isDown) 
-            if out == false then listener.remove(hash_s, eApiEvents.OnKeyPressed) end
+    if native.is_invoker_ready() then
+        local event = onEventFunctions[eApiEvents.OnKeyPressed]
+        for _, t in ipairs(event) do
+            local hash_s, callback_f = t["hash"], t["callback"]
+            if not callback_f then
+                log.error("EVENTS_LISTENER", string.format("Invalid callback in registered listener with hash: %s.", hash_s))
+                listener.remove(hash_s, eApiEvents.OnKeyPressed)
+            else 
+                local out = callback_f(key,isDown) 
+                if out == false then listener.remove(hash_s, eApiEvents.OnKeyPressed) end
+            end
         end
     end
 end
