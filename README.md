@@ -3,7 +3,7 @@
 
 Lua for Midnight GTA:O. The menu is borrowed from [BoolyScript](https://midnight.im/threads/7220/), some scripts are taken from [Silent Night](https://www.unknowncheats.me/forum/grand-theft-auto-v/604599-silent-night.html).
 
-# Установка
+# Installation
 Move files from archive to `\lua` folder.
 
 # Functions
