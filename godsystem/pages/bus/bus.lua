@@ -1,5 +1,5 @@
-Bus = Submenu.add_static_submenu('Бизнесы', 'HC_Bus')
-HOME_SUBMENU:add_sub_option('Бизнесы', 'HC_Bus', Bus)
+Bus = Submenu.add_static_submenu('Businesses', 'HC_Bus')
+HOME_SUBMENU:add_sub_option('Businesses', 'HC_Bus', Bus)
 
 require('godsystem/pages/bus/office.lua')
 require('godsystem/pages/bus/bunker.lua')
