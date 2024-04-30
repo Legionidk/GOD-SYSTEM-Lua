@@ -1,17 +1,17 @@
 --- Скип побочек ----------------------------------------------------
 
-Dre = Submenu.add_static_submenu('Агенство', 'HC_Agency')
-Heists:add_sub_option('Агенство', 'HC_Agency', Dre)
+Dre = Submenu.add_static_submenu('Agency', 'HC_Agency')
+Heists:add_sub_option('Agency', 'HC_Agency', Dre)
 
-Dre:add_click_option('Выполнить подготовительные', 'HC_Dre', function()
+Dre:add_click_option('Complete preps', 'HC_Dre', function()
     stats.set_u32(string.smart_joaat('MP'..mp()..'_FIXER_STORY_BS'), 4092)
     stats.set_u32(string.smart_joaat('MP'..mp()..'_FIXER_STORY_STRAND'), -1)
-    notify.success('Dr Dre', 'Успешно')
+    notify.success('Dr Dre', 'Done')
 end)
 
 --- Макс выплата ----------------------------------------------------
 
-Dre:add_click_option('Установить максимальную выплату (2.5кк)', 'HC_Dre_MaxPayout', function()
+Dre:add_click_option('Max payout (2.5m)', 'HC_Dre_MaxPayout', function()
     script_global:new(262145):at(32071):set_int64(2500000)
-    notify.success('Dr Dre', 'Успешно')
-end):setHint('Активировать после запуска задания.')
+    notify.success('Dr Dre', 'Done')
+end):setHint('Activate after mission starts.')

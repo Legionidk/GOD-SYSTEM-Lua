@@ -1,5 +1,5 @@
-Heists = Submenu.add_static_submenu('Ограбления', 'HC_Heists')
-HOME_SUBMENU:add_sub_option('Ограбления', 'HC_Heists', Heists)
+Heists = Submenu.add_static_submenu('Heist control', 'HC_Heists')
+HOME_SUBMENU:add_sub_option('Heist control', 'HC_Heists', Heists)
 
 require('godsystem/pages/heists/cayo.lua')
 require('godsystem/pages/heists/casino.lua')
