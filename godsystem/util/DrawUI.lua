@@ -713,26 +713,6 @@ function HotkeyService.loadHotkeys()
     log.default("Heist Control by lgn", "Хоткеи перезагружены")
 end
 
-function HotkeyService.loadSilentHotkeys()
-    HotkeyService.runtimeHotkeys = {}
-    if not filesys.doesFileExist(paths.files.hotkeys) then return end
-    parse.json(paths.files.hotkeys, function (content)
-        for _, option in ipairs(options) do
-            option.hotkey = nil
-            for key, hashes in pairs(content) do
-                for _, hash in ipairs(hashes) do
-                    if hash == option.hash then
-                        if not HotkeyService.runtimeHotkeys[key] then HotkeyService.runtimeHotkeys[key] = {} end
-                        table.insert(HotkeyService.runtimeHotkeys[key], option)
-                        option.hotkey = key
-                    end
-                end
-            end
-        end
-    end)
-    log.success("Heist Control by lgn", "Хоткеи загружены")
-end
-
 function HotkeyService.registerHotkey(key_n, optionHash_s)
     local hotkeys = {}
     local keyName = features.getVirtualKeyViaID(key_n)
@@ -790,39 +770,6 @@ function HotkeyService.removeHotkey(optionHash_s)
     HotkeyService.loadHotkeys()
     notify.success("Хоткей управление", "Хоткей успешно удален")
 end
-
--- listener.register("DrawUI_Hotkeys", GET_EVENTS_LIST().OnKeyPressed, function (key, isDown)
---     if not isDown then return end
---     if config.isOpened then
---         if key == gui.virualKeys.F11 then
---             local submenu = config.path[#config.path]
---             local option = submenu.options[submenu.selectedOption]
---             if not option.hotkey then
---                 InputService:displayInputBox(nil, "hotkey", function (key_s)
---                     HotkeyService.registerHotkey(gui.virualKeys[key_s], option.hash)
---                 end)
---             else
---                 HotkeyService.removeHotkey(option.hash)
---             end
---         end
---     end
---     if Stuff.isTextChatActive and config.ignoreHotkeysWhenChatting then return end
---     if config.isInputBoxDisplayed then return end
---     local keyName = features.getVirtualKeyViaID(key)
---     if not HotkeyService.runtimeHotkeys[keyName] then return end
---     for _, option in ipairs(HotkeyService.runtimeHotkeys[keyName]) do
---         if option.type == OPTIONS.BOOL then
---             option:setValue(not option.value)
---             local strState = option:getValue() and "Enabled" or "Disabled"
---             log.default("Hotkey service", string.format("%s \'%s\' option.", strState, option:getName()))
---             if config.notifyOnHotkey then notify.default("Hotkeys", string.format("%s \'%s\' option.", strState, option:getName())) end
---         else
---             option:setValue(option.value)
---             log.default("Heist Control by lgn", string.format("Использован хоткей: \'%s\'", option:getName()))
---             if config.notifyOnHotkey then notify.default("Hotkeys", string.format("Использован хоткей: \'%s\'", option:getName())) end
---         end
---     end
--- end)
 
 function Submenu.add_static_submenu(name_s, hash_s)
     local submenu = setmetatable({}, Submenu)
@@ -1214,8 +1161,8 @@ Configs.saveConfig = function ()
     if not file then return end
     file:write(json:encode_pretty(out))
     file:close()
-    log.success("GOD SYSTEM", "Конфиг обновлен")
-    notify.success("Настройки", "Конфиг обновлен")
+    log.success("GOD SYSTEM", "Config updated")
+    notify.success("Настройки", "Config updated")
 end
 
 Configs.loadConfig = function ()
@@ -1231,12 +1178,12 @@ Configs.loadConfig = function ()
                     end
                 end
             end
-            log.success("GOD SYSTEM", "Конфиг загружен")
-            notify.success("Настройки", "Конфиг загружен")
+            log.success("GOD SYSTEM", "Config loaded")
+            notify.success("Настройки", "Config loaded")
         end)
     else
-        log.warning("GOD SYSTEM", "Конфиг не создан")
-        notify.warning("Настройки", "Конфиг не создан")
+        log.warning("GOD SYSTEM", "Config not found")
+        notify.warning("Настройки", "Config not found")
     end
 end
 
@@ -1253,11 +1200,11 @@ Configs.loadSilentConfig = function ()
                     end
                 end
             end
-            log.success('GOD SYSTEM', 'Конфиг загружен')
+            log.success('GOD SYSTEM', 'Config loaded')
         end)
     else
-        log.warning('GOD SYSTEM', 'Конфиг не создан')
-        notify.warning('Настройки', 'Конфиг не создан')
+        log.warning('GOD SYSTEM', 'Config not found')
+        notify.warning('Настройки', 'Config not found')
     end
 end
 
@@ -1455,22 +1402,11 @@ listener.register("DrawUI_controls", GET_EVENTS_LIST().OnKeyPressed, function (k
 end)
 
 
-HOME_SUBMENU = Submenu.add_main_submenu("Главная", "home_sub")
+HOME_SUBMENU = Submenu.add_main_submenu("Home", "home_sub")
 
-local settings = Submenu.add_static_submenu("Настройки меню", "Main_Settings") do
-    HOME_SUBMENU:add_sub_option("Настройки меню", "Main_Settings", settings)
-    -- settings:add_choose_option("Localization", "Main_Settings_localization", false, {"English", "Russian", "Chinese", "Custom"}, function (pos, option)
-    --     if pos == 1 then
-    --         config.localization = nil
-    --     elseif pos == 2 then
-    --         config.localization = Localizations.russian
-    --     elseif pos == 3 then
-    --         config.localization = Localizations.chinese
-    --     elseif pos == 4 then
-    --         config.localization = Localizations.custom
-    --     end
-    -- end)
-    settings:add_choose_option("Управление", "Main_Settings_Controls", true, {"Стрелочки", "Нумпад"}, function (pos, option)
+local settings = Submenu.add_static_submenu("Settings", "Main_Settings") do
+    HOME_SUBMENU:add_sub_option("Settings", "Main_Settings", settings)
+    settings:add_choose_option("Controls", "Main_Settings_Controls", true, {"Arrows", "Numpad"}, function (pos, option)
         if pos == 1 then
             controls = arrowsControls
             Stuff.controlsState = {
@@ -1481,7 +1417,7 @@ local settings = Submenu.add_static_submenu("Настройки меню", "Main
                 [arrowsControls.left] = {false, nil, nil},
                 [arrowsControls.right] = {false, nil, nil},
             }
-            option:setHint("F8 - открыть меню.")
+            option:setHint("F8 - open key; arrows; Backspace and Enter.")
         else
             controls = numpadControls
             Stuff.controlsState = {
@@ -1492,65 +1428,54 @@ local settings = Submenu.add_static_submenu("Настройки меню", "Main
                 [numpadControls.left] = {false, nil, nil},
                 [numpadControls.right] = {false, nil, nil},
             }
-            option:setHint("Num * - открыть меню.")
+            option:setHint("Num * - open key; Numpad for everything.")
         end
     end)
-    settings:add_float_option("Ширина меню", "Main_Settings_Width", 0.0, 800, 5, function (val)
+    settings:add_float_option("UI width", "Main_Settings_Width", 0.0, 800, 5, function (val)
         config.width = val
     end):setValue(config.width)
-    settings:add_float_option("Высота опций", "Main_Settings_Height", 5, 40, 1, function (val)
+    settings:add_float_option("Option height", "Main_Settings_Height", 5, 40, 1, function (val)
         config.optionHeight = val
     end):setValue(config.optionHeight)
-    settings:add_float_option("Высота шапки", "Main_Settings_headerHeight", 0, 120, 1, function (val)
+    settings:add_float_option("Header height", "Main_Settings_headerHeight", 0, 120, 1, function (val)
         config.headerHeight = val
     end):setValue(config.headerHeight)
-    settings:add_num_option("Расположение меню [X]", "Main_Settings_OffsetX", 0.0, draw.get_window_width(), 10, function (val, option)
+    settings:add_num_option("UI offset [X]", "Main_Settings_OffsetX", 0.0, draw.get_window_width(), 10, function (val, option)
         config.offset_x = val
-        option:setHint("По горизонтали.")
     end):setValue(config.offset_x)
-    settings:add_num_option("Расположение меню [Y]", "Main_Settings_OffsetY", 0.0, draw.get_window_height(), 10, function (val, option)
+    settings:add_num_option("UI offset [Y]", "Main_Settings_OffsetY", 0.0, draw.get_window_height(), 10, function (val, option)
         config.offset_y = val
-        option:setHint("По вертикали.")
     end):setValue(config.offset_y)
-    settings:add_bool_option("Плавные анимации", "Main_Settings_SmoothScroller", function (state)
+    settings:add_bool_option("Smooth scroller", "Main_Settings_SmoothScroller", function (state)
         config.enabelSmoothScroller = state
     end):setValue(true)
-    settings:add_num_option("Лимит кол-ва опций", "Main_Settings_Limit", 1, 25, 1, function (val, option)
+    settings:add_num_option("Rendered options limit", "Main_Settings_Limit", 1, 25, 1, function (val, option)
         config.maxOptions = val
-        option:setHint("Кол-во отображаемых опций на странице меню.")
     end):setValue(config.maxOptions)
-    settings:add_bool_option("Звуки", "Main_Settings_PlayMenuSounds", function (state)
+    settings:add_bool_option("Play menu sounds", "Main_Settings_PlayMenuSounds", function (state)
         config.isClickSoundEnabled = state
     end):setValue(false)
-    settings:add_bool_option("Показывать слайдер", "Main_Settings_Slider", function (state)
+    settings:add_bool_option("Render slider", "Main_Settings_Slider", function (state)
         config.drawSlider = state
     end):setValue(true)
-    settings:add_bool_option("Показывать путь до функции", "Main_Settings_SubmenuPath", function (state)
+    settings:add_bool_option("Render submenu path", "Main_Settings_SubmenuPath", function (state)
         config.showPath = state
     end):setValue(true)
-    settings:add_bool_option("Показывать управление", "Main_Settings_KeysPanel", function (state)
+    settings:add_bool_option("Render navigation bar", "Main_Settings_KeysPanel", function (state)
         config.drawKeysPanel = state
     end):setValue(true)
-    -- settings:add_bool_option("Игнорировать хоткеи в чате", "Main_Settings_IgnoreHotkeysWhenChatting", function (state)
-    --     config.ignoreHotkeysWhenChatting = state
-    -- end):setValue(config.ignoreHotkeysWhenChatting)
-    -- settings:add_bool_option("Уведомления для хоткеев", "Main_Settings_NotifyOnHotkey", function (state)
-    --     config.notifyOnHotkey = state
-    -- end):setValue(config.notifyOnHotkey)
-    settings:add_choose_option("Расположение уведомлений [X]", "Main_Settings_NotifyAlignRight", true, {"Справа", "Слева"}, function (pos, option)
+    settings:add_choose_option("Notify align [X]", "Main_Settings_NotifyAlignRight", true, {"Right", "Left"}, function (pos, option)
         config.notify2AlignRight = pos == 1
-        option:setHint("По горизонтали.")
     end):setValue(1)
-    settings:add_choose_option("Расположение уведомлений [Y]", "Main_Settings_NotifyAlignTop", true, {"Сверху", "Снизу"}, function (pos, option)
+    settings:add_choose_option("Notify align [Y]", "Main_Settings_NotifyAlignTop", true, {"Top", "Bottom"}, function (pos, option)
         config.notify2AlignTop = pos == 1
-        option:setHint("По вертикали.")
     end):setValue(1)
     -- local keys = Submenu.add_static_submenu("Keys", "Main_Settings_Keys") do
     --     keys:add_text_input()
     -- end
-    settings:add_separator("Конфиг", "Main_Settings_Config")
-    settings:add_click_option("Сохранить конфиг", "Main_Settings_SaveConfig", Configs.saveConfig)
-    settings:add_click_option("Загрузить конфиг", "Main_Settings_LoadConfig", Configs.loadConfig)
+    settings:add_separator("Config", "Main_Settings_Config")
+    settings:add_click_option("Save config", "Main_Settings_SaveConfig", Configs.saveConfig)
+    settings:add_click_option("Load config", "Main_Settings_LoadConfig", Configs.loadConfig)
     -- local sub = Submenu.add_static_submenu("Search", "") do
     --     local name = sub:add_text_input("Name", "", function (txt)
     --         for hash, option in pairs(searchOptions) do
@@ -1868,9 +1793,9 @@ listener.register("DrawUI_render", GET_EVENTS_LIST().OnFrame, function ()
             material = materials.toggleOff
             if data.value then material = materials.toggleOn end
         elseif data.type == OPTIONS.NUM then
-            symbol = features.format("<{} из {}>", data.value, data.maxValue)
+            symbol = features.format("<{} of {}>", data.value, data.maxValue)
         elseif data.type == OPTIONS.FLOAT then
-            symbol = features.format("<{} из {}>", data.value, data.maxValue)
+            symbol = features.format("<{} of {}>", data.value, data.maxValue)
         elseif data.type == OPTIONS.CHOOSE then
             symbol = #data.table > 0 and features.format("<{} ({}/{})>", data.table[data.value], math.floor(data.value), #data.table) or "None"
         elseif data.type == OPTIONS.SUB then
