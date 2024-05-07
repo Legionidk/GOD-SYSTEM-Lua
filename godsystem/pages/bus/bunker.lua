@@ -8,9 +8,13 @@ Bunker:add_state_bar('Your bunker', 'HC_Bunker_Name', function ()
 end)
 
 Bunker:add_click_option('TP to bunker', 'HC_Bunker_TP', function ()
-    utils.teleport(Bunkers_name[stats.get_u32(string.smart_joaat('MP'..mp()..'_FACTORYSLOT5'))].coords.x,
-                    Bunkers_name[stats.get_u32(string.smart_joaat('MP'..mp()..'_FACTORYSLOT5'))].coords.y,
-                    Bunkers_name[stats.get_u32(string.smart_joaat('MP'..mp()..'_FACTORYSLOT5'))].coords.z)
+    if stats.get_u32(string.smart_joaat('MP'..mp()..'_FACTORYSLOT5')) == 0 then
+        notify.warning('Bunker not found', 'Bunker not found')
+    else
+        utils.teleport(Bunkers_name[stats.get_u32(string.smart_joaat('MP'..mp()..'_FACTORYSLOT5'))].coords.x,
+                        Bunkers_name[stats.get_u32(string.smart_joaat('MP'..mp()..'_FACTORYSLOT5'))].coords.y,
+                        Bunkers_name[stats.get_u32(string.smart_joaat('MP'..mp()..'_FACTORYSLOT5'))].coords.z)
+    end
 end)
 
 --- Сырье -----------------------------------------------------------
@@ -27,10 +31,10 @@ Mat:add_click_option('Get supplies', 'HC_Bunker_Restock', function ()
     or stats.get_u32(string.smart_joaat('MP'..mp()..'_MATTOTALFORFACTORY5')) == 101
     or stats.get_u32(string.smart_joaat('MP'..mp()..'_MATTOTALFORFACTORY5')) == 102
     or stats.get_u32(string.smart_joaat('MP'..mp()..'_MATTOTALFORFACTORY5')) == 103 then
-        notify.warning('HC_Bunker', 'Error: your bunker is already full of supplies')
+        notify.warning('bunker_supp_error', 'Error: your bunker is already full of supplies')
     else
         script_global:new(2707225):set_int64(121)
-        notify.success('HC_Bunker', 'Done')
+        notify.success('Done', 'Done')
     end
 end)
 
@@ -47,9 +51,9 @@ Prod:add_click_option('Instant sell', 'HC_Bunker_InstaSell', function ()
     if script.exists('gb_gunrunning') then
         script_local:new('gb_gunrunning', 1209):set_int64(15)
         script_local:new('gb_gunrunning', 1209 + 774):set_int64(0)
-        notify.success('HC_Office', 'Done')
+        notify.success('Done', 'Done', '')
     else
-        notify.warning('HC_Bunker', 'Error: mission has not started')
+        notify.warning('mission_error', 'Error: mission has not started')
     end
 end)
 

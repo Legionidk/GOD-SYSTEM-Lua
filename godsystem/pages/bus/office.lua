@@ -11,7 +11,7 @@ end)
 
 Office:add_click_option('TP to office', 'HC_Office_Tp', function ()
     if Apartments[stats.get_u32(string.smart_joaat('MP'..mp()..'_PROP_OFFICE'))].name == 'Office not found' then
-        notify.warning('HC_Office', Apartments[stats.get_u32(string.smart_joaat('MP'..mp()..'_PROP_OFFICE'))].name)
+        notify.warning('Office not found', Apartments[stats.get_u32(string.smart_joaat('MP'..mp()..'_PROP_OFFICE'))].name)
     else
         utils.teleport(Apartments[stats.get_u32(string.smart_joaat('MP'..mp()..'_PROP_OFFICE'))].coords.x,
                         Apartments[stats.get_u32(string.smart_joaat('MP'..mp()..'_PROP_OFFICE'))].coords.y,
@@ -40,15 +40,15 @@ end)
 
 for j = 0, 4 do
     name = Warehouse[stats.get_u32(string.smart_joaat('MP'..mp()..'_PROP_WHOUSE_SLOT'..j))].name
-    WH = Submenu.add_static_submenu(name, 'HC_Office_WH'..j)
-    WAREHOUSE:add_sub_option(name, 'HC_Office_WH'..j, WH):setHint('If "Warehouse not found" - reload lua.')
+    WH = Submenu.add_static_submenu(name, name)
+    WAREHOUSE:add_sub_option(name, name, WH):setHint("If 'Warehouse not found' - reload lua.", 'wh_nf')
 
-    WH:add_state_bar('Crates', 'HC_Office_WH'..j..'Available', function ()
+    WH:add_state_bar('Crates', 'Available', function ()
         return stats.get_u32(string.smart_joaat('MP'..mp()..'_CONTOTALFORWHOUSE'..j))..' / '..Warehouse[stats.get_u32(string.smart_joaat('MP'..mp()..'_PROP_WHOUSE_SLOT'..j))].capacity
     end)
-    WH:add_click_option('TP to warehouse', 'HC_Office_WH'..j..'TP', function ()
+    WH:add_click_option('TP to warehouse', 'HC_Office_WH_TP', function ()
         if Warehouse[stats.get_u32(string.smart_joaat('MP'..mp()..'_PROP_WHOUSE_SLOT'..j))].name == 'Warehouse not found' then
-            notify.warning('HC_Office', Warehouse[stats.get_u32(string.smart_joaat('MP'..mp()..'_PROP_WHOUSE_SLOT'..j))].name)
+            notify.warning('Warehouse not found', Warehouse[stats.get_u32(string.smart_joaat('MP'..mp()..'_PROP_WHOUSE_SLOT'..j))].name)
         else
             utils.teleport(Warehouse[stats.get_u32(string.smart_joaat('MP'..mp()..'_PROP_WHOUSE_SLOT'..j))].coords.x, 
                             Warehouse[stats.get_u32(string.smart_joaat('MP'..mp()..'_PROP_WHOUSE_SLOT'..j))].coords.y, 
@@ -66,7 +66,7 @@ WAREHOUSE:add_looped_option('Crates loop', 'HC_Office_Afk', 1, function ()
         stats.set_masked_int(string.smart_joaat('MP'..mp()..'_FIXERPSTAT_BOOL1'), 1, i, mp())
     end
 end, function ()
-    notify.success('HC_Office', 'Loop off')
+    notify.success('farm', 'Loop off', '')
 end)
 
 --- Моментальная покупка / продажа ----------------------------------
@@ -77,16 +77,16 @@ WAREHOUSE:add_choose_option('Instant', 'HC_Office_Insta', false, {'Sell', 'Buy'}
             script_local:new('gb_contraband_buy', 601 + 5):set_int64(1)
             script_local:new('gb_contraband_buy', 601 + 191):set_int64(6)
             script_local:new('gb_contraband_buy', 601 + 192):set_int64(4)
-            notify.success('HC_Office', 'Done')
+            notify.success('Done', 'Done', '')
         else
-            notify.fatal('HC_Office', 'Error: mission has not started')
+            notify.fatal('mission_error', 'Error: mission has not started')
         end
     else
         if script.exists('gb_contraband_sell') then
             script_local:new('gb_contraband_sell', 543 + 1):set_int64(99999)
-            notify.success('HC_Office', 'Done')
+            notify.success('Done', 'Done', '')
         else
-            notify.warning('HC_Office', 'Error: mission has not started')
+            notify.warning('mission_error', 'Error: mission has not started')
         end
     end
 end)
@@ -96,9 +96,9 @@ end)
 WAREHOUSE:add_choose_option('Delete cooldown', 'HC_Office_Cd', false, {'For sell', 'For buy'}, function (pos)
     if pos == 1 then
         script_global:new(262145):at(15756):set_int64(0)
-        notify.success('HC_Office', 'Done')
+        notify.success('Done', 'Done', '')
     else
         script_global:new(262145):at(15757):set_int64(0)
-        notify.success('HC_Office', 'Done')
+        notify.success('Done', 'Done', '')
     end
 end)
