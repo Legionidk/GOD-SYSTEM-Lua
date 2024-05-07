@@ -1,7 +1,7 @@
 local paths = require("godsystem/globals/paths.lua")
 require("godsystem/globals/stuff.lua")
 local parse = require("godsystem/util/parse")
-local fs = require("godsystem/util/file_system")
+local filesystem = require("godsystem/util/file_system")
 local json = require("godsystem/modules/JSON")
 require("godsystem/system/events_listener")
 
@@ -253,6 +253,7 @@ Option = {
     execOnSelection = true,
     getter = nil,
     hint = "",
+    hinthash = "",
     default = nil,
     configIgnore = false,
     translationIgnore = false,
@@ -1086,9 +1087,10 @@ function Option:setLimits(min_n, max_n, step_n)
     return self
 end
 
-function Option:setHint(text_s)
+function Option:setHint(text_s, hash)
     if type(text_s) == "string" then
         self.hint = text_s
+        self.hinthash = hash
         return self
     end
     log.error("DrawUI", "Wrong value for Option:setHint() function.")
@@ -1162,11 +1164,11 @@ Configs.saveConfig = function ()
     file:write(json:encode_pretty(out))
     file:close()
     log.success("GOD SYSTEM", "Config updated")
-    notify.success("Настройки", "Config updated")
+    notify.success("cfgupdated", "Config updated")
 end
 
 Configs.loadConfig = function ()
-    if fs.doesFileExist(paths.files.config) then
+    if filesystem.doesFileExist(paths.files.config) then
         parse.json(paths.files.config, function (config)
             for _, option in ipairs(options) do
                 if not option.configIgnore then
@@ -1179,16 +1181,16 @@ Configs.loadConfig = function ()
                 end
             end
             log.success("GOD SYSTEM", "Config loaded")
-            notify.success("Настройки", "Config loaded")
+            notify.success("cfgloaded", "Config loaded")
         end)
     else
         log.warning("GOD SYSTEM", "Config not found")
-        notify.warning("Настройки", "Config not found")
+        notify.warning("cfg404", "Config not found")
     end
 end
 
 Configs.loadSilentConfig = function ()
-    if fs.doesFileExist(paths.files.config) then
+    if filesystem.doesFileExist(paths.files.config) then
         parse.json(paths.files.config, function (config)
             for _, option in ipairs(options) do
                 if not option.configIgnore then
@@ -1204,7 +1206,6 @@ Configs.loadSilentConfig = function ()
         end)
     else
         log.warning('GOD SYSTEM', 'Config not found')
-        notify.warning('Настройки', 'Config not found')
     end
 end
 
@@ -1406,6 +1407,15 @@ HOME_SUBMENU = Submenu.add_main_submenu("Home", "home_sub")
 
 local settings = Submenu.add_static_submenu("Settings", "Main_Settings") do
     HOME_SUBMENU:add_sub_option("Settings", "Main_Settings", settings)
+    settings:add_choose_option("Localization", "Main_Settings_Localization", true, {"English", "Русский"}, function (pos)
+        if pos == 1 then
+            config.localization = nil
+        else
+            config.localization = parse.json(fs.get_dir_script()..'\\godsystem\\localization\\russian.json', function (content)
+                return content
+            end)
+        end
+    end)
     settings:add_choose_option("Controls", "Main_Settings_Controls", true, {"Arrows", "Numpad"}, function (pos, option)
         if pos == 1 then
             controls = arrowsControls
@@ -1417,7 +1427,6 @@ local settings = Submenu.add_static_submenu("Settings", "Main_Settings") do
                 [arrowsControls.left] = {false, nil, nil},
                 [arrowsControls.right] = {false, nil, nil},
             }
-            option:setHint("F8 - open key; arrows; Backspace and Enter.")
         else
             controls = numpadControls
             Stuff.controlsState = {
@@ -1428,7 +1437,6 @@ local settings = Submenu.add_static_submenu("Settings", "Main_Settings") do
                 [numpadControls.left] = {false, nil, nil},
                 [numpadControls.right] = {false, nil, nil},
             }
-            option:setHint("Num * - open key; Numpad for everything.")
         end
     end)
     settings:add_float_option("UI width", "Main_Settings_Width", 0.0, 800, 5, function (val)
@@ -1579,10 +1587,26 @@ listener.register("DrawUI_render", GET_EVENTS_LIST().OnFrame, function ()
     local path = ""
     if config.showPath then
         for _, submenu in ipairs(config.path) do
-            path = path .. submenu.name .. "/"
+            if config.localization ~= nil then
+                if check_table(submenu.name, config.localization, 1) then
+                    path = path .. config.localization[submenu.name] .. "/"
+                else
+                    path = path .. submenu.name .. "/"
+                end
+            else
+                path = path .. submenu.name .. "/"
+            end
         end
     else
-        path = tostring(config.path[#config.path].name)
+        if config.localization ~= nil then
+            if check_table(submenu.name, config.localization, 1) then
+                path = path .. config.localization[submenu.name]
+            else
+                path = tostring(config.path[#config.path].name)
+            end
+        else
+            path = tostring(config.path[#config.path].name)
+        end
     end
 
     do
@@ -1673,7 +1697,15 @@ listener.register("DrawUI_render", GET_EVENTS_LIST().OnFrame, function ()
 
         if data.hint ~= "" then
             draw.set_color(0, 255, 255, 255, 255)
-            local hint = features.split_text_into_lines(tostring(submenu.options[submenu.selectedOption].hint), config.width - 20)
+            if config.localization ~= nil then
+                if check_table(data.hinthash, config.localization, 1) then
+                    hint = features.split_text_into_lines(tostring(config.localization[data.hinthash]), config.width - 20)
+                else
+                    hint = features.split_text_into_lines(tostring(submenu.options[submenu.selectedOption].hint), config.width - 20)
+                end
+            else
+                hint = features.split_text_into_lines(tostring(submenu.options[submenu.selectedOption].hint), config.width - 20)
+            end
             if hint ~= "" then
                 local y = bg.rd.y + config.optionHeight + 10
                 draw.set_color(0, 22, 24, 28, 255)
@@ -1787,27 +1819,51 @@ listener.register("DrawUI_render", GET_EVENTS_LIST().OnFrame, function ()
         config.iconsSize = 40
         local symbol = nil
         local material = nil
+        if config.localization ~= nil then
+            of = config.localization['of']
+            empty = config.localization['empty']
+        else
+            of = 'of'
+            empty = 'Empty'
+        end
         if data.type == OPTIONS.CLICK then
             -- do smth
         elseif data.type == OPTIONS.BOOL then
             material = materials.toggleOff
             if data.value then material = materials.toggleOn end
         elseif data.type == OPTIONS.NUM then
-            symbol = features.format("<{} of {}>", data.value, data.maxValue)
+            symbol = features.format("<{} "..of.." {}>", data.value, data.maxValue)
         elseif data.type == OPTIONS.FLOAT then
-            symbol = features.format("<{} of {}>", data.value, data.maxValue)
+            symbol = features.format("<{} "..of.." {}>", data.value, data.maxValue)
         elseif data.type == OPTIONS.CHOOSE then
-            symbol = #data.table > 0 and features.format("<{} ({}/{})>", data.table[data.value], math.floor(data.value), #data.table) or "None"
+            if config.localization ~= nil then
+                if check_table(data.table[data.value], config.localization, 1) then
+                    name = config.localization[data.table[data.value]]
+                else
+                    name = data.table[data.value]
+                end
+            else
+                name = data.table[data.value]
+            end
+            symbol = #data.table > 0 and features.format("<{} ({}/{})>", name, math.floor(data.value), #data.table) or "None"
         elseif data.type == OPTIONS.SUB then
             material = materials.sub
         elseif data.type == OPTIONS.TEXT_INPUT then
             if data.value == "" then
-                symbol = "[Empty]"
+                symbol = "["..empty.."]"
             else
                 symbol = features.format("[{}]", data.value)
             end
         elseif data.type == OPTIONS.STATE_BAR then
-            symbol = tostring(data.getter())
+            if config.localization ~= nil then
+                if check_table(data.getter(), config.localization, 1) then
+                    symbol = config.localization[data.getter()]
+                else
+                    symbol = tostring(data.getter())
+                end
+            else
+                symbol = tostring(data.getter())
+            end
         end
 
         local name = tostring(data.name)
@@ -1881,12 +1937,30 @@ listener.register("DrawUI_render", GET_EVENTS_LIST().OnFrame, function ()
 
         local offset = 5.0
         for _, t in ipairs(data.tags or {}) do
-            draw.set_color(0, t[2], t[3], t[4], 255)
-            draw.text(
-                lu.x + 10 + draw.get_text_size_x(name) + offset,
-                (rd.y - (rd.y - lu.y)/2) - draw.get_text_size_y(t[1])/2,
-                t[1]
-            )
+            if config.localization ~= nil then
+                if check_table(t[1], config.localization, 1) then
+                    draw.set_color(0, config.localization[t[1]]['r'], config.localization[t[1]]['g'], config.localization[t[1]]['b'], 255)
+                    draw.text(
+                        lu.x + 10 + draw.get_text_size_x(name) + offset,
+                        (rd.y - (rd.y - lu.y)/2) - draw.get_text_size_y(t[1])/2,
+                        config.localization[t[1]]['text']
+                    )
+                else
+                    draw.set_color(0, t[2], t[3], t[4], 255)
+                    draw.text(
+                        lu.x + 10 + draw.get_text_size_x(name) + offset,
+                        (rd.y - (rd.y - lu.y)/2) - draw.get_text_size_y(t[1])/2,
+                        t[1]
+                    )
+                end
+            else
+                draw.set_color(0, t[2], t[3], t[4], 255)
+                draw.text(
+                    lu.x + 10 + draw.get_text_size_x(name) + offset,
+                    (rd.y - (rd.y - lu.y)/2) - draw.get_text_size_y(t[1])/2,
+                    t[1]
+                )
+            end
             offset = offset + draw.get_text_size_x(t[1]) + 4
         end
 
