@@ -9,12 +9,12 @@ Casino:add_sub_option('Heist settings', 'HC_CasinoSettings', CasinoSettings)
 CasinoSettings:add_choose_option('Approach', 'HC_CasinoSettings_Approach', false, CasApproach_name, function (pos)
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H3_LAST_APPROACH'), CasApproach_val[pos])
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H3OPT_APPROACH'), pos)
-    notify.success('Casino', 'Done')
+    notify.success('Done', 'Done', '')
 end)
 
 CasinoSettings:add_choose_option('Target', 'HC_CasinoSettings_Main', false, CasMain_name, function (pos)
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H3OPT_TARGET'), CasMain_val[pos])
-    notify.success('Casino', 'Done')
+    notify.success('Done', 'Done', '')
 end)
 
 CasinoSettings:add_choose_option('Gunman', 'HC_CasinoSettings_Gunman', false, CasGunman_name, function (pos)
@@ -23,7 +23,7 @@ CasinoSettings:add_choose_option('Gunman', 'HC_CasinoSettings_Gunman', false, Ca
     else
         stats.set_u32(string.smart_joaat('MP'..mp()..'_H3OPT_CREWWEAP'), pos)
     end
-    notify.success('Casino', 'Done')
+    notify.success('Done', 'Done', '')
 end)
 
 CasinoSettings:add_choose_option('Driver', 'HC_CasinoSettings_Driver', false, CasDriver_name, function (pos)
@@ -32,7 +32,7 @@ CasinoSettings:add_choose_option('Driver', 'HC_CasinoSettings_Driver', false, Ca
     else
         stats.set_u32(string.smart_joaat('MP'..mp()..'_H3OPT_CREWDRIVER'), pos)
     end
-    notify.success('Casino', 'Done')
+    notify.success('Done', 'Done', '')
 end)
 
 CasinoSettings:add_choose_option('Hacker', 'HC_CasinoSettings_Hacker', false, CasHacker_name, function (pos)
@@ -41,7 +41,7 @@ CasinoSettings:add_choose_option('Hacker', 'HC_CasinoSettings_Hacker', false, Ca
     else
         stats.set_u32(string.smart_joaat('MP'..mp()..'_H3OPT_CREWHACKER'), pos)
     end
-    notify.success('Casino', 'Done')
+    notify.success('Done', 'Done', '')
 end)
 
 CasinoSettings:add_click_option('Complete preps', 'HC_CasinoSettings_SkipPreps', function ()
@@ -53,7 +53,7 @@ CasinoSettings:add_click_option('Complete preps', 'HC_CasinoSettings_SkipPreps',
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H3OPT_BITSET1'), -1)
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H3OPT_POI'), -1)
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H3OPT_ACCESSPOINTS'), -1)
-    notify.success('Casino', 'Done')
+    notify.success('Done', 'Done', '')
 end)
 
 --- Быстрая настройка ограбления ------------------------------------
@@ -73,7 +73,7 @@ Casino:add_click_option('Fast preset', 'HC_CasinoFast', function ()
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H3OPT_BITSET1'), -1)
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H3OPT_POI'), -1)
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H3OPT_ACCESSPOINTS'), -1)
-    notify.success('Casino', 'Done')
+    notify.success('Done', 'Done', '')
 end)
 
 --- Ресет ограбы ----------------------------------------------------
@@ -94,5 +94,5 @@ Casino:add_click_option('Reset heist', 'HC_CasinoSettings_Reset', function ()
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H3OPT_BITSET1'), 0)
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H3OPT_POI'), 0)
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H3OPT_ACCESSPOINTS'), 0)
-    notify.success('Casino', 'Done')
+    notify.success('Done', 'Done', '')
 end)

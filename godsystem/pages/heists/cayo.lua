@@ -9,13 +9,13 @@ Cayo:add_sub_option('Heist settings', 'HC_CayoSettings', CayoSettings)
 CayoSettings:add_choose_option('Difficulty', 'HC_CayoSettings_Difficulty', false, CayoDiff_name, function (pos)
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H4_PROGRESS'), CayoDiff_val[pos])
     script_local:new('heist_island_planning', 1544):set_int64(2)
-    notify.success('Cayo', 'Done')
+    notify.success('Done', 'Done', '')
 end)
 
 CayoSettings:add_choose_option('Target', 'HC_CayoSettings_Main', false, CayoMain_name, function (pos)
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H4CNF_TARGET'), CayoMain_val[pos])
     script_local:new('heist_island_planning', 1544):set_int64(2)
-    notify.success('Cayo', 'Done')
+    notify.success('Done', 'Done', '')
 end)
 
 CayoSettings:add_choose_option('Island and compound', 'HC_CayoSettings_Second', false, CayoSec_name,
@@ -55,14 +55,14 @@ function (pos)
         stats.set_u32(string.smart_joaat('MP'..mp()..'_H4LOOT_CASH_V'), 330350)
     end
     script_local:new('heist_island_planning', 1544):set_int64(2)
-    notify.success('Cayo', 'Done')
+    notify.success('Done', 'Done', '')
 end)
 
 CayoSettings:add_choose_option('Guns', 'HC_CayoSettings_Guns', false, CayoGuns_name,
 function (pos)
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H4CNF_WEAPONS'), CayoGuns_val[pos])
     script_local:new('heist_island_planning', 1544):set_int64(2)
-    notify.success('Cayo', 'Done')
+    notify.success('Done', 'Done', '')
 end)
 
 CayoSettings:add_click_option('Complete preps', 'HC_CayoSettings_Preps', function()
@@ -77,7 +77,7 @@ CayoSettings:add_click_option('Complete preps', 'HC_CayoSettings_Preps', functio
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H4CNF_BS_ENTR'), 63)
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H4CNF_APPROACH'), -1)
     script_local:new('heist_island_planning', 1544):set_int64(2)
-    notify.success('Cayo', 'Done')
+    notify.success('Done', 'Done', '')
 end)
 
 --- Быстрая настройка ограбления ------------------------------------
@@ -103,7 +103,7 @@ Cayo:add_click_option('Fast preset', 'HC_CayoFast', function()
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H4CNF_BS_ENTR'), 63)
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H4CNF_APPROACH'), -1)
     script_local:new('heist_island_planning', 1544):set_int64(2)
-    notify.success('Cayo', 'Done')
+    notify.success('Done', 'Done', '')
 end)
 
 --- Удалить долю ----------------------------------------------------
@@ -112,8 +112,8 @@ Cayo:add_click_option('Remove cuts of Pavel and team', 'HC_CayoCut', function()
     script_global:new(262145):at(30268):set_int64(0)
     script_global:new(262145):at(30269):set_int64(0)
     script_local:new('heist_island_planning', 1544):set_int64(2)
-    notify.success('Cayo', 'Done')
-end):setHint('Activate after heist starts.')
+    notify.success('Done', 'Done', '')
+end):setHint('Activate after heist starts.', 'after_heist_starts')
 
 --- Мгновенный скип -------------------------------------------------
 
@@ -122,9 +122,9 @@ Cayo:add_click_option('Instant finish', 'HC_CayoInsta', function()
         script_local:new('fm_mission_controller_2020', 48513):set_int64(9)
         script_local:new('fm_mission_controller_2020', 48513 + 1765 + 1):set_int64(50)
         script_local:new('heist_island_planning', 1544):set_int64(2)
-        notify.success('Cayo', 'Done')
+        notify.success('Done', 'Done', '')
     else
-        notify.warning('Cayo', 'Error: heist has not started')
+        notify.warning('heist_error', 'Error: heist has not started')
     end
 end)
 
@@ -151,7 +151,7 @@ Cayo:add_click_option('Reset heist', 'HC_CayoReset', function()
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H4CNF_BS_ENTR'), 0)
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H4CNF_APPROACH'), 0)
     script_local:new('heist_island_planning', 1544):set_int64(2)
-    notify.success('Cayo', 'Done')
+    notify.success('Done', 'Done', '')
 end)
 
 --- Сброс кд --------------------------------------------------------
@@ -164,5 +164,5 @@ Cayo:add_choose_option('Reset cooldown', 'HC_CayoCd', false, {'After solo', 'Aft
     end
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H4_COOLDOWN'), 0)
     stats.set_u32(string.smart_joaat('MP'..mp()..'_H4_COOLDOWN_HARD'), 0)
-    notify.success('Cayo', 'Done')
-end):setHint('After activation, reconnect to the online.')
+    notify.success('Done', 'Done', '')
+end):setHint('After activation, reconnect to the online.', 'reconnect')

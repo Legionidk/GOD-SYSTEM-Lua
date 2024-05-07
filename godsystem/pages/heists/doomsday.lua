@@ -17,7 +17,7 @@ Doomsday:add_choose_option('Choose act', 'HC_DD_Act', false, DDAct_name, functio
         stats.set_u32(string.smart_joaat('MP'..mp()..'_GANGOPS_HEIST_STATUS'), 229380)
         stats.set_u32(string.smart_joaat('MP'..mp()..'_GANGOPS_FLOW_NOTIFICATIONS'), 1557)
     end
-    notify.success('HC_DD', 'Done')
+    notify.success('Done', 'Done', '')
 end)
 
 --- Препы -----------------------------------------------------------
@@ -30,5 +30,5 @@ Doomsday:add_choose_option('Preps', 'HC_DD_Preps', false, {'Complete', 'Reset'},
         stats.set_u32(string.smart_joaat('MP'..mp()..'_GANGOPS_HEIST_STATUS'), 0)
         stats.set_u32(string.smart_joaat('MP'..mp()..'_GANGOPS_FLOW_NOTIFICATIONS'), 1557)
     end
-    notify.success('HC_DD', 'Done')
+    notify.success('Done', 'Done', '')
 end)
