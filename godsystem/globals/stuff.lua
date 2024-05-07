@@ -22,6 +22,23 @@ Stuff = {
     bodyguardsTarget = nil,
 }
 
+function check_table(arg, table, mode)
+    if mode == 1 then
+        for k, v in pairs(table) do
+            if k == arg then
+                return true
+            end
+        end
+    else
+        for k, v in pairs(table) do
+            if v == arg then
+                return true
+            end
+        end
+    end
+    return false
+end
+
 a2i = tonumber
 i2s = tostring
 rnd = math.random
@@ -43,7 +60,7 @@ function addon_checker()
         end
     end
     log.success('GOD SYSTEM', 'Loaded mods: '..#Checked_addons)
-    notify.success('GOD SYSTEM', 'Loaded mods: '..#Checked_addons)
+    notify.default2('lddmods', 'Loaded mods: ', #Checked_addons)
 end
 
 --- Разные данные ---------------------------------------------------
