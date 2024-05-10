@@ -60,12 +60,13 @@ function addon_checker()
         end
     end
     log.success('GOD SYSTEM', 'Loaded mods: '..#Checked_addons)
-    notify.default2('lddmods', 'Loaded mods: ', #Checked_addons)
 end
 
 --- Разные данные ---------------------------------------------------
 
-loop = {}
+gh = 'https://raw.githubusercontent.com/Legionidk/GOD-SYSTEM-Lua/main/README.md'
+
+version = 'Need to check'
 
 Checked_addons = {
 
