@@ -1,11 +1,4 @@
-local parse = require("godsystem/util/parse")
-local filesys = require('godsystem/util/file_system')
-
-localization = parse.json(fs.get_dir_script()..'\\godsystem\\localization\\russian.json', function (content)
-    return content
-end)
-
-local consoleColors = 
+local consoleColors =
 {
 	['Black'] = 0,
 	['Blue'] = 1,
@@ -104,50 +97,21 @@ log = {
 
 notify = {
     default2 = function (page_s, text_s, add)
-        if check_table(page_s, localization, 1) then
-            NotifyService:notify2(features.format(localization[page_s]..add), 22, 24, 28, gui.drawUI_icons.info)
-        else
-            NotifyService:notify2(features.format(text_s..add), 22, 24, 28, gui.drawUI_icons.info)
-        end
+        NotifyService:notify2(features.format(text_s), 22, 24, 28, gui.drawUI_icons.info, page_s, add)
     end,
     default = function (page_s, text_s, ...)
-        -- NotifyService:notify(page_s, features.format(text_s, table.unpack({...})), 0, 180, 255)
-        if check_table(page_s, localization, 1) then
-            NotifyService:notify2(features.format(localization[page_s], table.unpack({...})), 22, 24, 28, gui.drawUI_icons.info)
-        else
-            NotifyService:notify2(features.format(text_s, table.unpack({...})), 22, 24, 28, gui.drawUI_icons.info)
-        end
+        NotifyService:notify2(features.format(text_s, table.unpack({...})), 22, 24, 28, gui.drawUI_icons.info, page_s)
     end,
     success = function (page_s, text_s, ...)
-        -- NotifyService:notify2(features.format(text_s, table.unpack({...})), 0, 204, 153)
-        if check_table(page_s, localization, 1) then
-            NotifyService:notify2(features.format(localization[page_s], table.unpack({...})), 22, 24, 28, gui.drawUI_icons.success)
-        else
-            NotifyService:notify2(features.format(text_s, table.unpack({...})), 22, 24, 28, gui.drawUI_icons.success)
-        end
+        NotifyService:notify2(features.format(text_s, table.unpack({...})), 22, 24, 28, gui.drawUI_icons.info, page_s)
     end,
     warning = function (page_s, text_s, ...)
-        -- NotifyService:notify(page_s, features.format(text_s, table.unpack({...})), 255, 204, 51)
-        if check_table(page_s, localization, 1) then
-            NotifyService:notify2(features.format(localization[page_s], table.unpack({...})), 22, 24, 28, gui.drawUI_icons.warning)
-        else
-            NotifyService:notify2(features.format(text_s, table.unpack({...})), 22, 24, 28, gui.drawUI_icons.warning)
-        end
+        NotifyService:notify2(features.format(text_s, table.unpack({...})), 22, 24, 28, gui.drawUI_icons.info, page_s)
     end,
     important = function (page_s, text_s, ...)
-        -- NotifyService:notify(page_s, features.format(text_s, table.unpack({...})), 51, 102, 204)
-        if check_table(page_s, localization, 1) then
-            NotifyService:notify2(features.format(localization[page_s], table.unpack({...})), 22, 24, 28, gui.drawUI_icons.warning)
-        else
-            NotifyService:notify2(features.format(text_s, table.unpack({...})), 22, 24, 28, gui.drawUI_icons.warning)
-        end
+        NotifyService:notify2(features.format(text_s, table.unpack({...})), 22, 24, 28, gui.drawUI_icons.info, page_s)
     end,
     fatal = function (page_s, text_s, ...)
-        -- NotifyService:notify(page_s, features.format(text_s, table.unpack({...})), 255, 0, 51)
-        if check_table(page_s, localization, 1) then
-            NotifyService:notify2(features.format(localization[page_s], table.unpack({...})), 22, 24, 28, gui.drawUI_icons.error)
-        else
-            NotifyService:notify2(features.format(text_s, table.unpack({...})), 22, 24, 28, gui.drawUI_icons.error)
-        end
+        NotifyService:notify2(features.format(text_s, table.unpack({...})), 22, 24, 28, gui.drawUI_icons.info, page_s)
     end,
 }

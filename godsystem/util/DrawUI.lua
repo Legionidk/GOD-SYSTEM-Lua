@@ -172,10 +172,6 @@ end
 local materials = {}
 
 materials.header = draw.create_texture_from_file(paths.files.imgs.header)
--- materials.bg = draw.create_texture_from_file(paths.files.imgs.bg)
--- materials.selected = draw.create_texture_from_file(paths.files.imgs.selected)
--- materials.footer = draw.create_texture_from_file(paths.files.imgs.footer)
--- materials.hintBox = draw.create_texture_from_file(paths.files.imgs.hintBox)
 materials.footerArrows = draw.create_texture_from_file(paths.files.imgs.footerArrows)
 materials.toggleOn = draw.create_texture_from_file(paths.files.imgs.toggleOn)
 materials.toggleOff = draw.create_texture_from_file(paths.files.imgs.toggleOff)
@@ -185,14 +181,6 @@ materials.success = draw.create_texture_from_file(paths.files.imgs.success)
 materials.info = draw.create_texture_from_file(paths.files.imgs.info)
 materials.warning = draw.create_texture_from_file(paths.files.imgs.warning)
 materials.error = draw.create_texture_from_file(paths.files.imgs.error)
-
-
--- materials.font = nil
-
--- draw.create_font("Tahoma", 17.0, function(f)
--- 	materials.font = f
--- end)
-
 
 OPTIONS = {
     CLICK = 1,
@@ -364,8 +352,19 @@ function NotifyService:notify(title_s, text_s, r, g, b)
     end)
 end
 
-function NotifyService:notify2(text_s, r, g, b, iconID_n)
-    text_s = tostring(text_s)
+function NotifyService:notify2(text_s, r, g, b, iconID_n, hash, add)
+    if config.localization ~= nil then
+        if check_table(hash, config.localization, 1) then
+            text_s = tostring(config.localization[hash])
+        else
+            text_s = tostring(text_s)
+        end
+    else
+        text_s = tostring(text_s)
+    end
+    if add ~= nil then
+        text_s = tostring(text_s..add)
+    end
     if not text_s then
         return(log.error("NotifyService", string.format("Wrong text value type | Received '%s'; expected 'string'/'num'.", type(text_s))))
     end
@@ -1190,6 +1189,11 @@ Configs.loadConfig = function ()
 end
 
 Configs.loadSilentConfig = function ()
+    if fs.directory_exists(fs.get_dir_game()..'\\mods\\update\\x64\\dlcpacks') then
+        addon_checker()
+    else
+        table.insert(Checked_addons, 'folder not found')
+    end
     if filesystem.doesFileExist(paths.files.config) then
         parse.json(paths.files.config, function (config)
             for _, option in ipairs(options) do
@@ -1407,6 +1411,40 @@ HOME_SUBMENU = Submenu.add_main_submenu("Home", "home_sub")
 
 local settings = Submenu.add_static_submenu("Settings", "Main_Settings") do
     HOME_SUBMENU:add_sub_option("Settings", "Main_Settings", settings)
+
+    Version = Submenu.add_static_submenu('Version', 'Main_Settings_Version')
+    settings:add_sub_option('Version', 'Main_Settings_Version', Version)
+
+    Version:add_click_option('Check for update', 'Main_Settings_Version_Check', function ()
+        if version == 'Need to check' then
+            http.get(gh, function (code, header, content)
+                if string.len(LGN) >= 4 then
+                    if string.sub(content, 51, 55) ~= LGN then
+                        notify.warning('newver', 'New version available')
+                        version = 'New version available!'
+                    else
+                        notify.success('lastver', 'Latest version installed')
+                        version = 'Latest version installed'
+                    end
+                else
+                    if string.sub(content, 51, 53) ~= LGN then
+                        notify.warning('newver', 'New version available!')
+                        version = 'New version available!'
+                    else
+                        notify.success('lastver', 'Latest version installed')
+                        version = 'Latest version installed'
+                    end
+                end
+            end)
+        end
+        if native.invoke(4, 0xFCA9373EF340AC0A) ~= GTA then
+            notify.warning('notupd', 'Lua is not updated for this game version!')
+        end
+    end)
+    Version:add_state_bar('Status', 'Main_Settings_Version_Ava', function ()
+        return version
+    end)
+
     settings:add_choose_option("Localization", "Main_Settings_Localization", true, {"English", "Русский"}, function (pos)
         if pos == 1 then
             config.localization = nil
@@ -1478,23 +1516,9 @@ local settings = Submenu.add_static_submenu("Settings", "Main_Settings") do
     settings:add_choose_option("Notify align [Y]", "Main_Settings_NotifyAlignTop", true, {"Top", "Bottom"}, function (pos, option)
         config.notify2AlignTop = pos == 1
     end):setValue(1)
-    -- local keys = Submenu.add_static_submenu("Keys", "Main_Settings_Keys") do
-    --     keys:add_text_input()
-    -- end
     settings:add_separator("Config", "Main_Settings_Config")
     settings:add_click_option("Save config", "Main_Settings_SaveConfig", Configs.saveConfig)
     settings:add_click_option("Load config", "Main_Settings_LoadConfig", Configs.loadConfig)
-    -- local sub = Submenu.add_static_submenu("Search", "") do
-    --     local name = sub:add_text_input("Name", "", function (txt)
-    --         for hash, option in pairs(searchOptions) do
-    --             if string.find(string.lower(option.name), string.lower(txt)) then
-    --                 table.insert(sub.options, option)
-    --                 print(option.name)
-    --             end
-    --         end
-    --     end)
-    --     settings:add_sub_option("Search", "", sub)
-    -- end
 end
 
 local function getClickableOption(submenu, selectedOption)
@@ -1715,13 +1739,6 @@ listener.register("DrawUI_render", GET_EVENTS_LIST().OnFrame, function ()
                     bg.rd.x,
                     y + 5 + draw.get_text_size_y(hint) + 5
                 )
-                -- draw.texture(
-                --     materials.hintBox,
-                --     bg.lu.x,
-                --     y,
-                --     config.width,
-                --     config.optionHeight
-                -- )
                 draw.set_color(0, 255, 255, 255, 255)
                 draw.text(
                     bg.lu.x + 10,
@@ -1877,27 +1894,6 @@ listener.register("DrawUI_render", GET_EVENTS_LIST().OnFrame, function ()
 
         local textLeftPagging = 10
 
-        -- if data.hotkey then
-        --     local key = data.hotkey
-        --     local textSize = draw.get_text_size(key)
-        --     draw.set_rounding(3)
-        --     draw.set_color(0, 83, 180, 223, 255)
-        --     draw.rect_filled(
-        --         textEnd.leftUpper.x + textLeftPagging,
-        --         textEnd.leftUpper.y + config.optionHeight/2 - textSize.y/2,
-        --         textEnd.leftUpper.x + textLeftPagging + textSize.x + 4*2,
-        --         textEnd.leftUpper.y + config.optionHeight/2 + textSize.y/2
-        --     )
-        --     draw.set_rounding(0)
-        --     draw.set_color(0, 0, 0, 0, 255)
-        --     draw.text(
-        --         textEnd.leftUpper.x + textLeftPagging + 4,
-        --         textEnd.leftUpper.y + config.optionHeight/2 - textSize.y/2,
-        --         key
-        --     )
-        --     textLeftPagging = textLeftPagging + textSize.x + 4 + 8
-        -- end
-
         draw.set_color(0, 255, 255, 255, 255)
         draw.text(
             (data.type ~= OPTIONS.SEPARATOR) and (textEnd.leftUpper.x + textLeftPagging) or ((textEnd.leftUpper.x + (config.width)/2) - draw.get_text_size_x(name)/2),
@@ -1998,21 +1994,6 @@ listener.register("DrawUI_render", GET_EVENTS_LIST().OnFrame, function ()
             {key = features.getVirtualKeyViaID(controls.open), note = "Показать/Скрыть меню"},
         }
         local option = submenu.options[submenu.selectedOption] or {}
-        -- if option.hotkey then
-        --     table.insert(keys, {key = option.hotkey, note = "Хоткей"})
-        --     table.insert(keys, {key = "F11", note = "Удалить хоткей"})
-        -- elseif option.isHotkeyable then
-        --     table.insert(keys, {key = "F11", note = "Установить хоткей"})
-        -- end
-        -- if option.onDelete then
-        --     table.insert(keys, {key = "Del", note = "Удалить"})
-        -- end
-        -- if config.isInputBoxDisplayed then
-        --     keys = {
-        --         {key = "Enter", note = "Ок"},
-        --         {key = "ESC", note = "Отмена"},
-        --     }
-        -- end
         do
             local boxCoords = {
                 leftUpper = {
