@@ -25,7 +25,9 @@ end)
 -- https://www.unknowncheats.me/forum/grand-theft-auto-v/604599-silent-night.html
 Auto:add_click_option('Max payout (2m)', 'HC_Auto_MaxPayout', function ()
     script_global:new(262145):at(31319):set_float(0)
-    globals_set_ints(31323 + 1, 31323 + 8, 1, 2000000)
+    for i = 31323 + 1, 31323 + 8, 1 do
+        script_global:new(262145):at(i):set_int64(2000000)
+    end
     notify.success('Done', 'Done', '')
 end):setHint('Activate after contract starts.', 'after_contract_starts')
 
