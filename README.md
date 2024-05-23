@@ -1,4 +1,4 @@
-# GOD SYSTEM Lua ![](https://img.shields.io/badge/2.6.2-7393B3)
+# GOD SYSTEM Lua ![](https://img.shields.io/badge/2.6.3-7393B3)
 ![](https://img.shields.io/badge/Game_version-1.68-yellow) ![](https://img.shields.io/badge/Game_build-3179-yellow)
 
 Lua for Midnight GTA:O. The menu is borrowed from [BoolyScript](https://midnight.im/threads/7220/), some scripts are taken from [Silent Night](https://www.unknowncheats.me/forum/grand-theft-auto-v/604599-silent-night.html).
@@ -101,6 +101,7 @@ Move files from archive to `\lua` folder.
 - Reset chips purchase limit
 ### Money loops
 - OP loop ($1m/1s)
+- Nigh Club loop ($300k/2s)
 - Ships loop (5k/3s)
 - Death loop ($50k/1s)
 ### Mods
