@@ -518,7 +518,11 @@ LuckyWheel_id = {
 --- Разные функции --------------------------------------------------
 
 function mp()
-    return script_global:new(1574915):get_int64()
+    return stats.get_u32(string.smart_joaat('MPPLY_LAST_MP_CHAR'))
+end
+
+function pid()
+    return script_global:new(2672761):get_int64()
 end
 
 function clear(val1, val2, val3, val4)
