@@ -9,8 +9,8 @@ Casino:add_sub_option('Blackjack', 'HC_Bj', Bj)
 -- автор скрипта SilentHy6
 -- https://www.unknowncheats.me/forum/grand-theft-auto-v/604599-silent-night.html
 Bj:add_state_bar('Dealer card', 'HC_Bj_DealerCard', function ()
-    current_table = script_local:new('blackjack', 1774 + 1 + (player.index() * 8) + 4):get_int64()
-    if current_table == 0 then
+    current_table = script_local:new('blackjack', 1774 + 1 + (pid() * 8) + 4):get_int64()
+    if current_table ~= nil and current_table ~= -1 then
         card = script_local:new('blackjack', 114 + 846 + 1 + (current_table * 13) + 1):get_int64()
         return CasinoCardNameGetter(card)
     else
@@ -23,15 +23,15 @@ end)
 -- автор скрипта SilentHy6
 -- https://www.unknowncheats.me/forum/grand-theft-auto-v/604599-silent-night.html
 Bj:add_click_option('Trick The Dealer', 'HC_Bj_Trick', function ()
-    current_table = script_local:new('blackjack', 1774 + 1 + (player.index() * 8) + 4):get_int64()
-    if current_table == 0 then
+    current_table = script_local:new('blackjack', 1774 + 1 + (pid() * 8) + 4):get_int64()
+    if current_table ~= -1 then
         script_local:new('blackjack', 114 + 846 + 1 + (current_table * 13) + 1):set_int64(11)
         script_local:new('blackjack', 114 + 846 + 1 + (current_table * 13) + 2):set_int64(12)
         script_local:new('blackjack', 114 + 846 + 1 + (current_table * 13) + 3):set_int64(13)
         script_local:new('blackjack', 114 + 846 + 1 + (current_table * 13) + 12):set_int64(3)
         notify.success('Done', 'Done')
     else
-        notify.fatal('unknwnrr', 'Unknown error')
+        notify.fatal('notattable', 'Error: you are not at the table')
     end
 end)
 
@@ -45,18 +45,14 @@ Poker:add_separator('Player', 'HC_Poker_SepPlayer')
 -- автор скрипта SilentHy6
 -- https://www.unknowncheats.me/forum/grand-theft-auto-v/604599-silent-night.html
 Poker:add_state_bar('Player cards', 'HC_Poker_PlayerCards', function ()
-    if player.index() ~= 0 then
-        return 'Unstable in public session'
+    current_table = script_local:new('three_card_poker', 747 + 1 + (pid() * 9) + 2):get_int64()
+    if current_table ~= nil and current_table ~= -1 then
+        card1 = script_local:new('three_card_poker', 114 + 168 + 1 + (current_table * 55) + 2 + 1 + (pid() * 3)):get_int64()
+        card2 = script_local:new('three_card_poker', 114 + 168 + 1 + (current_table * 55) + 2 + 2 + (pid() * 3)):get_int64()
+        card3 = script_local:new('three_card_poker', 114 + 168 + 1 + (current_table * 55) + 2 + 3 + (pid() * 3)):get_int64()
+        return CasinoCardNameGetter(card1)..' / '..CasinoCardNameGetter(card2)..' / '..CasinoCardNameGetter(card3)
     else
-        current_table = script_local:new('three_card_poker', 747 + 1 + (player.index() * 9) + 2):get_int64()
-        if current_table == 0 then
-            card1 = script_local:new('three_card_poker', 114 + 168 + 1 + (current_table * 55) + 2 + 1 + (player.index() * 3)):get_int64()
-            card2 = script_local:new('three_card_poker', 114 + 168 + 1 + (current_table * 55) + 2 + 2 + (player.index() * 3)):get_int64()
-            card3 = script_local:new('three_card_poker', 114 + 168 + 1 + (current_table * 55) + 2 + 3 + (player.index() * 3)):get_int64()
-            return CasinoCardNameGetter(card1)..' / '..CasinoCardNameGetter(card2)..' / '..CasinoCardNameGetter(card3)
-        else
-            return '... / ... / ...'
-        end
+        return '... / ... / ...'
     end
 end)
 
@@ -65,16 +61,12 @@ end)
 -- автор скрипта SilentHy6
 -- https://www.unknowncheats.me/forum/grand-theft-auto-v/604599-silent-night.html
 Poker:add_click_option('Give straight flush', 'HC_Poker_SF', function ()
-    if player.index() ~= 0 then
-        notify.fatal('Poker', 'Error: unstable in public session')
+    current_table = script_local:new('three_card_poker', 747 + 1 + (pid() * 9) + 2):get_int64()
+    if current_table ~= nil and current_table ~= -1 then
+        PokerCardsSetter(pid(), current_table, 50, 51, 52)
+        notify.success('Done', 'Done')
     else
-        current_table = script_local:new('three_card_poker', 747 + 1 + (player.index() * 9) + 2):get_int64()
-        if current_table == 0 then
-            PokerCardsSetter(player.index(), current_table, 50, 51, 52)
-            notify.success('Done', 'Done')
-        else
-            notify.fatal('unknwnrr', 'Unknown error')
-        end
+        notify.fatal('notattable', 'Error: you are not at the table')
     end
 end)
 
@@ -85,8 +77,8 @@ Poker:add_separator('Dealer', 'HC_Poker_SepDealer')
 -- автор скрипта SilentHy6
 -- https://www.unknowncheats.me/forum/grand-theft-auto-v/604599-silent-night.html
 Poker:add_state_bar('Dealer cards', 'HC_Poker_DealerCards', function ()
-    current_table = script_local:new('three_card_poker', 747 + 1 + (player.index() * 9) + 2):get_int64()
-    if current_table == 0 then
+    current_table = script_local:new('three_card_poker', 747 + 1 + (pid() * 9) + 2):get_int64()
+    if current_table ~= nil and current_table ~= -1 then
         card1 = script_local:new('three_card_poker', 114 + 168 + 1 + (current_table * 55) + 2 + 1 + (PokerDealersIDGetter(current_table) * 3)):get_int64()
         card2 = script_local:new('three_card_poker', 114 + 168 + 1 + (current_table * 55) + 2 + 2 + (PokerDealersIDGetter(current_table) * 3)):get_int64()
         card3 = script_local:new('three_card_poker', 114 + 168 + 1 + (current_table * 55) + 2 + 3 + (PokerDealersIDGetter(current_table) * 3)):get_int64()
@@ -101,12 +93,12 @@ end)
 -- автор скрипта SilentHy6
 -- https://www.unknowncheats.me/forum/grand-theft-auto-v/604599-silent-night.html
 Poker:add_click_option('Trick the dealer', 'HC_Poker_Trick', function ()
-    current_table = script_local:new('three_card_poker', 747 + 1 + (player.index() * 9) + 2):get_int64()
-    if current_table == 0 then
+    current_table = script_local:new('three_card_poker', 747 + 1 + (pid() * 9) + 2):get_int64()
+    if current_table ~= nil and current_table ~= -1 then
         PokerCardsSetter(PokerDealersIDGetter(current_table), current_table, 2, 17, 32)
         notify.success('Done', 'Done')
     else
-        notify.fatal('unknwnrr', 'Unknown error')
+        notify.fatal('notattable', 'Error: you are not at the table')
     end
 end)
 
@@ -116,7 +108,7 @@ Casino:add_choose_option('Give prize from lucky wheel', 'HC_LW', false, LuckyWhe
     if script.exists('casino_lucky_wheel') then
         script_local:new('casino_lucky_wheel', 278 + 14):set_int64(LuckyWheel_id[pos])
         script_local:new('casino_lucky_wheel', 278 + 45):set_int64(11)
-        notify.success('Donw', 'Done')
+        notify.success('Done', 'Done')
     else
         notify.warning('casino_error', "Error: you're not in casino")
     end
