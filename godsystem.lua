@@ -12,6 +12,9 @@ local main_page = ui.new_page('GOD SYSTEM v'..ver, Icons.PORTAL)
 local bus = main_page:new_subpage('Businesses')
 local bus_office_group = bus:new_group('Office', GroupRect.TITLE)
 local bus_hangar_group = bus:new_group('Hangar', GroupRect.BODY)
+local bus_bunker_group = bus:new_group('Bunker', GroupRect.TITLE)
+local bus_ch_group = bus:new_group('Clubhouse', GroupRect.BODY)
+local bus_acid_group = bus:new_group('Acid lab', GroupRect.TITLE)
 
 local office_group_tptooffice = bus_office_group:new_button('TP to office', function ()
     office = stats.get_u32(string.smart_joaat('MP'..stats.get_character_index()..'_PROP_OFFICE'))
@@ -50,6 +53,39 @@ end):set_hint('Instantly completes the air mission. Before activation, you must 
 
 local hangar_group_cargoloop = bus_hangar_group:new_checkbox('Cargo loop', false)
 
+local bunker_group_tptobunker = bus_bunker_group:new_button('TP to bunker', function ()
+    bunker = stats.get_u32(string.smart_joaat('MP'..stats.get_character_index()..'_FACTORYSLOT5'))
+    if bunker == 0 then
+        ui.popup('GOD SYSTEM', 'Bunker not found.', Icons.CANCEL2, PopupType.BOX)
+    else
+        coords = Bunkers_name[bunker].coords
+        utils.teleport_self(coords.x, coords.y, coords.z)
+        ui.popup('GOD SYSTEM', 'Teleported.', Icons.CHECKMARK_SUCCESS, PopupType.BOX)
+    end
+end)
+
+local bunker_group_supp = bus_bunker_group:new_button('Get supplies', function ()
+    script.get_global(2707225):write_u32(121)
+    ui.popup('GOD SYSTEM', 'Done.', Icons.CHECKMARK_SUCCESS, PopupType.BOX)
+end)
+
+local ch_group_supp = bus_ch_group:new_table_list('Get supplies', McSupp_name):set_click_callback(function (item)
+    script.get_global(1662873):at(item):write_u32(1)
+    ui.popup('GOD SYSTEM', 'Done.', Icons.CHECKMARK_SUCCESS, PopupType.BOX)
+end)
+
+local ch_group_allsupp = bus_ch_group:new_button('Get all supplies', function ()
+    for i = 1, 5 do
+        script.get_global(1662873):at(i):write_u32(1)
+    end
+    ui.popup('GOD SYSTEM', 'Done.', Icons.CHECKMARK_SUCCESS, PopupType.BOX)
+end)
+
+local acid_group_supp = bus_acid_group:new_button('Get supplies', function ()
+    script.get_global(1662873):at(7):write_u32(1)
+    ui.popup('GOD SYSTEM', 'Done.', Icons.CHECKMARK_SUCCESS, PopupType.BOX)
+end)
+
 -- Casino
 
 local casino = main_page:new_subpage('Casino')
@@ -65,13 +101,12 @@ local casino_chips_limit_set = casino_chips:new_button('Set chips purchase limit
 end)
 
 local casino_chips_reset = casino_chips:new_button('Reset chips purchase cooldown', function ()
-    stats.set(string.smart_joaat('MPPLY_CASINO_CHIPS_PUR_GD'), 0)
-    stats.set(string.smart_joaat('MPPLY_CASINO_CHIPS_PURTIM'), 0)
+    stats.set_u32(string.smart_joaat('MPPLY_CASINO_CHIPS_PUR_GD'), 0)
+    stats.set_u32(string.smart_joaat('MPPLY_CASINO_CHIPS_PURTIM'), 0)
     ui.popup('GOD SYSTEM', 'Chips purchase cooldown has been reseted.', Icons.CHECKMARK_SUCCESS, PopupType.BOX)
 end)
 
-local casino_lw_drop = casino_lw:new_table_list('Drop', LuckyWheel_name)
-casino_lw_drop:set_click_callback(function (item)
+local casino_lw_drop = casino_lw:new_table_list('Drop', LuckyWheel_name):set_click_callback(function (item)
     if script.is_running('casino_lucky_wheel') then
         script.get_local('casino_lucky_wheel', 278 + 14):write_u32(LuckyWheel_id[item])
         script.get_local('casino_lucky_wheel', 278 + 45):write_u32(11)
@@ -82,33 +117,45 @@ casino_lw_drop:set_click_callback(function (item)
 end)
 
 local casino_bj_trickdealer = casino_bj:new_button('Trick the dealer', function ()
-    current_table = script.get_local('blackjack', 1774 + 1 + (player.id() * 8) + 4):read_u32()
-    if current_table ~= -1 then
-        script.get_local('blackjack', 114 + 846 + 1 + (current_table * 13) + 1):write_u32(11)
-        script.get_local('blackjack', 114 + 846 + 1 + (current_table * 13) + 2):write_u32(12)
-        script.get_local('blackjack', 114 + 846 + 1 + (current_table * 13) + 3):write_u32(13)
-        script.get_local('blackjack', 114 + 846 + 1 + (current_table * 13) + 12):write_u32(3)
-        ui.popup('GOD SYSTEM', 'Dealer tricked.', Icons.CHECKMARK_SUCCESS, PopupType.BOX)
+    if script.is_running('blackjack') then
+        current_table = script.get_local('blackjack', 1774 + 1 + (player.id() * 8) + 4):read_u32()
+        if current_table ~= -1 then
+            script.get_local('blackjack', 114 + 846 + 1 + (current_table * 13) + 1):write_u32(11)
+            script.get_local('blackjack', 114 + 846 + 1 + (current_table * 13) + 2):write_u32(12)
+            script.get_local('blackjack', 114 + 846 + 1 + (current_table * 13) + 3):write_u32(13)
+            script.get_local('blackjack', 114 + 846 + 1 + (current_table * 13) + 12):write_u32(3)
+            ui.popup('GOD SYSTEM', 'Dealer tricked.', Icons.CHECKMARK_SUCCESS, PopupType.BOX)
+        else
+            ui.popup('GOD SYSTEM', 'Error: you are not at the table.', Icons.CANCEL2, PopupType.BOX)
+        end
     else
         ui.popup('GOD SYSTEM', 'Error: you are not at the table.', Icons.CANCEL2, PopupType.BOX)
     end
 end)
 
 local casino_poker_flush = casino_poker:new_button('Give straight flush', function ()
-    current_table = script.get_local('blackjack', 747 + 1 + (player.id() * 9) + 2):read_u32()
-    if current_table ~= nil and current_table ~= -1 then
-        PokerCardsSetter(player.id(), current_table, 50, 51, 52)
-        ui.popup('GOD SYSTEM', 'Straight flush in your hand.', Icons.CHECKMARK_SUCCESS, PopupType.BOX)
+    if script.is_running('three_card_poker') then
+        current_table = script.get_local('three_card_poker', 747 + 1 + (player.id() * 9) + 2):read_u32()
+        if current_table ~= nil and current_table ~= -1 then
+            PokerCardsSetter(player.id(), current_table, 50, 51, 52)
+            ui.popup('GOD SYSTEM', 'Straight flush in your hand.', Icons.CHECKMARK_SUCCESS, PopupType.BOX)
+        else
+            ui.popup('GOD SYSTEM', 'Error: you are not at the table.', Icons.CANCEL2, PopupType.BOX)
+        end
     else
         ui.popup('GOD SYSTEM', 'Error: you are not at the table.', Icons.CANCEL2, PopupType.BOX)
     end
 end)
 
 local casino_poker_trickthedealer = casino_poker:new_button('Trick the dealer', function ()
-    current_table = script.get_local('blackjack', 747 + 1 + (player.id() * 9) + 2):read_u32()
-    if current_table ~= nil and current_table ~= -1 then
-        PokerCardsSetter(PokerDealersIDGetter(current_table), current_table, 2, 17, 32)
-        ui.popup('GOD SYSTEM', 'Dealer tricked.', Icons.CHECKMARK_SUCCESS, PopupType.BOX)
+    if script.is_running('three_card_poker') then
+        current_table = script.get_local('blackjack', 747 + 1 + (player.id() * 9) + 2):read_u32()
+        if current_table ~= nil and current_table ~= -1 then
+            PokerCardsSetter(PokerDealersIDGetter(current_table), current_table, 2, 17, 32)
+            ui.popup('GOD SYSTEM', 'Dealer tricked.', Icons.CHECKMARK_SUCCESS, PopupType.BOX)
+        else
+            ui.popup('GOD SYSTEM', 'Error: you are not at the table.', Icons.CANCEL2, PopupType.BOX)
+        end
     else
         ui.popup('GOD SYSTEM', 'Error: you are not at the table.', Icons.CANCEL2, PopupType.BOX)
     end
@@ -134,8 +181,7 @@ local spawn_by_name_button = spawn_by_name:new_button('Spawn', function ()
     end
 end)
 
-local spawn_from_mods_list = spawn_from_mods:new_table_list("'mods' folder", Checked_addons)
-spawn_from_mods_list:set_click_callback(function (item)
+local spawn_from_mods_list = spawn_from_mods:new_table_list("'mods' folder", Checked_addons):set_click_callback(function (item)
     vehicle.spawn(Checked_addons[item], function (veh)
         ui.popup('GOD SYSTEM', 'Spawned successfully: '..Checked_addons[item]..'.', Icons.CHECKMARK_SUCCESS, PopupType.BOX)
         table.insert(Spawned_veh_handle, 1, veh)
@@ -143,7 +189,15 @@ spawn_from_mods_list:set_click_callback(function (item)
     end)
 end)
 
-local spawned_vehicles_list = spawned_vehicles:new_table_list('Spawned vehicles', Spawned_veh)
+local spawned_vehicles_list = spawned_vehicles:new_table_list('Spawned vehicles', Spawned_veh):set_click_callback(function (item)
+    entity.delete(Spawned_veh_handle[item], function ()
+        ui.popup('GOD SYSTEM', 'Failed to delete.', Icons.CANCEL2, PopupType.BOX)
+    end, function ()
+        ui.popup('GOD SYSTEM', 'Deleted successfully.', Icons.CHECKMARK_SUCCESS, PopupType.BOX)
+    end)
+    Spawned_veh[item], Spawned_veh_handle[item] = nil, nil
+end)
+
 local spawned_vehicles_del_all = spawned_vehicles:new_button('Delete all', function ()
     for i = 1, #Spawned_veh do
         entity.delete(Spawned_veh_handle[i])
@@ -152,14 +206,6 @@ local spawned_vehicles_del_all = spawned_vehicles:new_button('Delete all', funct
     for i = 1, #Spawned_veh do
         Spawned_veh[i], Spawned_veh_handle[i] = nil, nil
     end
-end)
-spawned_vehicles_list:set_click_callback(function (item)
-    entity.delete(Spawned_veh_handle[item], function ()
-        ui.popup('GOD SYSTEM', 'Failed to delete.', Icons.CANCEL2, PopupType.BOX)
-    end, function ()
-        ui.popup('GOD SYSTEM', 'Deleted successfully.', Icons.CHECKMARK_SUCCESS, PopupType.BOX)
-    end)
-    Spawned_veh[item], Spawned_veh_handle[item] = nil, nil
 end)
 
 -- Misc
@@ -178,8 +224,7 @@ local misc_unlock_del_vehs = misc_group:new_button('Unlock deleted vehicles', fu
         script.get_global(262145):at(Removed_veh[i]):write_u32(1)
     end
     ui.popup('GOD SYSTEM', 'Vehicles unlocked.', Icons.CHECKMARK_SUCCESS, PopupType.BOX)
-end)
-misc_unlock_del_vehs:set_hint('Unlocks 197 units of previously removed vehicles from stores.')
+end):set_hint('Unlocks 197 units of previously removed vehicles from stores.')
 
 local misc_lscarmeet_prize_unlock = misc_group:new_button('Unlock LS Car Meet podium prize', function ()
     stats.set_bool(string.smart_joaat('MP'..stats.get_character_index()..'_CARMEET_PV_CHLLGE_CMPLT'), true)
