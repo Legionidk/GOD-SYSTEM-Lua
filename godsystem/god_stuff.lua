@@ -275,6 +275,29 @@ LuckyWheel_id = {
     4, 11, 18
 }
 
+Bunkers_name = {
+    [0] = {name = 'Bunker not found'},
+    [21] = {name = 'Grand Senora Oilfields Bunker',      coords = {x = 492.8395,   y = 3014.057,   z = 39.9793}, type = 5},
+    [22] = {name = 'Grand Senora Desert Bunker',         coords = {x = 849.603,    y = 3021.697,   z = 40.3076}, type = 5},
+    [23] = {name = 'Route 68 Bunker',                    coords = {x = 39.5967,    y = 2930.506,   z = 54.8034}, type = 5},
+    [24] = {name = 'Farmhouse Bunker',                   coords = {x = 1572.078,   y = 2226.001,   z = 77.2829}, type = 5},
+    [25] = {name = 'Smoke Tree Road Bunker',             coords = {x = 2110.019,   y = 3326.12,    z = 44.3526}, type = 5},
+    [26] = {name = 'Thomson Scrapyard Bunker',           coords = {x = 2489.36,    y = 3162.12,    z = 48.0015}, type = 5},
+    [27] = {name = 'Grapeseed Bunker',                   coords = {x = 1801.273,   y = 4705.483,   z = 38.8253}, type = 5},
+    [28] = {name = 'Paleto Forest Bunker',               coords = {x = -755.5687,  y = 5943.835,   z = 18.9008}, type = 5},
+    [29] = {name = 'Raton Canyon Bunker',                coords = {x = -388.8392,  y = 4340.109,   z = 55.1741}, type = 5},
+    [30] = {name = 'Lago Zancudo Bunker',                coords = {x = -3031.356,  y = 3334.059,   z = 9.1805 }, type = 5},
+    [31] = {name = 'Chumash Bunker',                     coords = {x = -3157.599,  y = 1376.695,   z = 15.866 }, type = 5}
+}
+
+McSupp_name = {
+    [1] = 'Cocaine',
+    [2] = 'Methamphetamine',
+    [3] = 'Counterfeit cash',
+    [4] = 'Weed',
+    [5] = 'Document forgery'
+}
+
 -- Functions
 
 function loop(hash, amount)
