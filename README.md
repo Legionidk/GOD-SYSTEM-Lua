@@ -26,7 +26,7 @@ Move files from archive to `\lua` folder.
 ### Casino
 - Chips
   - Chips purchase limit
-  - Reset chips purchase limit
+  - Reset chips purchase cooldown
 - Lucky wheel
   - Give drop from lucky wheel
 - Blackjack
