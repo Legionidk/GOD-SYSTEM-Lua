@@ -213,7 +213,6 @@ end)
 local misc = main_page:new_subpage('Misc')
 local misc_group = misc:new_group('Unlocks', GroupRect.TITLE)
 local misc_loops_group = misc:new_group('Loops', GroupRect.BODY)
-local loops_op_loop = misc_loops_group:new_checkbox('OP Loop ($1m/1s)', false)
 local loops_nc_loop = misc_loops_group:new_checkbox('Nigh Club Loop ($300k/2s)', false)
 local loops_death_loop = misc_loops_group:new_checkbox('Death Loop ($50k/1s)', false)
 local loops_chips_loop = misc_loops_group:new_checkbox('Chips Loop (5k/3s)', false)
@@ -245,17 +244,8 @@ end)
 -- Events
 
 events.on_script_tick(function ()
-    if loops_op_loop:get() then
-        if loops_nc_loop:get() == true or loops_death_loop:get() == true or loops_chips_loop:get() == true then
-            ui.popup('GOD SYSTEM', 'For security reasons, it is not possible to enable multiple functions at the same time.', Icons.CANCEL2, PopupType.BOX)
-            loops_op_loop:set(false)
-        else
-            loop(0x615762F1, 1000000)
-            utils.sleep(1000)
-        end
-    end
     if loops_nc_loop:get() then
-        if loops_op_loop:get() == true or loops_death_loop:get() == true or loops_chips_loop:get() == true then
+        if loops_death_loop:get() == true or loops_chips_loop:get() == true then
             ui.popup('GOD SYSTEM', 'For security reasons, it is not possible to enable multiple functions at the same time.', Icons.CANCEL2, PopupType.BOX)
             loops_nc_loop:set(false)
         else
@@ -267,7 +257,7 @@ events.on_script_tick(function ()
         end
     end
     if loops_death_loop:get() then
-        if loops_op_loop:get() == true or loops_nc_loop:get() == true or loops_chips_loop:get() == true then
+        if loops_nc_loop:get() == true or loops_chips_loop:get() == true then
             ui.popup('GOD SYSTEM', 'For security reasons, it is not possible to enable multiple functions at the same time.', Icons.CANCEL2, PopupType.BOX)
             loops_death_loop:set(false)
         else
@@ -276,7 +266,7 @@ events.on_script_tick(function ()
         end
     end
     if loops_chips_loop:get() then
-        if loops_op_loop:get() == true or loops_nc_loop:get() == true or loops_death_loop:get() == true then
+        if loops_nc_loop:get() == true or loops_death_loop:get() == true then
             ui.popup('GOD SYSTEM', 'For security reasons, it is not possible to enable multiple functions at the same time.', Icons.CANCEL2, PopupType.BOX)
             loops_chips_loop:set(false)
         else
