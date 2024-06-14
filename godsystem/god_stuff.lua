@@ -1,6 +1,6 @@
 -- Stats
 
-ver = '2.7'
+ver = '2.7.1'
 
 Game_addons = {
 
