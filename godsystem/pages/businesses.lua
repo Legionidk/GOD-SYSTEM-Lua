@@ -66,7 +66,7 @@ local bus_hangar_group_instantsellcargo = bus_hangar_group:new_button('Instant c
     end
 end):set_hint('Instantly completes the air mission. Before activation, you must select the number of vehicles in the mission.')
 
-Bus_hangar_group_cargoloop = bus_hangar_group:new_checkbox('Cargo loop', false)
+Bus_hangar_group_cargoloop = bus_hangar_group:new_checkbox('Crates AFK farm', false)
 
 -- Clubhouse
 local bus_ch_group_allsupp = bus_ch_group:new_button('Get all supplies', function ()
@@ -77,12 +77,12 @@ local bus_ch_group_allsupp = bus_ch_group:new_button('Get all supplies', functio
 end)
 
 local bus_ch_group_cocsupp = bus_ch_group:new_button('Get supplies for cocaine', function ()
-    script.get_global(1662873):at(1):write_u32(1)
+    script.get_global(1662873):at(5):write_u32(1)
     ui.popup('GOD SYSTEM', 'Done.', Icons.CHECKMARK_SUCCESS, PopupType.BOX)
 end)
 
 local bus_ch_group_methsupp = bus_ch_group:new_button('Get supplies for meth', function ()
-    script.get_global(1662873):at(2):write_u32(1)
+    script.get_global(1662873):at(4):write_u32(1)
     ui.popup('GOD SYSTEM', 'Done.', Icons.CHECKMARK_SUCCESS, PopupType.BOX)
 end)
 
@@ -92,12 +92,12 @@ local bus_ch_group_cashsupp = bus_ch_group:new_button('Get supplies for cash', f
 end)
 
 local bus_ch_group_weedsupp = bus_ch_group:new_button('Get supplies for weed', function ()
-    script.get_global(1662873):at(4):write_u32(1)
+    script.get_global(1662873):at(2):write_u32(1)
     ui.popup('GOD SYSTEM', 'Done.', Icons.CHECKMARK_SUCCESS, PopupType.BOX)
 end)
 
 local bus_ch_group_docssupp = bus_ch_group:new_button('Get supplies for documents', function ()
-    script.get_global(1662873):at(5):write_u32(1)
+    script.get_global(1662873):at(1):write_u32(1)
     ui.popup('GOD SYSTEM', 'Done.', Icons.CHECKMARK_SUCCESS, PopupType.BOX)
 end)
 

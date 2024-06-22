@@ -6,9 +6,9 @@ local loops_group = loops:new_group('Loops', GroupRect.BODY)
 loops_group:set_visible(false)
 
 -- Loops
-Loops_group_nc_loop = loops_group:new_checkbox('Nigh Club Loop ($300k/2s)', false)
-Loops_group_death_loop = loops_group:new_checkbox('Death Loop ($50k/1s)', false)
-Loops_group_chips_loop = loops_group:new_checkbox('Chips Loop (5k/3s)', false)
+Loops_group_nc_loop = loops_group:new_checkbox('Nigh Club loop ($300k/2s)', false)
+Loops_group_death_loop = loops_group:new_checkbox('Death loop ($50k/1s)', false)
+Loops_group_chips_loop = loops_group:new_checkbox('Chips loop (5k/3s)', false)
 Loops_group_nc_loop:set_hint('Fill safe in your Night Club.')
 
 -- Risk check
