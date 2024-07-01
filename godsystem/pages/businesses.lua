@@ -34,7 +34,7 @@ local bus_bunker_group_supp = bus_bunker_group:new_button('Get supplies', functi
         if supp >= 100 then
             ui.popup('GOD SYSTEM', 'Error: your bunker is already full of supplies.', Icons.CANCEL2, PopupType.BOX)
         else
-            script.get_global(2707225):write_u32(121)
+            script.get_global(1663174 + 5 + 1):write_u32(121)
             ui.popup('GOD SYSTEM', 'Done.', Icons.CHECKMARK_SUCCESS, PopupType.BOX)
         end
     end
@@ -43,7 +43,7 @@ end)
 local bus_bunker_group_tptobunker = bus_bunker_group:new_button('TP to bunker', function ()
     local bunker_hash = string.smart_joaat('MP'..stats.get_character_index()..'_FACTORYSLOT5')
     if stats.exists(bunker_hash) and stats.get_u32(bunker_hash) ~= 0 then
-        local bunker = stats.get_u32(bunker_stat)
+        local bunker = stats.get_u32(bunker_hash)
         local coords = Bunkers_name[bunker].coords
         utils.teleport_self(coords.x, coords.y, coords.z)
         ui.popup('GOD SYSTEM', 'Teleported.', Icons.CHECKMARK_SUCCESS, PopupType.BOX)
@@ -53,66 +53,63 @@ local bus_bunker_group_tptobunker = bus_bunker_group:new_button('TP to bunker', 
 end)
 
 -- Hangar
-local bus_hangar_group_instantsellcargo_number = bus_hangar_group:new_slider('Number of vehicles', 1, 16)
+Bus_hangar_group_cargoloop = bus_hangar_group:new_checkbox('Crates loop', false)
 
 local bus_hangar_group_instantsellcargo = bus_hangar_group:new_button('Instant cargo sell', function ()
     if script.is_running('gb_smuggler') then
-        script.get_global(262145):at(23003):write_float(0)
-        script.get_local('gb_smuggler', 1932 + 1078):write_u32(bus_hangar_group_instantsellcargo_number:get())
-        script.get_local('gb_smuggler', 2700):write_u32(-1)
+        local to_set = script.get_local('gb_smuggler', 1934 + 1078):read_u32()
+        script.get_local('gb_smuggler', 1934 + 1035):write_u32(to_set)
         ui.popup('GOD SYSTEM', 'Done.', Icons.CHECKMARK_SUCCESS, PopupType.BOX)
     else
         ui.popup('GOD SYSTEM', 'Error: mission has not started.', Icons.CANCEL2, PopupType.BOX)
     end
-end):set_hint('Instantly completes the air mission. Before activation, you must select the number of vehicles in the mission.')
-
-Bus_hangar_group_cargoloop = bus_hangar_group:new_checkbox('Crates AFK farm', false)
+end):set_hint('Instantly completes the air mission.')
 
 -- Clubhouse
 local bus_ch_group_allsupp = bus_ch_group:new_button('Get all supplies', function ()
     for i = 1, 5 do
-        script.get_global(1662873):at(i):write_u32(1)
+        script.get_global(1663174 + i + 1):write_u32(1)
     end
     ui.popup('GOD SYSTEM', 'Done.', Icons.CHECKMARK_SUCCESS, PopupType.BOX)
 end)
 
 local bus_ch_group_cocsupp = bus_ch_group:new_button('Get supplies for cocaine', function ()
-    script.get_global(1662873):at(5):write_u32(1)
+    script.get_global(1663174 + 4 + 1):write_u32(1)
     ui.popup('GOD SYSTEM', 'Done.', Icons.CHECKMARK_SUCCESS, PopupType.BOX)
 end)
 
 local bus_ch_group_methsupp = bus_ch_group:new_button('Get supplies for meth', function ()
-    script.get_global(1662873):at(4):write_u32(1)
+    script.get_global(1663174 + 3 + 1):write_u32(1)
     ui.popup('GOD SYSTEM', 'Done.', Icons.CHECKMARK_SUCCESS, PopupType.BOX)
 end)
 
 local bus_ch_group_cashsupp = bus_ch_group:new_button('Get supplies for cash', function ()
-    script.get_global(1662873):at(3):write_u32(1)
+    script.get_global(1663174 + 2 + 1):write_u32(1)
     ui.popup('GOD SYSTEM', 'Done.', Icons.CHECKMARK_SUCCESS, PopupType.BOX)
 end)
 
 local bus_ch_group_weedsupp = bus_ch_group:new_button('Get supplies for weed', function ()
-    script.get_global(1662873):at(2):write_u32(1)
+    script.get_global(1663174 + 1 + 1):write_u32(1)
     ui.popup('GOD SYSTEM', 'Done.', Icons.CHECKMARK_SUCCESS, PopupType.BOX)
 end)
 
 local bus_ch_group_docssupp = bus_ch_group:new_button('Get supplies for documents', function ()
-    script.get_global(1662873):at(1):write_u32(1)
+    script.get_global(1663174 + 0 + 1):write_u32(1)
     ui.popup('GOD SYSTEM', 'Done.', Icons.CHECKMARK_SUCCESS, PopupType.BOX)
 end)
 
 -- Acid lab
 local bus_acid_group_supp = bus_acid_group:new_button('Get supplies', function ()
-    script.get_global(1662873):at(7):write_u32(1)
+    script.get_global(1663174 + 6 + 1):write_u32(1)
     ui.popup('GOD SYSTEM', 'Done.', Icons.CHECKMARK_SUCCESS, PopupType.BOX)
 end)
 
-local bus_acid_group_reqbike = bus_acid_group:new_button('Request lab', function ()
-    script.get_global(2738587):at(944):write_u32(1)
+local bus_acid_group_reqlab = bus_acid_group:new_button('Request lab', function ()
+    script.get_global(2738934):at(959):write_u32(0)
     ui.popup('GOD SYSTEM', 'Requested.', Icons.CHECKMARK_SUCCESS, PopupType.BOX)
 end)
 
 local bus_acid_group_reqbike = bus_acid_group:new_button('Request delivery bike', function ()
-    script.get_global(2738587):at(994):write_u32(1)
+    script.get_global(2738934):at(1009):write_u32(1)
     ui.popup('GOD SYSTEM', 'Requested.', Icons.CHECKMARK_SUCCESS, PopupType.BOX)
 end)

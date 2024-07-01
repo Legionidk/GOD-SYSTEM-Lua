@@ -11,6 +11,9 @@ Loops_group_death_loop = loops_group:new_checkbox('Death loop ($50k/1s)', false)
 Loops_group_chips_loop = loops_group:new_checkbox('Chips loop (5k/3s)', false)
 Loops_group_nc_loop:set_hint('Fill safe in your Night Club.')
 
+Loops_group_death_loop:set_enabled(false)
+Loops_group_chips_loop:set_enabled(false)
+
 -- Risk check
 local loops_riskcheck_text = loops_riskcheck:new_text('Use the functions in this section at your own risk.')
 local loops_riskcheck_check = loops_riskcheck:new_button('Toggle risk functions', function ()
