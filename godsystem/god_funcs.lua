@@ -1,19 +1,19 @@
 function Loop(hash, amount)
-    script.get_global(4537212):at(1):write_u32(2147483646)
-    script.get_global(4537212):at(7):write_u32(2147483647)
-    script.get_global(4537212):at(6):write_u32(0)
-    script.get_global(4537212):at(5):write_u32(0)
-    script.get_global(4537212):at(3):write_u32(hash)
-    script.get_global(4537212):at(2):write_u32(amount)
-    script.get_global(4537212):write_u32(2)
+    script.get_global(4537211):at(1):write_u32(2147483646)
+    script.get_global(4537211):at(7):write_u32(2147483647)
+    script.get_global(4537211):at(6):write_u32(0)
+    script.get_global(4537211):at(5):write_u32(0)
+    script.get_global(4537211):at(3):write_u32(hash)
+    script.get_global(4537211):at(2):write_u32(amount)
+    script.get_global(4537211):write_u32(2)
     utils.sleep(500)
-    script.get_global(4537212):at(1):write_u32(2147483647)
-    script.get_global(4537212):at(7):write_u32(2147483647)
-    script.get_global(4537212):at(6):write_u32(0)
-    script.get_global(4537212):at(5):write_u32(0)
-    script.get_global(4537212):at(3):write_u32(0)
-    script.get_global(4537212):at(2):write_u32(0)
-    script.get_global(4537212):write_u32(16)
+    script.get_global(4537211):at(1):write_u32(2147483647)
+    script.get_global(4537211):at(7):write_u32(2147483647)
+    script.get_global(4537211):at(6):write_u32(0)
+    script.get_global(4537211):at(5):write_u32(0)
+    script.get_global(4537211):at(3):write_u32(0)
+    script.get_global(4537211):at(2):write_u32(0)
+    script.get_global(4537211):write_u32(16)
 end
 
 function Addon_checker()
@@ -45,18 +45,18 @@ function Check_table(arg, table)
 end
 
 function PokerCardsSetter(ID, current_table, card1, card2, card3)
-    script.get_local('three_card_poker', 114 + 168 + 1 + (current_table * 55) + 2 + 1 + (ID * 3)):write_u32(card1)
-    script.get_local('three_card_poker', 114 + 168 + 1 + (current_table * 55) + 2 + 2 + (ID * 3)):write_u32(card2)
-    script.get_local('three_card_poker', 114 + 168 + 1 + (current_table * 55) + 2 + 3 + (ID * 3)):write_u32(card3)
-    script.get_local('three_card_poker', 1036 + 799 + 1 + 1 + (current_table * 55) + 1 + (ID * 3)):write_u32(card1)
-    script.get_local('three_card_poker', 1036 + 799 + 1 + 1 + (current_table * 55) + 2 + (ID * 3)):write_u32(card2)
-    script.get_local('three_card_poker', 1036 + 799 + 1 + 1 + (current_table * 55) + 3 + (ID * 3)):write_u32(card3)
+    script.get_local('three_card_poker', 116 + 168 + 1 + (current_table * 55) + 2 + 1 + (ID * 3)):write_u32(card1)
+    script.get_local('three_card_poker', 116 + 168 + 1 + (current_table * 55) + 2 + 2 + (ID * 3)):write_u32(card2)
+    script.get_local('three_card_poker', 116 + 168 + 1 + (current_table * 55) + 2 + 3 + (ID * 3)):write_u32(card3)
+    script.get_local('three_card_poker', 1038 + 799 + 1 + 1 + (current_table * 55) + 1 + (ID * 3)):write_u32(card1)
+    script.get_local('three_card_poker', 1038 + 799 + 1 + 1 + (current_table * 55) + 2 + (ID * 3)):write_u32(card2)
+    script.get_local('three_card_poker', 1038 + 799 + 1 + 1 + (current_table * 55) + 3 + (ID * 3)):write_u32(card3)
 end
 
 function PokerDealersIDGetter(current_table)
     local players = 0
     for i = 0, 31 do
-        local players_table = script_local:new('three_card_poker', 747 + 1 + (i * 9) + 2):get_int64()
+        local players_table = script.get_local('three_card_poker', 749 + 1 + (i * 9) + 2):read_u32()
         if i ~= player.index() and players_table == current_table then
             players = players + 1
         end
@@ -100,7 +100,7 @@ end
 
 function GetTotalCapacity()
     local total_capacity = 0
-    for i = 1, 5 do
+    for i = 0, 4 do
         local warehouse_stat = string.smart_joaat('MP'..stats.get_character_index()..'_PROP_WHOUSE_SLOT'..i)
         if not stats.exists(warehouse_stat) then
             total_capacity = total_capacity + 0
@@ -114,7 +114,7 @@ end
 
 function GetTotalAvailable()
     local total_available = 0
-    for i = 1, 5 do
+    for i = 0, 4 do
         local crates_stat = string.smart_joaat('MP'..stats.get_character_index()..'_CONTOTALFORWHOUSE'..i)
         if not stats.exists(crates_stat) then
             total_available = total_available + 0
