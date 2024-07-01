@@ -1,5 +1,5 @@
 # GOD SYSTEM Lua ![](https://img.shields.io/badge/2.9-7393B3)
-![](https://img.shields.io/badge/Game_version-1.68-yellow) ![](https://img.shields.io/badge/Game_build-3179-yellow)
+![](https://img.shields.io/badge/Game_version-1.69-yellow) ![](https://img.shields.io/badge/Game_build-3258-yellow)
 
 Lua for Midnight GTA:O.
 
