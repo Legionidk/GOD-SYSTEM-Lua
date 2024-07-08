@@ -2,8 +2,8 @@
 BUS = Main_page:new_subpage('BUSINESSES')
 
 BUS_BUNKER_GROUP = BUS:new_group('Bunker', GroupRect.TITLE)
-BUS_HANGAR_GROUP = BUS:new_group('Hangar', GroupRect.BODY)
-BUS_CH_GROUP = BUS:new_group('Clubhouse', GroupRect.TITLE)
+BUS_HANGAR_GROUP = BUS:new_group('Hangar', GroupRect.TITLE)
+BUS_CH_GROUP = BUS:new_group('Clubhouse', GroupRect.BODY)
 BUS_ACID_GROUP = BUS:new_group('Acid lab', GroupRect.BODY)
 
 -- Bunker
