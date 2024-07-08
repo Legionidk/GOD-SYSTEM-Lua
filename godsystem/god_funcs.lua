@@ -1,19 +1,19 @@
 function Loop(hash, amount)
-    script.get_global(4537211):at(1):write_u32(2147483646)
-    script.get_global(4537211):at(7):write_u32(2147483647)
-    script.get_global(4537211):at(6):write_u32(0)
-    script.get_global(4537211):at(5):write_u32(0)
-    script.get_global(4537211):at(3):write_u32(hash)
-    script.get_global(4537211):at(2):write_u32(amount)
-    script.get_global(4537211):write_u32(2)
+    script.get_global(FOR_LOOPS_GLOBAL):at(1):write_u32(2147483646)
+    script.get_global(FOR_LOOPS_GLOBAL):at(7):write_u32(2147483647)
+    script.get_global(FOR_LOOPS_GLOBAL):at(6):write_u32(0)
+    script.get_global(FOR_LOOPS_GLOBAL):at(5):write_u32(0)
+    script.get_global(FOR_LOOPS_GLOBAL):at(3):write_u32(hash)
+    script.get_global(FOR_LOOPS_GLOBAL):at(2):write_u32(amount)
+    script.get_global(FOR_LOOPS_GLOBAL):write_u32(2)
     utils.sleep(500)
-    script.get_global(4537211):at(1):write_u32(2147483647)
-    script.get_global(4537211):at(7):write_u32(2147483647)
-    script.get_global(4537211):at(6):write_u32(0)
-    script.get_global(4537211):at(5):write_u32(0)
-    script.get_global(4537211):at(3):write_u32(0)
-    script.get_global(4537211):at(2):write_u32(0)
-    script.get_global(4537211):write_u32(16)
+    script.get_global(FOR_LOOPS_GLOBAL):at(1):write_u32(2147483647)
+    script.get_global(FOR_LOOPS_GLOBAL):at(7):write_u32(2147483647)
+    script.get_global(FOR_LOOPS_GLOBAL):at(6):write_u32(0)
+    script.get_global(FOR_LOOPS_GLOBAL):at(5):write_u32(0)
+    script.get_global(FOR_LOOPS_GLOBAL):at(3):write_u32(0)
+    script.get_global(FOR_LOOPS_GLOBAL):at(2):write_u32(0)
+    script.get_global(FOR_LOOPS_GLOBAL):write_u32(16)
 end
 
 function Addon_checker()
@@ -32,7 +32,7 @@ function Addon_checker()
             end
         end
     end
-    Mods_list = mod_folders_temp
+    MODS = mod_folders_temp
 end
 
 function Check_table(arg, table)
@@ -95,7 +95,7 @@ function CasinoCardNameGetter(index)
 end
 
 function Pid()
-    return script.get_global(2672761):read_u32()
+    return script.get_global(PID_GLOBAL):read_u32()
 end
 
 function GetTotalCapacity()
@@ -106,7 +106,7 @@ function GetTotalCapacity()
             total_capacity = total_capacity + 0
         else
             local warehouse = stats.get_u32(warehouse_stat)
-            total_capacity = total_capacity + Warehouses[warehouse].capacity
+            total_capacity = total_capacity + WAREHOUSES[warehouse].capacity
         end
     end
     return total_capacity
