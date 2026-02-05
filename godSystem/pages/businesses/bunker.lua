@@ -1,28 +1,9 @@
 local bunkerSubpage = BUSINESSES_PAGE:new_subpage("Bunker")
 
-local bunkerSuppliesGroup = bunkerSubpage:new_group("Supplies", 1)
-local bunkerSellGroup = bunkerSubpage:new_group("Missions", 2)
 local bunkerStockPriceGroup = bunkerSubpage:new_group("Stock price", 1)
-local bunkerStockProductionGroup = bunkerSubpage:new_group("Stock production", 2)
-
--- region bunkerSuppliesGroup
-bunkerSuppliesGroup:new_button("Get supplies", function()
-    script.get_global(1673814 + 5 + 1):write_u32(1)
-    ui.popup("GOD SYSTEM", "Supplies should be arrived to your bunker.", Icons.CHECKMARK_SUCCESS, PopupType.BOX)
-end)
--- endregion
-
--- region bunkerSellGroup
-bunkerSellGroup:new_button("Instant sell", function()
-    if not script.is_running("gb_gunrunning") then
-        ui.popup("GOD SYSTEM", "Sell mission is not started.", Icons.CANCEL2, PopupType.BOX)
-        return
-    end
-
-    script.get_local("gb_gunrunning", 1268 + 774):write_u32(0)
-    ui.popup("GOD SYSTEM", "Sell mission should have been finished.", Icons.CHECKMARK_SUCCESS, PopupType.BOX)
-end)
--- endregion
+local bunkerStockProductionGroup = bunkerSubpage:new_group("Stock production", 1)
+local bunkerSuppliesGroup = bunkerSubpage:new_group("Supplies", 2)
+local bunkerStockSellGroup = bunkerSubpage:new_group("Stock sell", 2)
 
 -- region bunkerStockPriceGroup
 local productionMultiplierSlider = bunkerStockPriceGroup:new_slider("Stock price multiplier", 1, 5)
@@ -45,6 +26,25 @@ bunkerStockProductionGroup:new_button("Trigger stock production", function()
     script.get_global(2708925 + 1 + 5 * 2):write_u32(1)
     script.get_global(2708925 + 1 + 5 * 2 + 1):write_bool(true)
     ui.popup("GOD SYSTEM", "Stock roduction triggered.", Icons.CHECKMARK_SUCCESS, PopupType.BOX)
+end)
+-- endregion
+
+-- region bunkerSuppliesGroup
+bunkerSuppliesGroup:new_button("Get supplies", function()
+    script.get_global(1673814 + 5 + 1):write_u32(1)
+    ui.popup("GOD SYSTEM", "Supplies should be arrived to your bunker.", Icons.CHECKMARK_SUCCESS, PopupType.BOX)
+end)
+-- endregion
+
+-- region bunkerStockSellGroup
+bunkerStockSellGroup:new_button("Instant sell", function()
+    if not script.is_running("gb_gunrunning") then
+        ui.popup("GOD SYSTEM", "Sell mission not started.", Icons.CANCEL2, PopupType.BOX)
+        return
+    end
+
+    script.get_local("gb_gunrunning", 1268 + 774):write_u32(0)
+    ui.popup("GOD SYSTEM", "Sell mission should have been finished.", Icons.CHECKMARK_SUCCESS, PopupType.BOX)
 end)
 -- endregion
 
