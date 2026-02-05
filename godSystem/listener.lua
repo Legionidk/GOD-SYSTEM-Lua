@@ -1,4 +1,4 @@
-events.on_script_tick(function()
+utils.loop_fiber(function()
     -- region Bunker stock loop
     if STOCK_LOOP_CHECKBOX:get() then
         local totalStock = stats.get_u32(string.smart_joaat("MP"..stats.get_character_index().."_PRODTOTALFORFACTORY5"))
