@@ -7,4 +7,4 @@ for i = 1, #subPages do
     end
 end
 
-print("[GOD SYSTEM] Businesses page successfully loaded")
+print("[GOD SYSTEM] Businesses page successfully loaded.")

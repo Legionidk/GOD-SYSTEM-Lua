@@ -20,7 +20,7 @@ print("[GOD SYSTEM]                                                             
 
 local pagesDir = fs.get_dir_script().."godSystem/pages/"
 
-print("[GOD SYSTEM] Loading pages from "..pagesDir)
+print("[GOD SYSTEM] Loading pages from '"..pagesDir.."'.")
 local pages = fs.get_directories(pagesDir)
 for i = 1, #pages do
     require(pages[i].."/_init.lua")
