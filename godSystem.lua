@@ -27,6 +27,4 @@ for i = 1, #pages do
 end
 
 require("godSystem/listener.lua")
-print("[GOD SYSTEM] Listener ready to listen!")
-
 ui.popup('GOD SYSTEM', 'Successfully loaded.', Icons.PORTAL, PopupType.BOX)

@@ -19,3 +19,5 @@ events.on_script_tick(function()
     end
     -- endregion
 end)
+
+print("[GOD SYSTEM] Listener ready to listen!")
