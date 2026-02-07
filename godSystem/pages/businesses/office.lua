@@ -62,7 +62,7 @@ cratesBuyGroup:new_button("Instant buy", function ()
     end
 
     if fullBuyCheckbox:get() then
-        script.get_local('gb_contraband_buy', 627 + 1):write_u32(111)
+        script.get_local("gb_contraband_buy", 627 + 1):write_u32(111)
     end
 
     script.get_local("gb_contraband_buy", 627 + 5):write_u32(1)
