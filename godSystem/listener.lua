@@ -20,4 +20,4 @@ utils.loop_fiber(function()
     -- endregion
 end)
 
-print("[GOD SYSTEM] Listener ready to listen!")
+print("[GOD SYSTEM] Fiber ready to loop.")
