@@ -1,60 +1,76 @@
-# GOD SYSTEM Lua ![](https://img.shields.io/badge/3.1-7393B3)
-![](https://img.shields.io/badge/Game_version-1.70-yellow) ![](https://img.shields.io/badge/Game_build-3411-yellow)
+# GOD SYSTEM Lua
 
-Lua for Midnight GTA:O.
+![](https://img.shields.io/badge/Game_version-1.72-blue) ![](https://img.shields.io/badge/Game_build-3751-blue)</br>
+Lua for [MIDNIGHT GTA:O](https://midnight.im/).</br>
+To-Do list and [`beta` branch](https://github.com/Legionidk/GOD-SYSTEM-Lua/tree/beta) changelogs.
 
 # Installation
+
 Move files from archive to `\lua` folder.
 
-# Functions
-### OFFICE
-- Warehouses
-    - Warehouse name
-    - Warehouse capacity
-    - TP to warehouse
-- Office
-    - TP to office
-- Buy crates
-    - Total crates
-    - Crates loop
-    - Get crates
-    - Instant buy
-    - Instant buy 111 crates
-    - Delete cooldown for buy
-- Sell crates
-    - Instant sell
-    - Delete cooldown for sell
-### BUSINESSES
-- Bunker
-    - Bunker name
-    - Bunker supplies, stock and research
-    - TP to bunker
-    - Get supplies
-- Hangar
-    - Crates loop
-    - Instant sell
-- Clubhouse
-    - Get all supplies
-    - Get supplies for cocaine
-    - Get supplies for meth
-    - Get supplies for cash
-    - Get supplies for weed
-    - Get supplies for documents
-- Acid lab
-    - Get supplies
-### SPAWNER
-- Spawn from 'mods' folder
-    - Spawn car by folder name from 'mods' folder
-- Spawn by name
-    - Spawn car by model name
-- Spawned vehicles
-    - Delete selected vehicle
-    - Delete all
+# Current functions
 
-### MISC
-- Unlocks
-    - Unlock all removed vehicles
-    - Unlock LS Car Meet podium prize
-- Other
-    - TP to gun van
+## Businesses
 
+<details>
+<summary>Bunker</summary>
+
+### Stock price
+
+---
+
+- Multiply stock price
+- Reset stock price
+
+### Sell stock
+
+---
+
+- Instant sell
+
+### Stock production
+
+---
+
+- Stock production loop
+- Trigger stock production
+
+### Supplies
+
+---
+
+- Get supplies
+
+</details>
+
+<details>
+<summary>Office</summary>
+
+### Crate price
+
+---
+
+- Set new crate price
+- Reset crate price
+
+### Buy crates
+
+---
+
+- Fill full warehouse on instant buy
+- Instant buy
+
+### Sell crates
+
+---
+
+- Instant sell
+
+### Cooldowns
+
+---
+
+- Remove buy mission cooldown
+- Remove sell mission cooldown
+
+</details>
