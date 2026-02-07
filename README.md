@@ -2,7 +2,7 @@
 
 ![](https://img.shields.io/badge/Game_version-1.72-blue) ![](https://img.shields.io/badge/Game_build-3751-blue)</br>
 Lua for [MIDNIGHT GTA:O](https://midnight.im/).</br>
-To-Do list and [`beta` branch](https://github.com/Legionidk/GOD-SYSTEM-Lua/tree/beta) changelogs.
+To-Do list and [`beta` branch](https://github.com/Legionidk/GOD-SYSTEM-Lua/tree/beta) changelogs can be found [here](https://any.coop/A87gcpZJWCrFRfzP88idEK4pkm7BzQ3cZvN69A6bDxN1378w/god-system).
 
 # Installation
 
