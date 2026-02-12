@@ -8,8 +8,9 @@ local bunkerSuppliesGroup = bunkerSubpage:new_group("Supplies", 2)
 -- region bunkerStockPriceGroup
 local productionMultiplierSlider = bunkerStockPriceGroup:new_slider("Stock price multiplier", 1, 5)
 
+-- TODO: What is the max multiplier can i set before game said that im retarded?
 bunkerStockPriceGroup:new_button("Multiply stock price", function()
-    tunables.set_int("GR_MANU_PRODUCT_VALUE", math.floor(5000 * productionMultiplierSlider:get()))
+    tunables.set_int("GR_MANU_PRODUCT_VALUE", 5000 * productionMultiplierSlider:get())
     ui.popup("GOD SYSTEM", "Stock price successfully multiplied by "..productionMultiplierSlider:get()..".", Icons.CHECKMARK_SUCCESS, PopupType.BOX)
 end)
 
