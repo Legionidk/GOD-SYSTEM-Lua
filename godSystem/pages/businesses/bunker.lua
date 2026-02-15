@@ -30,7 +30,6 @@ end)
 -- region stockPriceGroup
 local productionMultiplierSlider = stockPriceGroup:new_slider("Stock price multiplier", 2, 500)
 
--- TODO: What is the max multiplier can i set before game said that im retarded?
 stockPriceGroup:new_button("Multiply stock price", function()
     tunables.set_int("GR_MANU_PRODUCT_VALUE", 5000 * productionMultiplierSlider:get())
     ui.popup("GOD SYSTEM", "Stock price successfully multiplied by " .. productionMultiplierSlider:get() .. ".",Icons.CHECKMARK_SUCCESS, PopupType.BOX)
@@ -38,7 +37,7 @@ end)
 
 stockPriceGroup:new_button("Reset stock price", function()
     tunables.set_int("GR_MANU_PRODUCT_VALUE", 5000)
-    ui.popup("GOD SYSTEM", "Stock price successfully reseted.", Icons.CHECKMARK_SUCCESS, PopupType.BOX)
+    ui.popup("GOD SYSTEM", "Stock price successfully reset.", Icons.CHECKMARK_SUCCESS, PopupType.BOX)
 end)
 -- endregion
 
@@ -50,7 +49,7 @@ stockProductionGroup:new_button("Trigger stock production", function()
     script.get_global(2708925 + 1 + 5 * 2 + 1):write_bool(true)
 
     UPDATE_BUNKER_INFO_SLIDERS()
-    ui.popup("GOD SYSTEM", "Stock roduction triggered.", Icons.CHECKMARK_SUCCESS, PopupType.BOX)
+    ui.popup("GOD SYSTEM", "Stock production triggered.", Icons.CHECKMARK_SUCCESS, PopupType.BOX)
 end)
 -- endregion
 
