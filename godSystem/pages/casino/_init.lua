@@ -49,7 +49,7 @@ chipsGroup:new_button("Set new trade in limit", function ()
     ui.popup("GOD SYSTEM", "Trade in limit has been changed.", Icons.CHECKMARK_SUCCESS, PopupType.BOX)
 end)
 
-chipsGroup:new_button("Reset new all limits", function ()
+chipsGroup:new_button("Reset all limits", function ()
     tunables.set_int("VC_CASINO_CHIP_MAX_BUY", 20000)
     tunables.set_int("VC_CASINO_CHIP_MAX_BUY_PENTHOUSE", 50000)
     tunables.set_int("VC_CASINO_CHIP_MAX_SELL", 10000000)
