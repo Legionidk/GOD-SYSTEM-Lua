@@ -1,8 +1,8 @@
 local officeSubpage = BUSINESSES_PAGE:new_subpage("Office")
 
-local cratesPriceGroup = officeSubpage:new_group("Crate price", 1)
-local cratesBuyGroup = officeSubpage:new_group("Buy crates", 2)
-local cratesSellGroup = officeSubpage:new_group("Sell crates", 2)
+local cratesBuyGroup = officeSubpage:new_group("Buy crates", 1)
+local cratesSellGroup = officeSubpage:new_group("Sell crates", 1)
+local cratesPriceGroup = officeSubpage:new_group("Crate price", 2)
 local cooldownsGroup = officeSubpage:new_group("Cooldowns", 3)
 
 -- region data
@@ -30,26 +30,6 @@ local cratePricesData = {
     { tunable = "EXEC_CONTRABAND_SALE_VALUE_THRESHOLD20", defaultValue = 19500 },
     { tunable = "EXEC_CONTRABAND_SALE_VALUE_THRESHOLD21", defaultValue = 20000 }
 }
--- endregion
-
--- region cratesPriceGroup
-local cratesPriceSlider = cratesPriceGroup:new_slider("Price per crate", 100000, 860000)
-
-cratesPriceGroup:new_button("Set new crate price", function ()
-    for _, v in pairs(cratePricesData) do
-        tunables.set_int(v.tunable, cratesPriceSlider:get())
-    end
-
-    ui.popup("GOD SYSTEM", "Crate price successfully changed.", Icons.CHECKMARK_SUCCESS, PopupType.BOX)
-end)
-
-cratesPriceGroup:new_button("Reset crate price", function ()
-    for _, v in pairs(cratePricesData) do
-        tunables.set_int(v.tunable, v.defaultValue)
-    end
-
-    ui.popup("GOD SYSTEM", "Crate price successfully reseted.", Icons.CHECKMARK_SUCCESS, PopupType.BOX)
-end)
 -- endregion
 
 -- region cratesBuyGroup
@@ -81,6 +61,26 @@ cratesSellGroup:new_button("Instant sell", function ()
 
     script.get_local("gb_contraband_sell", 569 + 7):write_u32(7)
     script.get_local("gb_contraband_sell", 569 + 1):write_u32(99999)
+end)
+-- endregion
+
+-- region cratesPriceGroup
+local cratesPriceSlider = cratesPriceGroup:new_slider("Price per crate", 100000, 860000)
+
+cratesPriceGroup:new_button("Set new crate price", function ()
+    for _, v in pairs(cratePricesData) do
+        tunables.set_int(v.tunable, cratesPriceSlider:get())
+    end
+
+    ui.popup("GOD SYSTEM", "Crate price successfully changed.", Icons.CHECKMARK_SUCCESS, PopupType.BOX)
+end)
+
+cratesPriceGroup:new_button("Reset crate price", function ()
+    for _, v in pairs(cratePricesData) do
+        tunables.set_int(v.tunable, v.defaultValue)
+    end
+
+    ui.popup("GOD SYSTEM", "Crate price successfully reseted.", Icons.CHECKMARK_SUCCESS, PopupType.BOX)
 end)
 -- endregion
 
