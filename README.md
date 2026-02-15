@@ -6,7 +6,7 @@ To-Do list and [`beta branch`](https://github.com/Legionidk/GOD-SYSTEM-Lua/tree/
 
 # Installation
 
-Move files from archive to `\lua` folder.
+Move files (`godSystem.lua` and `godSystem folder`) from release archive to `<midnight folder>\lua`.
 
 # Current functions
 
