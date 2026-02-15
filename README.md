@@ -101,3 +101,14 @@ Move files (`godSystem.lua` and `godSystem folder`) from release archive to `<mi
 ```
 
 </details>
+
+## Miscellaneous
+
+<details>
+<summary>Story mode</summary>
+
+```
+- Set maximum money for story mode
+```
+
+</details>
