@@ -21,17 +21,19 @@ function UPDATE_BUNKER_INFO_SLIDERS()
     suppliesInfoSlider:set(stats.get_u32(bunkerSuppliesHash))
 end
 
-infoGroup:new_button("Update", UPDATE_BUNKER_INFO_SLIDERS())
+infoGroup:new_button("Update", function ()
+    UPDATE_BUNKER_INFO_SLIDERS()
+    ui.popup("GOD SYSTEM", "Bunker info group has been updated.",Icons.CHECKMARK_SUCCESS, PopupType.BOX)
+end)
 -- endregion
 
 -- region stockPriceGroup
-local productionMultiplierSlider = stockPriceGroup:new_slider("Stock price multiplier", 1, 5)
+local productionMultiplierSlider = stockPriceGroup:new_slider("Stock price multiplier", 2, 500)
 
 -- TODO: What is the max multiplier can i set before game said that im retarded?
 stockPriceGroup:new_button("Multiply stock price", function()
     tunables.set_int("GR_MANU_PRODUCT_VALUE", 5000 * productionMultiplierSlider:get())
-    ui.popup("GOD SYSTEM", "Stock price successfully multiplied by " .. productionMultiplierSlider:get() .. ".",
-    Icons.CHECKMARK_SUCCESS, PopupType.BOX)
+    ui.popup("GOD SYSTEM", "Stock price successfully multiplied by " .. productionMultiplierSlider:get() .. ".",Icons.CHECKMARK_SUCCESS, PopupType.BOX)
 end)
 
 stockPriceGroup:new_button("Reset stock price", function()
