@@ -26,5 +26,5 @@ for i = 1, #pages do
     require(pages[i].."/_init.lua")
 end
 
-require("godSystem/listener.lua")
+require("godSystem/fiber.lua")
 ui.popup('GOD SYSTEM', 'Successfully loaded.', Icons.PORTAL, PopupType.BOX)
